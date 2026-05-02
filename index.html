@@ -160,8 +160,7 @@ function App() {
         for (const chamber of chambers) {
           let offset = 0;
           while (true) {
-            const res = await fetch(`${FUNCTION_URL}?path=member/congress/${congress}/${chamber}&limit=250&offset=${offset}`);
-            const data = await res.json();
+            const res = await fetch(`${FUNCTION_URL}?path=member&congress=${congress}&chamber=${chamber}&limit=250&offset=${offset}`);            const data = await res.json();
             const list = data.members || [];
             const mapped = list.map(m => ({
               bioguideId: m.bioguideId,
