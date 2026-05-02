@@ -9,7 +9,7 @@ exports.handler = async (event) => {
   // Your existing member proxy (keep if present)
   if (path.includes('/member')) {
     // your old code here...
-  }
+    // FORCE REBUILD 2026-05-02  }
 
   if (path.includes('/house-member-votes')) {
     const identifier = event.queryStringParameters.identifier;
