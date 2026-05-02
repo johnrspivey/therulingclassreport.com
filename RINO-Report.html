@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🦏 RINO Report</title>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #080c14; color: #e8eaf0; font-family: Georgia, serif; }
+::-webkit-scrollbar { width: 4px; } ::-webkit-scrollbar-track { background: #0d1117; } ::-webkit-scrollbar-thumb { background: #e63946; border-radius: 2px; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+const CG_KEY = "5lsDCFzIBQ60fA6ZAc8JBzcWRcJBn6WW5L5m3I0H";
+const CG_BASE = "https://api.congress.gov/v3";
+const STRIPE_RECURRING = "https://buy.stripe.com/7sYbJ2gEV7sC9RDcBNfEk01";
+const STRIPE_ONETIME = "https://buy.stripe.com/00wfZi74l00agg145hfEk00";
+const PARTY_BASELINE = { R: 72, D: 8 };
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+const { useState, useCallback, useEffect } = React;
+
+async function callClaude(system, user) {
+  const res = await fetch("https://api.anthropic.com/v1/messages", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      model: "claude-sonnet-4-20250514",
+      max_tokens: 1000,
+      system,
+      messages: [{ role: "user", content: user }]
+    })
+  });
+  const data = await res.json();
+  return data.content?.[0]?.text || "";
+}
+
+function scoreColor(n) {
+  if (n >= 80) return "#22c55e";
+  if (n >= 60) return "#f4a261";
+  if (n >= 40) return "#f97316";
+  return "#e63946";
+}
+
+function ScoreBadge({ score }) {
+  const color = scoreColor(score);
+  return (
+    <div style={{ display:"inline-flex", alignItems:"center", justifyContent:"center", width:48, height:48, borderRadius:"50%", border:`2px solid ${color}`, background:`${color}18`, fontWeight:900, fontSize:15, color, fontFamily:"monospace" }}>
+      {score}
+    </div>
+  );
+}
+
+function MemberCard({ member, rank, onDrillDown, onContact }) {
+  const isRINO = member.party === "R" && member.alignment < 60;
+  const isHero = member.party === "R" && member.alignment >= 80;
+  return (
+    <div style={{ background:"#0d1117", border:`1px solid ${isRINO?"#e6394633":isHero?"#22c55e33":"#1e2a3a"}`, borderRadius:12, padding:14, marginBottom:10, display:"flex", alignItems:"center", gap:12 }}
+      onClick={() => onDrillDown && onDrillDown(member)} >
+      {rank && <div style={{ fontSize:12, color:"#4b5563", fontFamily:"monospace", minWidth:24 }}>#{rank}</div>}
+      <ScoreBadge score={member.alignment} />
+      <div style={{ flex:1, minWidth:0 }}>
+        <div style={{ fontSize:14, fontWeight:700, color:"#e8eaf0", whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis" }}>
+          {isRINO && <span style={{ color:"#e63946", marginRight:4 }}>🦏</span>}
+          {isHero && <span style={{ color:"#22c55e", marginRight:4 }}>⭐</span>}
+          {member.name}
+        </div>
+        <div style={{ fontSize:11, color:"#6b7280", marginTop:2 }}>
+          {member.party} · {member.state} · {member.chamber === "Senate" ? "Senator" : "Rep."}
+        </div>
+        {member.votesSampled > 0 && (
+          <div style={{ fontSize:10, color:"#374151", marginTop:2 }}>
+            {member.votesSampled} votes sampled
+          </div>
+        )}
+      </div>
+      <div style={{ display:"flex", flexDirection:"column", gap:6, alignItems:"flex-end" }}>
+        <div style={{ fontSize:10, color: scoreColor(member.alignment), fontWeight:700 }}>
+          {member.alignment >= 80 ? "LOYAL" : member.alignment >= 60 ? "MIXED" : member.alignment >= 40 ? "SHAKY" : "RINO"}
+        </div>
+        {onContact && member.party === "R" && member.alignment < 60 && (
+          <button onClick={e => { e.stopPropagation(); onContact(member); }}
+            style={{ fontSize:9, padding:"3px 8px", borderRadius:6, border:"1px solid #e6394644", background:"transparent", color:"#e63946", cursor:"pointer" }}>
+            Contact
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function DrillModal({ member, onClose }) {
+  if (!member) return null;
+  return (
+    <div style={{ position:"fixed", inset:0, background:"#000a", zIndex:100, display:"flex", alignItems:"flex-end" }} onClick={onClose}>
+      <div style={{ background:"#0d1117", border:"1px solid #1e2a3a", borderRadius:"16px 16px 0 0", padding:20, width:"100%", maxHeight:"70vh", overflowY:"auto" }} onClick={e => e.stopPropagation()}>
+        <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:16 }}>
+          <div>
+            <div style={{ fontSize:18, fontWeight:800, color:"#e8eaf0" }}>{member.name}</div>
+            <div style={{ fontSize:12, color:"#6b7280" }}>{member.party} · {member.state} · {member.chamber}</div>
+          </div>
+          <ScoreBadge score={member.alignment} />
+        </div>
+        <div style={{ background:"#080c14", borderRadius:10, padding:12, marginBottom:12 }}>
+          <div style={{ fontSize:10, color:"#4b5563", letterSpacing:1, marginBottom:6 }}>ALIGNMENT SCORE</div>
+          <div style={{ display:"flex", alignItems:"center", gap:10 }}>
+            <div style={{ flex:1, height:8, background:"#1e2a3a", borderRadius:4, overflow:"hidden" }}>
+              <div style={{ width:`${member.alignment}%`, height:"100%", background: scoreColor(member.alignment), borderRadius:4, transition:"width 0.5s" }} />
+            </div>
+            <div style={{ fontSize:20, fontWeight:900, color: scoreColor(member.alignment), fontFamily:"monospace" }}>{member.alignment}%</div>
+          </div>
+        </div>
+        {member.votesSampled > 0 && (
+          <div style={{ fontSize:12, color:"#6b7280", marginBottom:12 }}>
+            Score based on {member.votesSampled} sampled votes vs. party baseline of {PARTY_BASELINE[member.party] || 50}%.
+          </div>
+        )}
+        <button onClick={onClose} style={{ width:"100%", padding:12, borderRadius:10, border:"1px solid #1e2a3a", background:"transparent", color:"#6b7280", fontSize:14, cursor:"pointer" }}>Close</button>
+      </div>
+    </div>
+  );
+}
+
+function ContactModal({ member, onClose }) {
+  const [msg, setMsg] = useState("");
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    if (!member) return;
+    setLoading(true);
+    callClaude(
+      "You draft sharp, respectful constituent messages to Congress members urging them to align with conservative/MAGA priorities. Keep it under 120 words.",
+      `Draft a constituent message to ${member.name} (${member.party}-${member.state}, ${member.chamber}) who has a RINO alignment score of ${member.alignment}%. Urge them to vote with the President's agenda.`
+    ).then(t => { setMsg(t); setLoading(false); }).catch(() => { setMsg("AI unavailable. Write your own message urging them to support the President's agenda."); setLoading(false); });
+  }, [member]);
+  if (!member) return null;
+  return (
+    <div style={{ position:"fixed", inset:0, background:"#000a", zIndex:100, display:"flex", alignItems:"flex-end" }} onClick={onClose}>
+      <div style={{ background:"#0d1117", border:"1px solid #1e2a3a", borderRadius:"16px 16px 0 0", padding:20, width:"100%", maxHeight:"80vh", overflowY:"auto" }} onClick={e => e.stopPropagation()}>
+        <div style={{ fontSize:14, fontWeight:800, color:"#e63946", marginBottom:4 }}>📬 Contact {member.name}</div>
+        <div style={{ fontSize:11, color:"#6b7280", marginBottom:14 }}>AI-drafted constituent message</div>
+        {loading ? (
+          <div style={{ textAlign:"center", padding:20, color:"#4b5563" }}>⟳ Drafting message…</div>
+        ) : (
+          <textarea value={msg} onChange={e => setMsg(e.target.value)}
+            style={{ width:"100%", minHeight:160, background:"#080c14", border:"1px solid #1e2a3a", borderRadius:10, padding:12, color:"#e8eaf0", fontSize:13, lineHeight:1.7, resize:"vertical" }} />
+        )}
+        <div style={{ display:"flex", gap:10, marginTop:12 }}>
+          <button onClick={() => { navigator.clipboard.writeText(msg); }}
+            style={{ flex:1, padding:12, borderRadius:10, border:"none", background:"#e63946", color:"#fff", fontWeight:700, fontSize:13, cursor:"pointer" }}>
+            Copy Message
+          </button>
+          <button onClick={onClose}
+            style={{ padding:12, borderRadius:10, border:"1px solid #1e2a3a", background:"transparent", color:"#6b7280", fontSize:13, cursor:"pointer" }}>
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+async function fetchMembers(congress) {
+  const chambers = ["senate", "house"];
+  let all = [];
+  for (const chamber of chambers) {
+    let offset = 0;
+    while (true) {
+      const url = `${CG_BASE}/member/congress/${congress}/${chamber}?format=json&limit=250&offset=${offset}&api_key=${CG_KEY}`;
+      const res = await fetch(url);
+      const data = await res.json();
+      const list = data.members || [];
+      all = all.concat(list.map(m => ({
+        bioguideId: m.bioguideId,
+        name: m.name,
+        party: m.partyName === "Republican" ? "R" : m.partyName === "Democrat" ? "D" : "I",
+        state: m.state || "",
+        chamber: chamber === "senate" ? "Senate" : "House",
+        alignment: PARTY_BASELINE[m.partyName === "Republican" ? "R" : "D"] || 50,
+        votesSampled: 0,
+      })));
+      if (list.length < 250) break;
+      offset += 250;
+      await sleep(300);
+    }
+  }
+  return all;
+}
+
+async function scoreMembers(members, congress, setProgress) {
+  const scored = [];
+  for (let i = 0; i < members.length; i++) {
+    const m = members[i];
+    setProgress(Math.round((i / members.length) * 100));
+    try {
+      const url = `${CG_BASE}/member/${m.bioguideId}/votes?format=json&limit=20&congress=${congress}&api_key=${CG_KEY}`;
+      const res = await fetch(url);
+      const data = await res.json();
+      const votes = data.votes || [];
+      if (votes.length > 0) {
+        const partyVotes = votes.filter(v => v.position && v.position !== "Not Voting");
+        const aligned = partyVotes.filter(v => {
+          if (m.party === "R") return v.position === "Yea" || v.position === "Yes";
+          return v.position === "Nay" || v.position === "No";
+        });
+        const rawPct = partyVotes.length > 0 ? Math.round((aligned.length / partyVotes.length) * 100) : PARTY_BASELINE[m.party];
+        m.alignment = rawPct;
+        m.votesSampled = partyVotes.length;
+      }
+    } catch (_) {}
+    scored.push(m);
+    await sleep(120);
+  }
+  return scored;
+}
+
+function App() {
+  const congress = 119;
+  const [view, setView] = useState("tracker");
+  const [members, setMembers] = useState([]);
+  const [scored, setScored] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [statusMsg, setStatusMsg] = useState("");
+  const [lastUpdated, setLastUpdated] = useState(null);
+  const [search, setSearch] = useState("");
+  const [filterParty, setFilterParty] = useState("R");
+  const [filterChamber, setFilterChamber] = useState("All");
+  const [sortBy, setSortBy] = useState("alignment");
+  const [drillMember, setDrillMember] = useState(null);
+  const [contactMember, setContactMember] = useState(null);
+  const [aiAnalysis, setAiAnalysis] = useState("");
+  const [aiLoading, setAiLoading] = useState(false);
+  const [zipInput, setZipInput] = useState("");
+  const [myReps, setMyReps] = useState([]);
+  const [zipLoading, setZipLoading] = useState(false);
+
+  const repAvg = scored.length > 0
+    ? Math.round(scored.filter(m => m.party === "R").reduce((a, m) => a + m.alignment, 0) / (scored.filter(m => m.party === "R").length || 1))
+    : null;
+
+  const halfasses = scored.filter(m => m.party === "R" && m.alignment < 60).sort((a, b) => a.alignment - b.alignment);
+  const heroes = scored.filter(m => m.party === "R" && m.alignment >= 80).sort((a, b) => b.alignment - a.alignment);
+
+  const filtered = scored
+    .filter(m => filterParty === "All" || m.party === filterParty)
+    .filter(m => filterChamber === "All" || m.chamber === filterChamber)
+    .filter(m => !search || m.name.toLowerCase().includes(search.toLowerCase()) || m.state.toLowerCase().includes(search.toLowerCase()))
+    .sort((a, b) => sortBy === "alignment" ? a.alignment - b.alignment : a.name.localeCompare(b.name));
+
+  const handleLoad = useCallback(async () => {
+    setLoading(true); setProgress(0); setScored([]); setMembers([]);
+    try {
+      setStatusMsg("Fetching Congress members…");
+      const all = await fetchMembers(congress);
+      setMembers(all);
+      setStatusMsg(`Scoring ${all.length} members…`);
+      const s = await scoreMembers(all, congress, setProgress);
+      setScored(s);
+      setLastUpdated(new Date().toLocaleDateString());
+      setStatusMsg("");
+    } catch (e) {
+      setStatusMsg("Error loading data. Check API key.");
+    }
+    setLoading(false);
+  }, []);
+
+  const handleZipLookup = useCallback(async () => {
+    if (!zipInput || zipInput.length !== 5) return;
+    setZipLoading(true); setMyReps([]);
+    try {
+      const url = `${CG_BASE}/member?format=json&limit=10&api_key=${CG_KEY}`;
+      const stateRes = await fetch(`https://api.zippopotam.us/us/${zipInput}`);
+      const stateData = await stateRes.json();
+      const stateCode = stateData?.places?.[0]?.["state abbreviation"];
+      if (!stateCode) { setZipLoading(false); return; }
+      const reps = scored.filter(m => m.state === stateCode || m.state.includes(stateCode));
+      setMyReps(reps);
+    } catch (_) {}
+    setZipLoading(false);
+  }, [zipInput, scored]);
+
+  const VIEWS = ["tracker", "half-asses", "heroes", "my reps", "analysis"];
+
+  return (
+    <div style={{ minHeight:"100vh", background:"#080c14", fontFamily:"Georgia,serif", color:"#e8eaf0", paddingBottom:60 }}>
+
+      {/* HEADER */}
+      <div style={{ background:"linear-gradient(135deg,#0d1117,#1a0a0a)", borderBottom:"1px solid #e6394622", padding:"20px 16px 16px" }}>
+        <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start" }}>
+          <div>
+            <div style={{ fontSize:10, letterSpacing:3, color:"#e63946", fontWeight:700, marginBottom:4, fontFamily:"monospace" }}>🇺🇸 BITWERX LABS</div>
+            <h1 style={{ margin:0, fontSize:26, fontWeight:900, color:"#fff", letterSpacing:-0.5 }}>🦏 RINO REPORT</h1>
+            <div style={{ fontSize:11, color:"#6b7280", marginTop:2 }}>
+              Republican In Name Only · {congress}th Congress · Congress.gov
+              {lastUpdated && <span style={{ color:"#374151" }}> · {lastUpdated}</span>}
+            </div>
+          </div>
+          <div style={{ textAlign:"right" }}>
+            <div style={{ fontSize:28, fontWeight:900, color:"#e63946", fontFamily:"monospace" }}>{repAvg != null ? `${repAvg}%` : "—"}</div>
+            <div style={{ fontSize:10, color:"#4b5563" }}>GOP LOYALTY AVG</div>
+            <a href={STRIPE_RECURRING} target="_blank" rel="noopener noreferrer" style={{ display:"inline-block", marginTop:8, fontSize:10, fontWeight:700, padding:"5px 12px", borderRadius:99, background:"#f4a26122", color:"#f4a261", border:"1px solid #f4a26144", textDecoration:"none" }}>☕ Support Free</a>
+          </div>
+        </div>
+
+        {scored.length > 0 && (
+          <div style={{ display:"flex", gap:10, marginTop:14, flexWrap:"wrap" }}>
+            {[["TRACKED", members.length], ["AI SCORED", scored.length], ["HEROES 80%+", heroes.length], ["LOW LOYALTY", scored.filter(m => m.alignment < 40).length], ["HALF-ASSES", halfasses.length]].map(([label, val]) => (
+              <div key={label} style={{ background:"#0d1117", borderRadius:8, padding:"6px 10px", border:"1px solid #1e2a3a" }}>
+                <div style={{ fontSize:16, fontWeight:900, color:"#e8eaf0", fontFamily:"monospace" }}>{val}</div>
+                <div style={{ fontSize:9, color:"#4b5563", letterSpacing:1 }}>{label}</div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* SUPPORT BANNER */}
+      <div style={{ background:"#0d1117", borderBottom:"1px solid #1e2a3a", padding:"10px 16px", display:"flex", alignItems:"center", justifyContent:"space-between", gap:12 }}>
+        <div style={{ fontSize:11, color:"#4b5563" }}>🦏 RINO Report is 100% free. Help keep it running:</div>
+        <div style={{ display:"flex", gap:8 }}>
+          <a href={STRIPE_RECURRING} target="_blank" rel="noopener noreferrer" style={{ fontSize:11, padding:"5px 10px", borderRadius:8, background:"#f4a261", color:"#fff", fontWeight:700, textDecoration:"none" }}>$3/mo</a>
+          <a href={STRIPE_ONETIME} target="_blank" rel="noopener noreferrer" style={{ fontSize:11, padding:"5px 10px", borderRadius:8, background:"#1a1a2e", color:"#f4a261", border:"1px solid #f4a26144", fontWeight:700, textDecoration:"none" }}>Tip</a>
+        </div>
+      </div>
+
+      {/* NAV */}
+      <div style={{ display:"flex", gap:0, borderBottom:"1px solid #1e2a3a", overflowX:"auto", background:"#0d1117" }}>
+        {VIEWS.map(v => (
+          <button key={v} onClick={() => setView(v)}
+            style={{ padding:"10px 14px", border:"none", borderBottom: view === v ? "2px solid #e63946" : "2px solid transparent", background:"transparent", color: view === v ? "#e63946" : "#4b5563", fontWeight:700, fontSize:11, letterSpacing:1, cursor:"pointer", whiteSpace:"nowrap", textTransform:"uppercase" }}>
+            {v}
+          </button>
+        ))}
+      </div>
+
+      {/* MAIN */}
+      <div style={{ padding:16 }}>
+
+        {/* LOAD BUTTON */}
+        {scored.length === 0 && !loading && (
+          <div style={{ textAlign:"center", padding:"40px 0" }}>
+            <div style={{ fontSize:48, marginBottom:16 }}>🦏</div>
+            <div style={{ fontSize:18, fontWeight:800, color:"#e8eaf0", marginBottom:8 }}>RINO Report</div>
+            <p style={{ fontSize:13, color:"#6b7280", marginBottom:24, lineHeight:1.7 }}>
+              Live alignment scores for all 535 members of the {congress}th Congress.<br/>
+              Data sourced from Congress.gov.
+            </p>
+            <button onClick={handleLoad}
+              style={{ padding:"14px 28px", borderRadius:12, border:"none", background:"#e63946", color:"#fff", fontWeight:800, fontSize:15, cursor:"pointer" }}>
+              ⚡ LOAD LIVE DATA
+            </button>
+          </div>
+        )}
+
+        {/* LOADING STATE */}
+        {loading && (
+          <div style={{ textAlign:"center", padding:"40px 0" }}>
+            <div style={{ fontSize:32, marginBottom:16 }}>⟳</div>
+            <div style={{ fontSize:14, color:"#e8eaf0", marginBottom:8 }}>{statusMsg}</div>
+            {progress > 0 && (
+              <>
+                <div style={{ height:6, background:"#1e2a3a", borderRadius:3, margin:"12px auto", maxWidth:280 }}>
+                  <div style={{ width:`${progress}%`, height:"100%", background:"#e63946", borderRadius:3, transition:"width 0.3s" }} />
+                </div>
+                <div style={{ fontSize:12, color:"#4b5563" }}>{progress}%</div>
+              </>
+            )}
+          </div>
+        )}
+
+        {/* TRACKER VIEW */}
+        {!loading && scored.length > 0 && view === "tracker" && (
+          <>
+            {/* FILTERS */}
+            <div style={{ display:"flex", gap:8, marginBottom:12, flexWrap:"wrap" }}>
+              <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search name or state…"
+                style={{ flex:1, minWidth:160, padding:"8px 12px", borderRadius:8, border:"1px solid #1e2a3a", background:"#0d1117", color:"#e8eaf0", fontSize:13 }} />
+              {["All","R","D","I"].map(p => (
+                <button key={p} onClick={() => setFilterParty(p)}
+                  style={{ padding:"6px 12px", borderRadius:8, border:`1px solid ${filterParty === p ? "#e63946" : "#1e2a3a"}`, background: filterParty === p ? "#e6394622" : "transparent", color: filterParty === p ? "#e63946" : "#4b5563", fontSize:12, fontWeight:700, cursor:"pointer" }}>
+                  {p}
+                </button>
+              ))}
+              {["All","Senate","House"].map(c => (
+                <button key={c} onClick={() => setFilterChamber(c)}
+                  style={{ padding:"6px 12px", borderRadius:8, border:`1px solid ${filterChamber === c ? "#f4a261" : "#1e2a3a"}`, background: filterChamber === c ? "#f4a26122" : "transparent", color: filterChamber === c ? "#f4a261" : "#4b5563", fontSize:12, fontWeight:700, cursor:"pointer" }}>
+                  {c}
+                </button>
+              ))}
+            </div>
+            <div style={{ display:"flex", gap:8, marginBottom:14 }}>
+              {[["alignment","Lowest First"],["name","A–Z"]].map(([val,label]) => (
+                <button key={val} onClick={() => setSortBy(val)}
+                  style={{ padding:"5px 10px", borderRadius:7, border:`1px solid ${sortBy === val ? "#e63946" : "#1e2a3a"}`, background: sortBy === val ? "#e6394622" : "transparent", color: sortBy === val ? "#e63946" : "#4b5563", fontSize:11, cursor:"pointer" }}>
+                  {label}
+                </button>
+              ))}
+              <div style={{ fontSize:11, color:"#4b5563", alignSelf:"center", marginLeft:"auto" }}>{filtered.length} members</div>
+            </div>
+            {filtered.map((m, i) => <MemberCard key={m.bioguideId} member={m} rank={i + 1} onDrillDown={setDrillMember} onContact={setContactMember} />)}
+          </>
+        )}
+
+        {/* HALF-ASSES VIEW */}
+        {!loading && view === "half-asses" && scored.length > 0 && (
+          <>
+            <div style={{ background:"#0d1117", border:"1px solid #e6394633", borderRadius:12, padding:14, marginBottom:16 }}>
+              <div style={{ fontSize:12, color:"#e63946", fontWeight:800, marginBottom:4 }}>🦏 THE HALL OF HALF-ASSES</div>
+              <p style={{ fontSize:12, color:"#6b7280", lineHeight:1.7 }}>Republicans with &lt;60% alignment. These are your RINOs — in name only.</p>
+            </div>
+            {halfasses.length === 0 && <div style={{ textAlign:"center", color:"#4b5563", padding:20 }}>No data yet. Load live data first.</div>}
+            {halfasses.map((m, i) => <MemberCard key={m.bioguideId} member={m} rank={i + 1} onDrillDown={setDrillMember} onContact={setContactMember} />)}
+          </>
+        )}
+
+        {/* HEROES VIEW */}
+        {!loading && view === "heroes" && scored.length > 0 && (
+          <>
+            <div style={{ background:"#0d1117", border:"1px solid #22c55e33", borderRadius:12, padding:14, marginBottom:16 }}>
+              <div style={{ fontSize:12, color:"#22c55e", fontWeight:800, marginBottom:4 }}>⭐ THE CONSERVATIVE HEROES</div>
+              <p style={{ fontSize:12, color:"#6b7280", lineHeight:1.7 }}>Republicans with 80%+ alignment. These are the ones fighting for the agenda.</p>
+            </div>
+            {heroes.length === 0 && <div style={{ textAlign:"center", color:"#4b5563", padding:20 }}>No data yet. Load live data first.</div>}
+            {heroes.map((m, i) => <MemberCard key={m.bioguideId} member={m} rank={i + 1} onDrillDown={setDrillMember} />)}
+          </>
+        )}
+
+        {/* MY REPS VIEW */}
+        {!loading && view === "my reps" && (
+          <>
+            <div style={{ background:"#0d1117", border:"1px solid #1e2a3a", borderRadius:12, padding:14, marginBottom:16 }}>
+              <div style={{ fontSize:12, color:"#e8eaf0", fontWeight:800, marginBottom:8 }}>📍 FIND MY REPRESENTATIVES</div>
+              <p style={{ fontSize:12, color:"#6b7280", marginBottom:12, lineHeight:1.7 }}>Enter your ZIP code to see your senators and representative's RINO scores.</p>
+              {scored.length === 0 && <p style={{ fontSize:11, color:"#e63946" }}>Load live data first.</p>}
+              <div style={{ display:"flex", gap:8 }}>
+                <input value={zipInput} onChange={e => setZipInput(e.target.value.replace(/\D/g,"").slice(0,5))}
+                  placeholder="ZIP code" maxLength={5}
+                  style={{ flex:1, padding:"8px 12px", borderRadius:8, border:"1px solid #1e2a3a", background:"#080c14", color:"#e8eaf0", fontSize:14, letterSpacing:2, fontFamily:"monospace" }} />
+                <button onClick={handleZipLookup} disabled={zipLoading || scored.length === 0}
+                  style={{ padding:"8px 16px", borderRadius:8, border:"none", background:"#e63946", color:"#fff", fontWeight:700, fontSize:13, cursor:"pointer" }}>
+                  {zipLoading ? "…" : "Find"}
+                </button>
+              </div>
+            </div>
+            {myReps.length > 0 && (
+              <>
+                <div style={{ fontSize:11, color:"#4b5563", marginBottom:10 }}>{myReps.length} representatives found</div>
+                {myReps.map(m => <MemberCard key={m.bioguideId} member={m} onDrillDown={setDrillMember} onContact={setContactMember} />)}
+              </>
+            )}
+          </>
+        )}
+
+        {/* ANALYSIS VIEW */}
+        {!loading && view === "analysis" && (
+          <>
+            <div style={{ background:"#0d1117", border:"1px solid #1e2a3a", borderRadius:12, padding:16, marginBottom:16 }}>
+              <div style={{ fontSize:11, color:"#e63946", fontWeight:700, letterSpacing:1, marginBottom:8 }}>🤖 AI POLITICAL INTEL BRIEF</div>
+              <p style={{ fontSize:12, color:"#6b7280", margin:"0 0 14px", lineHeight:1.7 }}>{scored.length === 0 ? "Load live data first." : `Using data from ${scored.length} scored members.`}</p>
+              <button onClick={async () => {
+                setAiLoading(true); setAiAnalysis("");
+                try {
+                  const t5o = halfasses.slice(0, 5).map(m => `${m.name} (${m.alignment}%)`).join(", ");
+                  const t5c = heroes.slice(0, 5).map(m => `${m.name} (${m.alignment}%)`).join(", ");
+                  const text = await callClaude(
+                    "Sharp conservative analyst. Punchy and direct.",
+                    `${congress}th Congress: ${members.length} members, ${scored.length} scored, GOP avg ${repAvg}%.\nHeroes: ${t5c}\nHalf-Asses: ${t5o}\n\n3-paragraph intel brief: 1) caucus loyalty, 2) biggest RINOs and why they matter, 3) tactical recs.`
+                  );
+                  setAiAnalysis(text);
+                } catch { setAiAnalysis("AI unavailable."); }
+                setAiLoading(false);
+              }} disabled={aiLoading || scored.length === 0}
+                style={{ background: (aiLoading || scored.length === 0) ? "#1a1a2e" : "#e63946", border:"none", borderRadius:10, padding:"12px 20px", color:"#fff", fontSize:13, fontWeight:700, cursor:(aiLoading || scored.length === 0) ? "default" : "pointer", width:"100%" }}>
+                {aiLoading ? "⟳ Analyzing…" : "⚡ RUN AI INTEL BRIEF"}
+              </button>
+            </div>
+            {aiAnalysis && (
+              <div style={{ background:"#0d1117", border:"1px solid #e6394633", borderRadius:12, padding:16, marginBottom:16 }}>
+                <div style={{ fontSize:10, color:"#e63946", letterSpacing:2, fontWeight:700, marginBottom:12 }}>STRATEGIC ANALYSIS REPORT</div>
+                {aiAnalysis.split("\n\n").filter(Boolean).map((p, i) => <p key={i} style={{ fontSize:13, color:"#9ca3af", lineHeight:1.8, margin:"0 0 12px" }}>{p}</p>)}
+              </div>
+            )}
+            <div style={{ background:"#0d1117", border:"1px solid #f4a26133", borderRadius:12, padding:16, marginTop:16, textAlign:"center" }}>
+              <div style={{ fontSize:20, marginBottom:8 }}>🦏</div>
+              <div style={{ fontSize:14, fontWeight:800, color:"#e8eaf0", marginBottom:6 }}>Keep RINO Report Free</div>
+              <p style={{ fontSize:12, color:"#6b7280", margin:"0 0 14px", lineHeight:1.7 }}>100% free — no paywalls, no ads. Help cover API costs.</p>
+              <div style={{ display:"flex", gap:10, justifyContent:"center" }}>
+                <a href={STRIPE_RECURRING} target="_blank" rel="noopener noreferrer" style={{ padding:"10px 20px", borderRadius:10, background:"#f4a261", color:"#fff", fontWeight:800, fontSize:13, textDecoration:"none" }}>☕ $3/month</a>
+                <a href={STRIPE_ONETIME} target="_blank" rel="noopener noreferrer" style={{ padding:"10px 20px", borderRadius:10, background:"#1a1a2e", color:"#f4a261", border:"1px solid #f4a26144", fontWeight:800, fontSize:13, textDecoration:"none" }}>💵 One-Time Tip</a>
+              </div>
+            </div>
+          </>
+        )}
+      </div>
+
+      {/* MODALS */}
+      <DrillModal member={drillMember} onClose={() => setDrillMember(null)} />
+      <ContactModal member={contactMember} onClose={() => setContactMember(null)} />
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
