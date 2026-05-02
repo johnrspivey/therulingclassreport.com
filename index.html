@@ -197,8 +197,7 @@ async function scoreMembers(members, congress, setProgress) {
     const m = members[i];
     setProgress(Math.round((i / members.length) * 100));
     try {
-      const url = `${CG_BASE}/member/${m.bioguideId}/votes?format=json&limit=20&congress=${congress}&api_key=${CG_KEY}`;
-      const res = await fetch(url);
+      const url = `${CG_BASE}?path=member/${m.bioguideId}/votes&limit=20&congress=${congress}`;      const res = await fetch(url);
       const data = await res.json();
       const votes = data.votes || [];
       if (votes.length > 0) {
