@@ -199,13 +199,48 @@ function ContactModal({ member, onClose }) {
     load();
   }, []);
 
-  async function backgroundScore(all) {
-    // Score Republicans first (most relevant), then Democrats
-    const sorted = [...all].sort((a, b) => {
-      if (a.party === "R" && b.party !== "R") return -1;
-      if (a.party !== "R" && b.party === "R") return 1;
-      return 0;
-    });
+  async function backgroundScore(members, setMembers) {
+  console.log("Scoring started with", KEY_AGENDA_VOTES.length, "key votes");
+
+  let updated = members.map(m => ({
+    ...m,
+    agreements: 0,
+    totalKeyVotes: KEY_AGENDA_VOTES.length,
+    score: m.score || (m.party === 'R' ? 72 : 8)
+  }));
+
+  for (const vote of KEY_AGENDA_VOTES) {
+    try {
+      const res = await fetch(`/.netlify/functions/congress/${vote.path}`);
+      if (!res.ok) continue;
+
+      const data = await res.json();
+      const memberVotes = data.houseRollCallVoteMemberVotes?.results || [];
+
+      updated = updated.map(member => {
+        if (member.party !== 'R') return member;
+        const thisVote = memberVotes.find(v => v.bioguideID === member.bioguideId);
+        if (thisVote && thisVote.voteCast === vote.agendaVote) {
+          return { ...member, agreements: (member.agreements || 0) + 1 };
+        }
+        return member;
+      });
+    } catch (e) {
+      console.error("Vote fetch error", e);
+    }
+  }
+
+  // Calculate final %
+  updated = updated.map(m => {
+    if (m.party === 'R' && m.totalKeyVotes > 0) {
+      m.score = Math.round((m.agreements / m.totalKeyVotes) * 100);
+    }
+    return m;
+  });
+
+  console.log("Scoring done");
+  setMembers(updated);
+}
 
     let scored = 0;
     for (const m of sorted) {
