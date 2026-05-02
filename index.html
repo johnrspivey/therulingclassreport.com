@@ -198,8 +198,13 @@ function ContactModal({ member, onClose }) {
     }
     load();
   }, []);
-
-  async function backgroundScore(members, setMembers) {
+  // === PASTE THIS NEW BLOCK RIGHT HERE ===
+  useEffect(() => {
+    if (members.length > 0 && KEY_AGENDA_VOTES.length > 0) {
+      backgroundScore(members, setMembers);
+    }
+  }, [members.length]);
+  // === END OF BLOCK ===  async function backgroundScore(members, setMembers) {
   console.log("Scoring started with", KEY_AGENDA_VOTES.length, "key votes");
 
   let updated = members.map(m => ({
