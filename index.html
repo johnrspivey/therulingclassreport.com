@@ -202,7 +202,7 @@ function App() {
     let scored = 0;
     for (const m of sorted) {
       try {
-        const res = await fetch(`${FUNCTION_URL}?path=member/${m.bioguideId}/votes&limit=20&congress=${congress}`);
+        const res = await fetch(`${FUNCTION_URL}?path=member/${m.bioguideId}/votes&limit=20`);
         const data = await res.json();
         const votes = data.votes || [];
         if (votes.length > 0) {
