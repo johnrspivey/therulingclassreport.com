@@ -171,8 +171,7 @@ async function fetchMembers(congress) {
   for (const chamber of chambers) {
     let offset = 0;
     while (true) {
-      const url = `${CG_BASE}/member/congress/${congress}/${chamber}?format=json&limit=250&offset=${offset}&api_key=${CG_KEY}`;
-      const res = await fetch(url);
+      const url = `${CG_BASE}?path=member/congress/${congress}/${chamber}&limit=250&offset=${offset}`;      const res = await fetch(url);
       const data = await res.json();
       const list = data.members || [];
       all = all.concat(list.map(m => ({
