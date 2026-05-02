@@ -20,13 +20,21 @@ body { background: #080c14; color: #e8eaf0; font-family: Georgia, serif; }
 <body>
 <div id="root"></div>
 <script type="text/babel">
-
 const STRIPE_RECURRING = "https://buy.stripe.com/7sYbJ2gEV7sC9RDcBNfEk01";
 const STRIPE_ONETIME = "https://buy.stripe.com/00wfZi74l00agg145hfEk00";
 const FUNCTION_URL = "/.netlify/functions/congress";
 const sleep = ms => new Promise(r => setTimeout(r, ms));
-
 const { useState, useEffect, useCallback, useRef } = React;
+
+// KEY_AGENDA_VOTES - real working one
+const KEY_AGENDA_VOTES = [
+  {
+    path: "house-vote/119/2/74/members",
+    agendaVote: "Aye",
+    desc: "H.Res. 1075 - Example agenda vote"
+  }
+  // Add more later
+];
 
 async function callClaude(system, user) {
   const res = await fetch("https://api.anthropic.com/v1/messages", {
@@ -132,16 +140,8 @@ function ContactModal({ member, onClose }) {
     </div>
   );
 }
-  // === PASTE THIS NEW BLOCK RIGHT HERE ===
-  const KEY_AGENDA_VOTES = [
-    {
-      path: "house-vote/119/2/74/members",   // real working vote we just tested
-      agendaVote: "Aye",                     // change to "Nay" if you want the opposite as loyal
-      desc: "H.Res. 1075 - Example agenda vote"
-    }
-    // We'll add more later
-  ];
-  // === END OF BLOCK ===function App() {
+
+function App() {
   const congress = 119;
   const [members, setMembers] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -168,7 +168,8 @@ function ContactModal({ member, onClose }) {
         for (const chamber of chambers) {
           let offset = 0;
           while (true) {
-            const res = await fetch(`${FUNCTION_URL}?path=member&congress=${congress}&chamber=${chamber}&limit=250&offset=${offset}`);            const data = await res.json();
+            const res = await fetch(`${FUNCTION_URL}?path=member&congress=${congress}&chamber=${chamber}&limit=250&offset=${offset}`);
+            const data = await res.json();
             const list = data.members || [];
             const mapped = list.map(m => ({
               bioguideId: m.bioguideId,
@@ -189,8 +190,6 @@ function ContactModal({ member, onClose }) {
         membersRef.current = all;
         setMembers([...all]);
         setLoading(false);
-        // Start background scoring
-        backgroundScore(all);
       } catch (e) {
         setLoading(false);
         setBackgroundStatus("Error loading members.");
@@ -198,101 +197,65 @@ function ContactModal({ member, onClose }) {
     }
     load();
   }, []);
-  // === PASTE THIS NEW BLOCK RIGHT HERE ===
+
+  // Auto score with real votes
   useEffect(() => {
     if (members.length > 0 && KEY_AGENDA_VOTES.length > 0) {
       backgroundScore(members, setMembers);
     }
   }, [members.length]);
-  // === END OF BLOCK ===  async function backgroundScore(members, setMembers) {
-  console.log("Scoring started with", KEY_AGENDA_VOTES.length, "key votes");
 
-  let updated = members.map(m => ({
-    ...m,
-    agreements: 0,
-    totalKeyVotes: KEY_AGENDA_VOTES.length,
-    score: m.score || (m.party === 'R' ? 72 : 8)
-  }));
+  async function backgroundScore(members, setMembers) {
+    console.log("Scoring started with", KEY_AGENDA_VOTES.length, "key votes");
 
-  for (const vote of KEY_AGENDA_VOTES) {
-    try {
-      const res = await fetch(`/.netlify/functions/congress/${vote.path}`);
-      if (!res.ok) continue;
+    let updated = members.map(m => ({
+      ...m,
+      agreements: 0,
+      totalKeyVotes: KEY_AGENDA_VOTES.length,
+      score: m.score || (m.party === 'R' ? 72 : 8)
+    }));
 
-      const data = await res.json();
-      const memberVotes = data.houseRollCallVoteMemberVotes?.results || [];
-
-      updated = updated.map(member => {
-        if (member.party !== 'R') return member;
-        const thisVote = memberVotes.find(v => v.bioguideID === member.bioguideId);
-        if (thisVote && thisVote.voteCast === vote.agendaVote) {
-          return { ...member, agreements: (member.agreements || 0) + 1 };
-        }
-        return member;
-      });
-    } catch (e) {
-      console.error("Vote fetch error", e);
-    }
-  }
-
-  // Calculate final %
-  updated = updated.map(m => {
-    if (m.party === 'R' && m.totalKeyVotes > 0) {
-      m.score = Math.round((m.agreements / m.totalKeyVotes) * 100);
-    }
-    return m;
-  });
-
-  console.log("Scoring done");
-  setMembers(updated);
-}
-
-    let scored = 0;
-    for (const m of sorted) {
+    for (const vote of KEY_AGENDA_VOTES) {
       try {
-        const res = await fetch(`${FUNCTION_URL}?path=member/${m.bioguideId}/votes&limit=20`);
+        const res = await fetch(`/.netlify/functions/congress/${vote.path}`);
+        if (!res.ok) continue;
         const data = await res.json();
-        const votes = data.votes || [];
-        if (votes.length > 0) {
-          const partyVotes = votes.filter(v => v.position && v.position !== "Not Voting");
-          if (partyVotes.length > 0) {
-            const aligned = partyVotes.filter(v => {
-              if (m.party === "R") return v.position === "Yea" || v.position === "Yes";
-              return v.position === "Nay" || v.position === "No";
-            });
-            const pct = Math.round((aligned.length / partyVotes.length) * 100);
-            // Update this member in ref and state
-            const idx = membersRef.current.findIndex(x => x.bioguideId === m.bioguideId);
-            if (idx !== -1) {
-              membersRef.current[idx] = { ...membersRef.current[idx], alignment: pct, votesSampled: partyVotes.length, liveScored: true };
-              scored++;
-              if (scored % 10 === 0) {
-                setMembers([...membersRef.current]);
-                setBackgroundStatus(`Live scoring: ${scored}/${all.length} members updated`);
-              }
-            }
+        const memberVotes = data.houseRollCallVoteMemberVotes?.results || [];
+        updated = updated.map(member => {
+          if (member.party !== 'R') return member;
+          const thisVote = memberVotes.find(v => v.bioguideID === member.bioguideId);
+          if (thisVote && thisVote.voteCast === vote.agendaVote) {
+            return { ...member, agreements: (member.agreements || 0) + 1 };
           }
-        }
-      } catch (_) {}
-      await sleep(150);
+          return member;
+        });
+      } catch (e) {
+        console.error("Vote fetch error", e);
+      }
     }
-    setMembers([...membersRef.current]);
-    setBackgroundStatus("✓ All scores live");
+
+    // Calculate final %
+    updated = updated.map(m => {
+      if (m.party === 'R' && m.totalKeyVotes > 0) {
+        m.score = Math.round((m.agreements / m.totalKeyVotes) * 100);
+      }
+      return m;
+    });
+
+    console.log("Scoring done");
+    setMembers(updated);
   }
 
-  const scored = members;
   const repAvg = members.filter(m => m.party === "R").length > 0
     ? Math.round(members.filter(m => m.party === "R").reduce((a, m) => a + m.alignment, 0) / members.filter(m => m.party === "R").length)
     : null;
   const halfasses = members.filter(m => m.party === "R" && m.alignment < 60).sort((a, b) => a.alignment - b.alignment);
   const heroes = members.filter(m => m.party === "R" && m.alignment >= 80).sort((a, b) => b.alignment - a.alignment);
-
   const filtered = members
     .filter(m => filterParty === "All" || m.party === filterParty)
     .filter(m => filterChamber === "All" || m.chamber === filterChamber)
     .filter(m => !search || m.name.toLowerCase().includes(search.toLowerCase()) || m.state.toLowerCase().includes(search.toLowerCase()))
     .sort((a, b) => sortBy === "alignment" ? a.alignment - b.alignment : a.name.localeCompare(b.name));
-
   const handleZip = useCallback(async () => {
     if (zipInput.length !== 5) return;
     try {
@@ -302,9 +265,7 @@ function ContactModal({ member, onClose }) {
       if (stateCode) setMyReps(members.filter(m => m.state === stateCode));
     } catch (_) {}
   }, [zipInput, members]);
-
   const VIEWS = ["tracker", "half-asses", "heroes", "my reps", "analysis"];
-
   if (loading) return (
     <div style={{ minHeight:"100vh", background:"#080c14", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:16 }}>
       <div style={{ fontSize:48 }} className="pulsing">🦏</div>
@@ -312,10 +273,8 @@ function ContactModal({ member, onClose }) {
       <div style={{ fontSize:12, color:"#4b5563" }}>Fetching all 535 members</div>
     </div>
   );
-
   return (
     <div style={{ minHeight:"100vh", background:"#080c14", fontFamily:"Georgia,serif", color:"#e8eaf0", paddingBottom:60 }}>
-
       {/* HEADER */}
       <div style={{ background:"linear-gradient(135deg,#0d1117,#1a0a0a)", borderBottom:"1px solid #e6394622", padding:"20px 16px 16px" }}>
         <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start" }}>
@@ -344,7 +303,6 @@ function ContactModal({ member, onClose }) {
           <div style={{ marginTop:10, fontSize:10, color:"#374151", fontFamily:"monospace" }}>{backgroundStatus}</div>
         )}
       </div>
-
       {/* SUPPORT BANNER */}
       <div style={{ background:"#0d1117", borderBottom:"1px solid #1e2a3a", padding:"10px 16px", display:"flex", alignItems:"center", justifyContent:"space-between", gap:12 }}>
         <div style={{ fontSize:11, color:"#4b5563" }}>🦏 100% free. Help keep it running:</div>
@@ -353,7 +311,6 @@ function ContactModal({ member, onClose }) {
           <a href={STRIPE_ONETIME} target="_blank" rel="noopener noreferrer" style={{ fontSize:11, padding:"5px 10px", borderRadius:8, background:"#1a1a2e", color:"#f4a261", border:"1px solid #f4a26144", fontWeight:700, textDecoration:"none" }}>Tip</a>
         </div>
       </div>
-
       {/* NAV */}
       <div style={{ display:"flex", borderBottom:"1px solid #1e2a3a", overflowX:"auto", background:"#0d1117" }}>
         {VIEWS.map(v => (
@@ -363,10 +320,8 @@ function ContactModal({ member, onClose }) {
           </button>
         ))}
       </div>
-
       {/* MAIN */}
       <div style={{ padding:16 }}>
-
         {/* TRACKER */}
         {view === "tracker" && (
           <>
@@ -398,7 +353,6 @@ function ContactModal({ member, onClose }) {
             {filtered.map(m => <MemberCard key={m.bioguideId} member={m} onContact={setContactMember} />)}
           </>
         )}
-
         {/* HALF-ASSES */}
         {view === "half-asses" && (
           <>
@@ -409,7 +363,6 @@ function ContactModal({ member, onClose }) {
             {halfasses.map((m, i) => <MemberCard key={m.bioguideId} member={m} onContact={setContactMember} />)}
           </>
         )}
-
         {/* HEROES */}
         {view === "heroes" && (
           <>
@@ -420,7 +373,6 @@ function ContactModal({ member, onClose }) {
             {heroes.map(m => <MemberCard key={m.bioguideId} member={m} />)}
           </>
         )}
-
         {/* MY REPS */}
         {view === "my reps" && (
           <>
@@ -439,7 +391,6 @@ function ContactModal({ member, onClose }) {
             {myReps.map(m => <MemberCard key={m.bioguideId} member={m} onContact={setContactMember} />)}
           </>
         )}
-
         {/* ANALYSIS */}
         {view === "analysis" && (
           <>
@@ -479,12 +430,10 @@ function ContactModal({ member, onClose }) {
           </>
         )}
       </div>
-
       <ContactModal member={contactMember} onClose={() => setContactMember(null)} />
     </div>
   );
 }
-
 ReactDOM.createRoot(document.getElementById('root')).render(<App />);
 </script>
 </body>
