@@ -10,21 +10,23 @@
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { background: #080c14; color: #e8eaf0; font-family: Georgia, serif; }
-::-webkit-scrollbar { width: 4px; } ::-webkit-scrollbar-track { background: #0d1117; } ::-webkit-scrollbar-thumb { background: #e63946; border-radius: 2px; }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #0d1117; }
+::-webkit-scrollbar-thumb { background: #e63946; border-radius: 2px; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+.pulsing { animation: pulse 1.5s infinite; }
 </style>
 </head>
 <body>
 <div id="root"></div>
 <script type="text/babel">
 
-const CG_KEY = "5lsDCFzIBQ60fA6ZAc8JBzcWRcJBn6WW5L5m3I0H";
-const CG_BASE = "/.netlify/functions/congress";
-const STRIPE_RECURRING = "https://buy.stripe.com/00wfZi74l00agg145hfEk00";
+const STRIPE_RECURRING = "https://buy.stripe.com/7sYbJ2gEV7sC9RDcBNfEk01";
 const STRIPE_ONETIME = "https://buy.stripe.com/00wfZi74l00agg145hfEk00";
-const PARTY_BASELINE = { R: 72, D: 8 };
+const FUNCTION_URL = "/.netlify/functions/congress";
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
-const { useState, useCallback, useEffect } = React;
+const { useState, useEffect, useCallback, useRef } = React;
 
 async function callClaude(system, user) {
   const res = await fetch("https://api.anthropic.com/v1/messages", {
@@ -48,23 +50,29 @@ function scoreColor(n) {
   return "#e63946";
 }
 
-function ScoreBadge({ score }) {
+function scoreLabel(n) {
+  if (n >= 80) return "LOYAL";
+  if (n >= 60) return "MIXED";
+  if (n >= 40) return "SHAKY";
+  return "RINO";
+}
+
+function ScoreBadge({ score, live }) {
   const color = scoreColor(score);
   return (
-    <div style={{ display:"inline-flex", alignItems:"center", justifyContent:"center", width:48, height:48, borderRadius:"50%", border:`2px solid ${color}`, background:`${color}18`, fontWeight:900, fontSize:15, color, fontFamily:"monospace" }}>
+    <div style={{ position:"relative", display:"inline-flex", alignItems:"center", justifyContent:"center", width:48, height:48, borderRadius:"50%", border:`2px solid ${color}`, background:`${color}18`, fontWeight:900, fontSize:15, color, fontFamily:"monospace" }}>
       {score}
+      {live && <div style={{ position:"absolute", top:0, right:0, width:8, height:8, borderRadius:"50%", background:"#22c55e", border:"2px solid #080c14" }} />}
     </div>
   );
 }
 
-function MemberCard({ member, rank, onDrillDown, onContact }) {
+function MemberCard({ member, onContact }) {
   const isRINO = member.party === "R" && member.alignment < 60;
   const isHero = member.party === "R" && member.alignment >= 80;
   return (
-    <div style={{ background:"#0d1117", border:`1px solid ${isRINO?"#e6394633":isHero?"#22c55e33":"#1e2a3a"}`, borderRadius:12, padding:14, marginBottom:10, display:"flex", alignItems:"center", gap:12 }}
-      onClick={() => onDrillDown && onDrillDown(member)} >
-      {rank && <div style={{ fontSize:12, color:"#4b5563", fontFamily:"monospace", minWidth:24 }}>#{rank}</div>}
-      <ScoreBadge score={member.alignment} />
+    <div style={{ background:"#0d1117", border:`1px solid ${isRINO?"#e6394633":isHero?"#22c55e33":"#1e2a3a"}`, borderRadius:12, padding:14, marginBottom:10, display:"flex", alignItems:"center", gap:12 }}>
+      <ScoreBadge score={member.alignment} live={member.liveScored} />
       <div style={{ flex:1, minWidth:0 }}>
         <div style={{ fontSize:14, fontWeight:700, color:"#e8eaf0", whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis" }}>
           {isRINO && <span style={{ color:"#e63946", marginRight:4 }}>🦏</span>}
@@ -74,18 +82,17 @@ function MemberCard({ member, rank, onDrillDown, onContact }) {
         <div style={{ fontSize:11, color:"#6b7280", marginTop:2 }}>
           {member.party} · {member.state} · {member.chamber === "Senate" ? "Senator" : "Rep."}
         </div>
-        {member.votesSampled > 0 && (
-          <div style={{ fontSize:10, color:"#374151", marginTop:2 }}>
-            {member.votesSampled} votes sampled
-          </div>
+        {member.liveScored && member.votesSampled > 0 && (
+          <div style={{ fontSize:10, color:"#22c55e", marginTop:2 }}>✓ {member.votesSampled} votes scored</div>
+        )}
+        {!member.liveScored && (
+          <div style={{ fontSize:10, color:"#374151", marginTop:2 }}>baseline score</div>
         )}
       </div>
       <div style={{ display:"flex", flexDirection:"column", gap:6, alignItems:"flex-end" }}>
-        <div style={{ fontSize:10, color: scoreColor(member.alignment), fontWeight:700 }}>
-          {member.alignment >= 80 ? "LOYAL" : member.alignment >= 60 ? "MIXED" : member.alignment >= 40 ? "SHAKY" : "RINO"}
-        </div>
-        {onContact && member.party === "R" && member.alignment < 60 && (
-          <button onClick={e => { e.stopPropagation(); onContact(member); }}
+        <div style={{ fontSize:10, color: scoreColor(member.alignment), fontWeight:700 }}>{scoreLabel(member.alignment)}</div>
+        {onContact && isRINO && (
+          <button onClick={() => onContact(member)}
             style={{ fontSize:9, padding:"3px 8px", borderRadius:6, border:"1px solid #e6394644", background:"transparent", color:"#e63946", cursor:"pointer" }}>
             Contact
           </button>
@@ -95,44 +102,11 @@ function MemberCard({ member, rank, onDrillDown, onContact }) {
   );
 }
 
-function DrillModal({ member, onClose }) {
-  if (!member) return null;
-  return (
-    <div style={{ position:"fixed", inset:0, background:"#000a", zIndex:100, display:"flex", alignItems:"flex-end" }} onClick={onClose}>
-      <div style={{ background:"#0d1117", border:"1px solid #1e2a3a", borderRadius:"16px 16px 0 0", padding:20, width:"100%", maxHeight:"70vh", overflowY:"auto" }} onClick={e => e.stopPropagation()}>
-        <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:16 }}>
-          <div>
-            <div style={{ fontSize:18, fontWeight:800, color:"#e8eaf0" }}>{member.name}</div>
-            <div style={{ fontSize:12, color:"#6b7280" }}>{member.party} · {member.state} · {member.chamber}</div>
-          </div>
-          <ScoreBadge score={member.alignment} />
-        </div>
-        <div style={{ background:"#080c14", borderRadius:10, padding:12, marginBottom:12 }}>
-          <div style={{ fontSize:10, color:"#4b5563", letterSpacing:1, marginBottom:6 }}>ALIGNMENT SCORE</div>
-          <div style={{ display:"flex", alignItems:"center", gap:10 }}>
-            <div style={{ flex:1, height:8, background:"#1e2a3a", borderRadius:4, overflow:"hidden" }}>
-              <div style={{ width:`${member.alignment}%`, height:"100%", background: scoreColor(member.alignment), borderRadius:4, transition:"width 0.5s" }} />
-            </div>
-            <div style={{ fontSize:20, fontWeight:900, color: scoreColor(member.alignment), fontFamily:"monospace" }}>{member.alignment}%</div>
-          </div>
-        </div>
-        {member.votesSampled > 0 && (
-          <div style={{ fontSize:12, color:"#6b7280", marginBottom:12 }}>
-            Score based on {member.votesSampled} sampled votes vs. party baseline of {PARTY_BASELINE[member.party] || 50}%.
-          </div>
-        )}
-        <button onClick={onClose} style={{ width:"100%", padding:12, borderRadius:10, border:"1px solid #1e2a3a", background:"transparent", color:"#6b7280", fontSize:14, cursor:"pointer" }}>Close</button>
-      </div>
-    </div>
-  );
-}
-
 function ContactModal({ member, onClose }) {
   const [msg, setMsg] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     if (!member) return;
-    setLoading(true);
     callClaude(
       "You draft sharp, respectful constituent messages to Congress members urging them to align with conservative/MAGA priorities. Keep it under 120 words.",
       `Draft a constituent message to ${member.name} (${member.party}-${member.state}, ${member.chamber}) who has a RINO alignment score of ${member.alignment}%. Urge them to vote with the President's agenda.`
@@ -144,146 +118,153 @@ function ContactModal({ member, onClose }) {
       <div style={{ background:"#0d1117", border:"1px solid #1e2a3a", borderRadius:"16px 16px 0 0", padding:20, width:"100%", maxHeight:"80vh", overflowY:"auto" }} onClick={e => e.stopPropagation()}>
         <div style={{ fontSize:14, fontWeight:800, color:"#e63946", marginBottom:4 }}>📬 Contact {member.name}</div>
         <div style={{ fontSize:11, color:"#6b7280", marginBottom:14 }}>AI-drafted constituent message</div>
-        {loading ? (
-          <div style={{ textAlign:"center", padding:20, color:"#4b5563" }}>⟳ Drafting message…</div>
-        ) : (
+        {loading ? <div style={{ textAlign:"center", padding:20, color:"#4b5563" }}>⟳ Drafting…</div> : (
           <textarea value={msg} onChange={e => setMsg(e.target.value)}
             style={{ width:"100%", minHeight:160, background:"#080c14", border:"1px solid #1e2a3a", borderRadius:10, padding:12, color:"#e8eaf0", fontSize:13, lineHeight:1.7, resize:"vertical" }} />
         )}
         <div style={{ display:"flex", gap:10, marginTop:12 }}>
-          <button onClick={() => { navigator.clipboard.writeText(msg); }}
-            style={{ flex:1, padding:12, borderRadius:10, border:"none", background:"#e63946", color:"#fff", fontWeight:700, fontSize:13, cursor:"pointer" }}>
-            Copy Message
-          </button>
+          <button onClick={() => navigator.clipboard.writeText(msg)}
+            style={{ flex:1, padding:12, borderRadius:10, border:"none", background:"#e63946", color:"#fff", fontWeight:700, fontSize:13, cursor:"pointer" }}>Copy Message</button>
           <button onClick={onClose}
-            style={{ padding:12, borderRadius:10, border:"1px solid #1e2a3a", background:"transparent", color:"#6b7280", fontSize:13, cursor:"pointer" }}>
-            Close
-          </button>
+            style={{ padding:12, borderRadius:10, border:"1px solid #1e2a3a", background:"transparent", color:"#6b7280", fontSize:13, cursor:"pointer" }}>Close</button>
         </div>
       </div>
     </div>
   );
 }
 
-async function fetchMembers(congress) {
-  const chambers = ["senate", "house"];
-  let all = [];
-  for (const chamber of chambers) {
-    let offset = 0;
-    while (true) {
-      const url = `${CG_BASE}?path=member/congress/${congress}/${chamber}&limit=250&offset=${offset}`;      const res = await fetch(url);
-      const data = await res.json();
-      const list = data.members || [];
-      all = all.concat(list.map(m => ({
-        bioguideId: m.bioguideId,
-        name: m.name,
-        party: m.partyName === "Republican" ? "R" : m.partyName === "Democrat" ? "D" : "I",
-        state: m.state || "",
-        chamber: chamber === "senate" ? "Senate" : "House",
-        alignment: PARTY_BASELINE[m.partyName === "Republican" ? "R" : "D"] || 50,
-        votesSampled: 0,
-      })));
-      if (list.length < 250) break;
-      offset += 250;
-      await sleep(300);
-    }
-  }
-  return all;
-}
-
-async function scoreMembers(members, congress, setProgress) {
-  const scored = [];
-  for (let i = 0; i < members.length; i++) {
-    const m = members[i];
-    setProgress(Math.round((i / members.length) * 100));
-    try {
-      const url = `${CG_BASE}?path=member/${m.bioguideId}/votes&limit=20&congress=${congress}`;      const res = await fetch(url);
-      const data = await res.json();
-      const votes = data.votes || [];
-      if (votes.length > 0) {
-        const partyVotes = votes.filter(v => v.position && v.position !== "Not Voting");
-        const aligned = partyVotes.filter(v => {
-          if (m.party === "R") return v.position === "Yea" || v.position === "Yes";
-          return v.position === "Nay" || v.position === "No";
-        });
-        const rawPct = partyVotes.length > 0 ? Math.round((aligned.length / partyVotes.length) * 100) : PARTY_BASELINE[m.party];
-        m.alignment = rawPct;
-        m.votesSampled = partyVotes.length;
-      }
-    } catch (_) {}
-    scored.push(m);
-    await sleep(120);
-  }
-  return scored;
-}
-
 function App() {
   const congress = 119;
-  const [view, setView] = useState("tracker");
   const [members, setMembers] = useState([]);
-  const [scored, setScored] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const [statusMsg, setStatusMsg] = useState("");
-  const [lastUpdated, setLastUpdated] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [backgroundStatus, setBackgroundStatus] = useState("");
+  const [view, setView] = useState("tracker");
   const [search, setSearch] = useState("");
   const [filterParty, setFilterParty] = useState("R");
   const [filterChamber, setFilterChamber] = useState("All");
   const [sortBy, setSortBy] = useState("alignment");
-  const [drillMember, setDrillMember] = useState(null);
   const [contactMember, setContactMember] = useState(null);
   const [aiAnalysis, setAiAnalysis] = useState("");
   const [aiLoading, setAiLoading] = useState(false);
   const [zipInput, setZipInput] = useState("");
   const [myReps, setMyReps] = useState([]);
-  const [zipLoading, setZipLoading] = useState(false);
+  const membersRef = useRef([]);
 
-  const repAvg = scored.length > 0
-    ? Math.round(scored.filter(m => m.party === "R").reduce((a, m) => a + m.alignment, 0) / (scored.filter(m => m.party === "R").length || 1))
+  // Load members with baseline scores instantly
+  useEffect(() => {
+    async function load() {
+      setLoading(true);
+      try {
+        const chambers = ["senate", "house"];
+        let all = [];
+        for (const chamber of chambers) {
+          let offset = 0;
+          while (true) {
+            const res = await fetch(`${FUNCTION_URL}?path=member/congress/${congress}/${chamber}&limit=250&offset=${offset}`);
+            const data = await res.json();
+            const list = data.members || [];
+            const mapped = list.map(m => ({
+              bioguideId: m.bioguideId,
+              name: m.name,
+              party: m.partyName === "Republican" ? "R" : m.partyName === "Democrat" ? "D" : "I",
+              state: m.state || "",
+              chamber: chamber === "senate" ? "Senate" : "House",
+              alignment: m.partyName === "Republican" ? 72 : m.partyName === "Democrat" ? 8 : 50,
+              votesSampled: 0,
+              liveScored: false,
+            }));
+            all = all.concat(mapped);
+            if (list.length < 250) break;
+            offset += 250;
+            await sleep(200);
+          }
+        }
+        membersRef.current = all;
+        setMembers([...all]);
+        setLoading(false);
+        // Start background scoring
+        backgroundScore(all);
+      } catch (e) {
+        setLoading(false);
+        setBackgroundStatus("Error loading members.");
+      }
+    }
+    load();
+  }, []);
+
+  async function backgroundScore(all) {
+    // Score Republicans first (most relevant), then Democrats
+    const sorted = [...all].sort((a, b) => {
+      if (a.party === "R" && b.party !== "R") return -1;
+      if (a.party !== "R" && b.party === "R") return 1;
+      return 0;
+    });
+
+    let scored = 0;
+    for (const m of sorted) {
+      try {
+        const res = await fetch(`${FUNCTION_URL}?path=member/${m.bioguideId}/votes&limit=20&congress=${congress}`);
+        const data = await res.json();
+        const votes = data.votes || [];
+        if (votes.length > 0) {
+          const partyVotes = votes.filter(v => v.position && v.position !== "Not Voting");
+          if (partyVotes.length > 0) {
+            const aligned = partyVotes.filter(v => {
+              if (m.party === "R") return v.position === "Yea" || v.position === "Yes";
+              return v.position === "Nay" || v.position === "No";
+            });
+            const pct = Math.round((aligned.length / partyVotes.length) * 100);
+            // Update this member in ref and state
+            const idx = membersRef.current.findIndex(x => x.bioguideId === m.bioguideId);
+            if (idx !== -1) {
+              membersRef.current[idx] = { ...membersRef.current[idx], alignment: pct, votesSampled: partyVotes.length, liveScored: true };
+              scored++;
+              if (scored % 10 === 0) {
+                setMembers([...membersRef.current]);
+                setBackgroundStatus(`Live scoring: ${scored}/${all.length} members updated`);
+              }
+            }
+          }
+        }
+      } catch (_) {}
+      await sleep(150);
+    }
+    setMembers([...membersRef.current]);
+    setBackgroundStatus("✓ All scores live");
+  }
+
+  const scored = members;
+  const repAvg = members.filter(m => m.party === "R").length > 0
+    ? Math.round(members.filter(m => m.party === "R").reduce((a, m) => a + m.alignment, 0) / members.filter(m => m.party === "R").length)
     : null;
+  const halfasses = members.filter(m => m.party === "R" && m.alignment < 60).sort((a, b) => a.alignment - b.alignment);
+  const heroes = members.filter(m => m.party === "R" && m.alignment >= 80).sort((a, b) => b.alignment - a.alignment);
 
-  const halfasses = scored.filter(m => m.party === "R" && m.alignment < 60).sort((a, b) => a.alignment - b.alignment);
-  const heroes = scored.filter(m => m.party === "R" && m.alignment >= 80).sort((a, b) => b.alignment - a.alignment);
-
-  const filtered = scored
+  const filtered = members
     .filter(m => filterParty === "All" || m.party === filterParty)
     .filter(m => filterChamber === "All" || m.chamber === filterChamber)
     .filter(m => !search || m.name.toLowerCase().includes(search.toLowerCase()) || m.state.toLowerCase().includes(search.toLowerCase()))
     .sort((a, b) => sortBy === "alignment" ? a.alignment - b.alignment : a.name.localeCompare(b.name));
 
-  const handleLoad = useCallback(async () => {
-    setLoading(true); setProgress(0); setScored([]); setMembers([]);
+  const handleZip = useCallback(async () => {
+    if (zipInput.length !== 5) return;
     try {
-      setStatusMsg("Fetching Congress members…");
-      const all = await fetchMembers(congress);
-      setMembers(all);
-      setStatusMsg(`Scoring ${all.length} members…`);
-      const s = await scoreMembers(all, congress, setProgress);
-      setScored(s);
-      setLastUpdated(new Date().toLocaleDateString());
-      setStatusMsg("");
-    } catch (e) {
-      setStatusMsg("Error loading data. Check API key.");
-    }
-    setLoading(false);
-  }, []);
-
-  const handleZipLookup = useCallback(async () => {
-    if (!zipInput || zipInput.length !== 5) return;
-    setZipLoading(true); setMyReps([]);
-    try {
-      const url = `${CG_BASE}/member?format=json&limit=10&api_key=${CG_KEY}`;
-      const stateRes = await fetch(`https://api.zippopotam.us/us/${zipInput}`);
-      const stateData = await stateRes.json();
-      const stateCode = stateData?.places?.[0]?.["state abbreviation"];
-      if (!stateCode) { setZipLoading(false); return; }
-      const reps = scored.filter(m => m.state === stateCode || m.state.includes(stateCode));
-      setMyReps(reps);
+      const res = await fetch(`https://api.zippopotam.us/us/${zipInput}`);
+      const data = await res.json();
+      const stateCode = data?.places?.[0]?.["state abbreviation"];
+      if (stateCode) setMyReps(members.filter(m => m.state === stateCode));
     } catch (_) {}
-    setZipLoading(false);
-  }, [zipInput, scored]);
+  }, [zipInput, members]);
 
   const VIEWS = ["tracker", "half-asses", "heroes", "my reps", "analysis"];
+
+  if (loading) return (
+    <div style={{ minHeight:"100vh", background:"#080c14", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:16 }}>
+      <div style={{ fontSize:48 }} className="pulsing">🦏</div>
+      <div style={{ fontSize:16, fontWeight:800, color:"#e8eaf0" }}>Loading Congress…</div>
+      <div style={{ fontSize:12, color:"#4b5563" }}>Fetching all 535 members</div>
+    </div>
+  );
 
   return (
     <div style={{ minHeight:"100vh", background:"#080c14", fontFamily:"Georgia,serif", color:"#e8eaf0", paddingBottom:60 }}>
@@ -294,10 +275,7 @@ function App() {
           <div>
             <div style={{ fontSize:10, letterSpacing:3, color:"#e63946", fontWeight:700, marginBottom:4, fontFamily:"monospace" }}>🇺🇸 BITWERX LABS</div>
             <h1 style={{ margin:0, fontSize:26, fontWeight:900, color:"#fff", letterSpacing:-0.5 }}>🦏 RINO REPORT</h1>
-            <div style={{ fontSize:11, color:"#6b7280", marginTop:2 }}>
-              Republican In Name Only · {congress}th Congress · Congress.gov
-              {lastUpdated && <span style={{ color:"#374151" }}> · {lastUpdated}</span>}
-            </div>
+            <div style={{ fontSize:11, color:"#6b7280", marginTop:2 }}>Republican In Name Only · {congress}th Congress · Congress.gov</div>
           </div>
           <div style={{ textAlign:"right" }}>
             <div style={{ fontSize:28, fontWeight:900, color:"#e63946", fontFamily:"monospace" }}>{repAvg != null ? `${repAvg}%` : "—"}</div>
@@ -305,10 +283,9 @@ function App() {
             <a href={STRIPE_RECURRING} target="_blank" rel="noopener noreferrer" style={{ display:"inline-block", marginTop:8, fontSize:10, fontWeight:700, padding:"5px 12px", borderRadius:99, background:"#f4a26122", color:"#f4a261", border:"1px solid #f4a26144", textDecoration:"none" }}>☕ Support Free</a>
           </div>
         </div>
-
-        {scored.length > 0 && (
+        {members.length > 0 && (
           <div style={{ display:"flex", gap:10, marginTop:14, flexWrap:"wrap" }}>
-            {[["TRACKED", members.length], ["AI SCORED", scored.length], ["HEROES 80%+", heroes.length], ["LOW LOYALTY", scored.filter(m => m.alignment < 40).length], ["HALF-ASSES", halfasses.length]].map(([label, val]) => (
+            {[["TRACKED", members.length], ["LIVE SCORED", members.filter(m=>m.liveScored).length], ["HEROES 80%+", heroes.length], ["HALF-ASSES", halfasses.length]].map(([label, val]) => (
               <div key={label} style={{ background:"#0d1117", borderRadius:8, padding:"6px 10px", border:"1px solid #1e2a3a" }}>
                 <div style={{ fontSize:16, fontWeight:900, color:"#e8eaf0", fontFamily:"monospace" }}>{val}</div>
                 <div style={{ fontSize:9, color:"#4b5563", letterSpacing:1 }}>{label}</div>
@@ -316,11 +293,14 @@ function App() {
             ))}
           </div>
         )}
+        {backgroundStatus && (
+          <div style={{ marginTop:10, fontSize:10, color:"#374151", fontFamily:"monospace" }}>{backgroundStatus}</div>
+        )}
       </div>
 
       {/* SUPPORT BANNER */}
       <div style={{ background:"#0d1117", borderBottom:"1px solid #1e2a3a", padding:"10px 16px", display:"flex", alignItems:"center", justifyContent:"space-between", gap:12 }}>
-        <div style={{ fontSize:11, color:"#4b5563" }}>🦏 RINO Report is 100% free. Help keep it running:</div>
+        <div style={{ fontSize:11, color:"#4b5563" }}>🦏 100% free. Help keep it running:</div>
         <div style={{ display:"flex", gap:8 }}>
           <a href={STRIPE_RECURRING} target="_blank" rel="noopener noreferrer" style={{ fontSize:11, padding:"5px 10px", borderRadius:8, background:"#f4a261", color:"#fff", fontWeight:700, textDecoration:"none" }}>$3/mo</a>
           <a href={STRIPE_ONETIME} target="_blank" rel="noopener noreferrer" style={{ fontSize:11, padding:"5px 10px", borderRadius:8, background:"#1a1a2e", color:"#f4a261", border:"1px solid #f4a26144", fontWeight:700, textDecoration:"none" }}>Tip</a>
@@ -328,10 +308,10 @@ function App() {
       </div>
 
       {/* NAV */}
-      <div style={{ display:"flex", gap:0, borderBottom:"1px solid #1e2a3a", overflowX:"auto", background:"#0d1117" }}>
+      <div style={{ display:"flex", borderBottom:"1px solid #1e2a3a", overflowX:"auto", background:"#0d1117" }}>
         {VIEWS.map(v => (
           <button key={v} onClick={() => setView(v)}
-            style={{ padding:"10px 14px", border:"none", borderBottom: view === v ? "2px solid #e63946" : "2px solid transparent", background:"transparent", color: view === v ? "#e63946" : "#4b5563", fontWeight:700, fontSize:11, letterSpacing:1, cursor:"pointer", whiteSpace:"nowrap", textTransform:"uppercase" }}>
+            style={{ padding:"10px 14px", border:"none", borderBottom: view===v?"2px solid #e63946":"2px solid transparent", background:"transparent", color: view===v?"#e63946":"#4b5563", fontWeight:700, fontSize:11, letterSpacing:1, cursor:"pointer", whiteSpace:"nowrap", textTransform:"uppercase" }}>
             {v}
           </button>
         ))}
@@ -340,54 +320,21 @@ function App() {
       {/* MAIN */}
       <div style={{ padding:16 }}>
 
-        {/* LOAD BUTTON */}
-        {scored.length === 0 && !loading && (
-          <div style={{ textAlign:"center", padding:"40px 0" }}>
-            <div style={{ fontSize:48, marginBottom:16 }}>🦏</div>
-            <div style={{ fontSize:18, fontWeight:800, color:"#e8eaf0", marginBottom:8 }}>RINO Report</div>
-            <p style={{ fontSize:13, color:"#6b7280", marginBottom:24, lineHeight:1.7 }}>
-              Live alignment scores for all 535 members of the {congress}th Congress.<br/>
-              Data sourced from Congress.gov.
-            </p>
-            <button onClick={handleLoad}
-              style={{ padding:"14px 28px", borderRadius:12, border:"none", background:"#e63946", color:"#fff", fontWeight:800, fontSize:15, cursor:"pointer" }}>
-              ⚡ LOAD LIVE DATA
-            </button>
-          </div>
-        )}
-
-        {/* LOADING STATE */}
-        {loading && (
-          <div style={{ textAlign:"center", padding:"40px 0" }}>
-            <div style={{ fontSize:32, marginBottom:16 }}>⟳</div>
-            <div style={{ fontSize:14, color:"#e8eaf0", marginBottom:8 }}>{statusMsg}</div>
-            {progress > 0 && (
-              <>
-                <div style={{ height:6, background:"#1e2a3a", borderRadius:3, margin:"12px auto", maxWidth:280 }}>
-                  <div style={{ width:`${progress}%`, height:"100%", background:"#e63946", borderRadius:3, transition:"width 0.3s" }} />
-                </div>
-                <div style={{ fontSize:12, color:"#4b5563" }}>{progress}%</div>
-              </>
-            )}
-          </div>
-        )}
-
-        {/* TRACKER VIEW */}
-        {!loading && scored.length > 0 && view === "tracker" && (
+        {/* TRACKER */}
+        {view === "tracker" && (
           <>
-            {/* FILTERS */}
             <div style={{ display:"flex", gap:8, marginBottom:12, flexWrap:"wrap" }}>
               <input value={search} onChange={e => setSearch(e.target.value)} placeholder="Search name or state…"
                 style={{ flex:1, minWidth:160, padding:"8px 12px", borderRadius:8, border:"1px solid #1e2a3a", background:"#0d1117", color:"#e8eaf0", fontSize:13 }} />
               {["All","R","D","I"].map(p => (
                 <button key={p} onClick={() => setFilterParty(p)}
-                  style={{ padding:"6px 12px", borderRadius:8, border:`1px solid ${filterParty === p ? "#e63946" : "#1e2a3a"}`, background: filterParty === p ? "#e6394622" : "transparent", color: filterParty === p ? "#e63946" : "#4b5563", fontSize:12, fontWeight:700, cursor:"pointer" }}>
+                  style={{ padding:"6px 12px", borderRadius:8, border:`1px solid ${filterParty===p?"#e63946":"#1e2a3a"}`, background:filterParty===p?"#e6394622":"transparent", color:filterParty===p?"#e63946":"#4b5563", fontSize:12, fontWeight:700, cursor:"pointer" }}>
                   {p}
                 </button>
               ))}
               {["All","Senate","House"].map(c => (
                 <button key={c} onClick={() => setFilterChamber(c)}
-                  style={{ padding:"6px 12px", borderRadius:8, border:`1px solid ${filterChamber === c ? "#f4a261" : "#1e2a3a"}`, background: filterChamber === c ? "#f4a26122" : "transparent", color: filterChamber === c ? "#f4a261" : "#4b5563", fontSize:12, fontWeight:700, cursor:"pointer" }}>
+                  style={{ padding:"6px 12px", borderRadius:8, border:`1px solid ${filterChamber===c?"#f4a261":"#1e2a3a"}`, background:filterChamber===c?"#f4a26122":"transparent", color:filterChamber===c?"#f4a261":"#4b5563", fontSize:12, fontWeight:700, cursor:"pointer" }}>
                   {c}
                 </button>
               ))}
@@ -395,99 +342,88 @@ function App() {
             <div style={{ display:"flex", gap:8, marginBottom:14 }}>
               {[["alignment","Lowest First"],["name","A–Z"]].map(([val,label]) => (
                 <button key={val} onClick={() => setSortBy(val)}
-                  style={{ padding:"5px 10px", borderRadius:7, border:`1px solid ${sortBy === val ? "#e63946" : "#1e2a3a"}`, background: sortBy === val ? "#e6394622" : "transparent", color: sortBy === val ? "#e63946" : "#4b5563", fontSize:11, cursor:"pointer" }}>
+                  style={{ padding:"5px 10px", borderRadius:7, border:`1px solid ${sortBy===val?"#e63946":"#1e2a3a"}`, background:sortBy===val?"#e6394622":"transparent", color:sortBy===val?"#e63946":"#4b5563", fontSize:11, cursor:"pointer" }}>
                   {label}
                 </button>
               ))}
               <div style={{ fontSize:11, color:"#4b5563", alignSelf:"center", marginLeft:"auto" }}>{filtered.length} members</div>
             </div>
-            {filtered.map((m, i) => <MemberCard key={m.bioguideId} member={m} rank={i + 1} onDrillDown={setDrillMember} onContact={setContactMember} />)}
+            {filtered.map(m => <MemberCard key={m.bioguideId} member={m} onContact={setContactMember} />)}
           </>
         )}
 
-        {/* HALF-ASSES VIEW */}
-        {!loading && view === "half-asses" && scored.length > 0 && (
+        {/* HALF-ASSES */}
+        {view === "half-asses" && (
           <>
             <div style={{ background:"#0d1117", border:"1px solid #e6394633", borderRadius:12, padding:14, marginBottom:16 }}>
               <div style={{ fontSize:12, color:"#e63946", fontWeight:800, marginBottom:4 }}>🦏 THE HALL OF HALF-ASSES</div>
-              <p style={{ fontSize:12, color:"#6b7280", lineHeight:1.7 }}>Republicans with &lt;60% alignment. These are your RINOs — in name only.</p>
+              <p style={{ fontSize:12, color:"#6b7280", lineHeight:1.7 }}>Republicans with &lt;60% alignment. These are your RINOs.</p>
             </div>
-            {halfasses.length === 0 && <div style={{ textAlign:"center", color:"#4b5563", padding:20 }}>No data yet. Load live data first.</div>}
-            {halfasses.map((m, i) => <MemberCard key={m.bioguideId} member={m} rank={i + 1} onDrillDown={setDrillMember} onContact={setContactMember} />)}
+            {halfasses.map((m, i) => <MemberCard key={m.bioguideId} member={m} onContact={setContactMember} />)}
           </>
         )}
 
-        {/* HEROES VIEW */}
-        {!loading && view === "heroes" && scored.length > 0 && (
+        {/* HEROES */}
+        {view === "heroes" && (
           <>
             <div style={{ background:"#0d1117", border:"1px solid #22c55e33", borderRadius:12, padding:14, marginBottom:16 }}>
-              <div style={{ fontSize:12, color:"#22c55e", fontWeight:800, marginBottom:4 }}>⭐ THE CONSERVATIVE HEROES</div>
-              <p style={{ fontSize:12, color:"#6b7280", lineHeight:1.7 }}>Republicans with 80%+ alignment. These are the ones fighting for the agenda.</p>
+              <div style={{ fontSize:12, color:"#22c55e", fontWeight:800, marginBottom:4 }}>⭐ CONSERVATIVE HEROES</div>
+              <p style={{ fontSize:12, color:"#6b7280", lineHeight:1.7 }}>Republicans with 80%+ alignment. Fighting for the agenda.</p>
             </div>
-            {heroes.length === 0 && <div style={{ textAlign:"center", color:"#4b5563", padding:20 }}>No data yet. Load live data first.</div>}
-            {heroes.map((m, i) => <MemberCard key={m.bioguideId} member={m} rank={i + 1} onDrillDown={setDrillMember} />)}
+            {heroes.map(m => <MemberCard key={m.bioguideId} member={m} />)}
           </>
         )}
 
-        {/* MY REPS VIEW */}
-        {!loading && view === "my reps" && (
+        {/* MY REPS */}
+        {view === "my reps" && (
           <>
             <div style={{ background:"#0d1117", border:"1px solid #1e2a3a", borderRadius:12, padding:14, marginBottom:16 }}>
               <div style={{ fontSize:12, color:"#e8eaf0", fontWeight:800, marginBottom:8 }}>📍 FIND MY REPRESENTATIVES</div>
-              <p style={{ fontSize:12, color:"#6b7280", marginBottom:12, lineHeight:1.7 }}>Enter your ZIP code to see your senators and representative's RINO scores.</p>
-              {scored.length === 0 && <p style={{ fontSize:11, color:"#e63946" }}>Load live data first.</p>}
               <div style={{ display:"flex", gap:8 }}>
                 <input value={zipInput} onChange={e => setZipInput(e.target.value.replace(/\D/g,"").slice(0,5))}
                   placeholder="ZIP code" maxLength={5}
                   style={{ flex:1, padding:"8px 12px", borderRadius:8, border:"1px solid #1e2a3a", background:"#080c14", color:"#e8eaf0", fontSize:14, letterSpacing:2, fontFamily:"monospace" }} />
-                <button onClick={handleZipLookup} disabled={zipLoading || scored.length === 0}
+                <button onClick={handleZip}
                   style={{ padding:"8px 16px", borderRadius:8, border:"none", background:"#e63946", color:"#fff", fontWeight:700, fontSize:13, cursor:"pointer" }}>
-                  {zipLoading ? "…" : "Find"}
+                  Find
                 </button>
               </div>
             </div>
-            {myReps.length > 0 && (
-              <>
-                <div style={{ fontSize:11, color:"#4b5563", marginBottom:10 }}>{myReps.length} representatives found</div>
-                {myReps.map(m => <MemberCard key={m.bioguideId} member={m} onDrillDown={setDrillMember} onContact={setContactMember} />)}
-              </>
-            )}
+            {myReps.map(m => <MemberCard key={m.bioguideId} member={m} onContact={setContactMember} />)}
           </>
         )}
 
-        {/* ANALYSIS VIEW */}
-        {!loading && view === "analysis" && (
+        {/* ANALYSIS */}
+        {view === "analysis" && (
           <>
             <div style={{ background:"#0d1117", border:"1px solid #1e2a3a", borderRadius:12, padding:16, marginBottom:16 }}>
               <div style={{ fontSize:11, color:"#e63946", fontWeight:700, letterSpacing:1, marginBottom:8 }}>🤖 AI POLITICAL INTEL BRIEF</div>
-              <p style={{ fontSize:12, color:"#6b7280", margin:"0 0 14px", lineHeight:1.7 }}>{scored.length === 0 ? "Load live data first." : `Using data from ${scored.length} scored members.`}</p>
               <button onClick={async () => {
                 setAiLoading(true); setAiAnalysis("");
                 try {
-                  const t5o = halfasses.slice(0, 5).map(m => `${m.name} (${m.alignment}%)`).join(", ");
-                  const t5c = heroes.slice(0, 5).map(m => `${m.name} (${m.alignment}%)`).join(", ");
+                  const t5o = halfasses.slice(0,5).map(m=>`${m.name} (${m.alignment}%)`).join(", ");
+                  const t5c = heroes.slice(0,5).map(m=>`${m.name} (${m.alignment}%)`).join(", ");
                   const text = await callClaude(
                     "Sharp conservative analyst. Punchy and direct.",
-                    `${congress}th Congress: ${members.length} members, ${scored.length} scored, GOP avg ${repAvg}%.\nHeroes: ${t5c}\nHalf-Asses: ${t5o}\n\n3-paragraph intel brief: 1) caucus loyalty, 2) biggest RINOs and why they matter, 3) tactical recs.`
+                    `${congress}th Congress: ${members.length} members, GOP avg ${repAvg}%.\nHeroes: ${t5c}\nHalf-Asses: ${t5o}\n\n3-paragraph intel brief: 1) caucus loyalty, 2) biggest RINOs and why they matter, 3) tactical recs.`
                   );
                   setAiAnalysis(text);
                 } catch { setAiAnalysis("AI unavailable."); }
                 setAiLoading(false);
-              }} disabled={aiLoading || scored.length === 0}
-                style={{ background: (aiLoading || scored.length === 0) ? "#1a1a2e" : "#e63946", border:"none", borderRadius:10, padding:"12px 20px", color:"#fff", fontSize:13, fontWeight:700, cursor:(aiLoading || scored.length === 0) ? "default" : "pointer", width:"100%" }}>
-                {aiLoading ? "⟳ Analyzing…" : "⚡ RUN AI INTEL BRIEF"}
+              }} disabled={aiLoading}
+                style={{ background:aiLoading?"#1a1a2e":"#e63946", border:"none", borderRadius:10, padding:"12px 20px", color:"#fff", fontSize:13, fontWeight:700, cursor:aiLoading?"default":"pointer", width:"100%" }}>
+                {aiLoading?"⟳ Analyzing…":"⚡ RUN AI INTEL BRIEF"}
               </button>
             </div>
             {aiAnalysis && (
               <div style={{ background:"#0d1117", border:"1px solid #e6394633", borderRadius:12, padding:16, marginBottom:16 }}>
                 <div style={{ fontSize:10, color:"#e63946", letterSpacing:2, fontWeight:700, marginBottom:12 }}>STRATEGIC ANALYSIS REPORT</div>
-                {aiAnalysis.split("\n\n").filter(Boolean).map((p, i) => <p key={i} style={{ fontSize:13, color:"#9ca3af", lineHeight:1.8, margin:"0 0 12px" }}>{p}</p>)}
+                {aiAnalysis.split("\n\n").filter(Boolean).map((p,i) => <p key={i} style={{ fontSize:13, color:"#9ca3af", lineHeight:1.8, margin:"0 0 12px" }}>{p}</p>)}
               </div>
             )}
-            <div style={{ background:"#0d1117", border:"1px solid #f4a26133", borderRadius:12, padding:16, marginTop:16, textAlign:"center" }}>
+            <div style={{ background:"#0d1117", border:"1px solid #f4a26133", borderRadius:12, padding:16, textAlign:"center" }}>
               <div style={{ fontSize:20, marginBottom:8 }}>🦏</div>
               <div style={{ fontSize:14, fontWeight:800, color:"#e8eaf0", marginBottom:6 }}>Keep RINO Report Free</div>
-              <p style={{ fontSize:12, color:"#6b7280", margin:"0 0 14px", lineHeight:1.7 }}>100% free — no paywalls, no ads. Help cover API costs.</p>
               <div style={{ display:"flex", gap:10, justifyContent:"center" }}>
                 <a href={STRIPE_RECURRING} target="_blank" rel="noopener noreferrer" style={{ padding:"10px 20px", borderRadius:10, background:"#f4a261", color:"#fff", fontWeight:800, fontSize:13, textDecoration:"none" }}>☕ $3/month</a>
                 <a href={STRIPE_ONETIME} target="_blank" rel="noopener noreferrer" style={{ padding:"10px 20px", borderRadius:10, background:"#1a1a2e", color:"#f4a261", border:"1px solid #f4a26144", fontWeight:800, fontSize:13, textDecoration:"none" }}>💵 One-Time Tip</a>
@@ -497,8 +433,6 @@ function App() {
         )}
       </div>
 
-      {/* MODALS */}
-      <DrillModal member={drillMember} onClose={() => setDrillMember(null)} />
       <ContactModal member={contactMember} onClose={() => setContactMember(null)} />
     </div>
   );
