@@ -1,28 +1,26 @@
-const CG_KEY = "5lsDCFzIBQ60fA6ZAc8JBzcWRcJBn6WW5L5m3I0H";
-const CG_BASE = "https://api.congress.gov/v3";
+exports.handler = async (event) => {
+  const path = event.path;
+  const apiKey = process.env.CONGRESS_API_KEY;   // <-- Make sure this env var exists in Netlify
 
-exports.handler = async function(event) {
-  const params = { ...event.queryStringParameters };
-  const path = params.path || "";
-  delete params.path;
-  params.api_key = CG_KEY;
-  params.format = "json";
-
-  const queryString = new URLSearchParams(params).toString();
-  const url = `${CG_BASE}/${path}?${queryString}`;
-
-  try {
-    const res = await fetch(url);
-    const text = await res.text();
-    return {
-      statusCode: res.status,
-      headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "application/json" },
-      body: text
-    };
-  } catch (err) {
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: err.message })
-    };
+  // Keep your existing member code here if you want
+  if (path.includes('/member')) {
+    // your current code for members...
+    return { statusCode: 200, body: "member proxy works" }; // placeholder
   }
+
+  // === NEW CODE: ADD THIS BLOCK ===
+  if (path.includes('/house-member-votes')) {
+    const identifier = event.queryStringParameters.identifier;
+    if (!identifier) {
+      return { statusCode: 400, body: JSON.stringify({error: "Missing identifier"}) };
+    }
+    const url = `https://api.congress.gov/v3/house-vote/${identifier}/member-votes?api_key=${apiKey}&format=json`;
+    const res = await fetch(url);  // use node-fetch if fetch doesn't work
+    if (!res.ok) return { statusCode: res.status, body: "API error" };
+    const data = await res.json();
+    return { statusCode: 200, body: JSON.stringify(data) };
+  }
+  // === END NEW CODE ===
+
+  return { statusCode: 404, body: 'Not found' };
 };
