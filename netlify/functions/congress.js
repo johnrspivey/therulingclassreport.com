@@ -1,26 +1,36 @@
 exports.handler = async (event) => {
   const path = event.path;
-  const apiKey = process.env.CONGRESS_API_KEY;   // <-- Make sure this env var exists in Netlify
+  const apiKey = process.env.CONGRESS_API_KEY;
 
-  // Keep your existing member code here if you want
-  if (path.includes('/member')) {
-    // your current code for members...
-    return { statusCode: 200, body: "member proxy works" }; // placeholder
+  if (!apiKey) {
+    return { statusCode: 500, body: JSON.stringify({error: "CONGRESS_API_KEY not set in Netlify env vars"}) };
   }
 
-  // === NEW CODE: ADD THIS BLOCK ===
+  // Your existing member proxy (keep if present)
+  if (path.includes('/member')) {
+    // your old code here...
+  }
+
   if (path.includes('/house-member-votes')) {
     const identifier = event.queryStringParameters.identifier;
     if (!identifier) {
       return { statusCode: 400, body: JSON.stringify({error: "Missing identifier"}) };
     }
-    const url = `https://api.congress.gov/v3/house-vote/${identifier}/member-votes?api_key=${apiKey}&format=json`;
-    const res = await fetch(url);  // use node-fetch if fetch doesn't work
-    if (!res.ok) return { statusCode: res.status, body: "API error" };
-    const data = await res.json();
-    return { statusCode: 200, body: JSON.stringify(data) };
+
+    try {
+      const url = `https://api.congress.gov/v3/house-vote/${identifier}/member-votes?api_key=${apiKey}&format=json`;
+      const res = await fetch(url);   // Native fetch should work on Netlify
+
+      if (!res.ok) {
+        return { statusCode: res.status, body: JSON.stringify({error: "Congress API failed", status: res.status}) };
+      }
+
+      const data = await res.json();
+      return { statusCode: 200, body: JSON.stringify(data) };
+    } catch (e) {
+      return { statusCode: 500, body: JSON.stringify({error: e.message}) };
+    }
   }
-  // === END NEW CODE ===
 
   return { statusCode: 404, body: 'Not found' };
 };
