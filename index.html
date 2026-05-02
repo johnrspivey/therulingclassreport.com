@@ -132,8 +132,16 @@ function ContactModal({ member, onClose }) {
     </div>
   );
 }
-
-function App() {
+  // === PASTE THIS NEW BLOCK RIGHT HERE ===
+  const KEY_AGENDA_VOTES = [
+    {
+      path: "house-vote/119/2/74/members",   // real working vote we just tested
+      agendaVote: "Aye",                     // change to "Nay" if you want the opposite as loyal
+      desc: "H.Res. 1075 - Example agenda vote"
+    }
+    // We'll add more later
+  ];
+  // === END OF BLOCK ===function App() {
   const congress = 119;
   const [members, setMembers] = useState([]);
   const [loading, setLoading] = useState(true);
