@@ -1,4 +1,6 @@
-// FORCE REBUILD 2026-05-02 v4
+// FORCE REBUILD 2026-05-02 v5
+const https = require("https");
+
 exports.handler = async (event) => {
   const apiKey = process.env.CONGRESS_API_KEY;
   if (!apiKey) {
@@ -10,8 +12,30 @@ exports.handler = async (event) => {
 
   let url;
 
-  // Query string mode: ?path=member&congress=119&chamber=house&limit=435&offset=0
   if (qs.path) {
     const { path: apiPath, ...rest } = qs;
     const params = new URLSearchParams({ ...rest, api_key: apiKey, format: "json" });
-    url = `https://api.congress.gov/v3/${a
+    url = `https://api.congress.gov/v3/${apiPath}?${params}`;
+  } else if (path.startsWith("/.netlify/functions/congress/")) {
+    const apiPath = path.replace("/.netlify/functions/congress", "");
+    url = `https://api.congress.gov/v3${apiPath}?api_key=${apiKey}&format=json`;
+  } else {
+    return { statusCode: 400, body: JSON.stringify({ error: "Invalid request" }) };
+  }
+
+  return new Promise((resolve) => {
+    https.get(url, (res) => {
+      let data = "";
+      res.on("data", chunk => data += chunk);
+      res.on("end", () => {
+        resolve({
+          statusCode: res.statusCode,
+          headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
+          body: data,
+        });
+      });
+    }).on("error", (e) => {
+      resolve({ statusCode: 500, body: JSON.stringify({ error: e.message }) });
+    });
+  });
+};
