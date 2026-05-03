@@ -14,25 +14,4 @@ exports.handler = async (event) => {
   if (qs.path) {
     const { path: apiPath, ...rest } = qs;
     const params = new URLSearchParams({ ...rest, api_key: apiKey, format: "json" });
-    url = `https://api.congress.gov/v3/${apiPath}?${params}`;
-  }
-  // Path mode: /.netlify/functions/congress/house-vote/119/2/74/members
-  else if (path.startsWith("/.netlify/functions/congress/")) {
-    const apiPath = path.replace("/.netlify/functions/congress", "");
-    url = `https://api.congress.gov/v3${apiPath}?api_key=${apiKey}&format=json`;
-  } else {
-    return { statusCode: 400, body: JSON.stringify({ error: "Invalid request" }) };
-  }
-
-  try {
-    const res = await fetch(url);
-    const data = await res.text();
-    return {
-      statusCode: res.status,
-      headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
-      body: data,
-    };
-  } catch (e) {
-    return { statusCode: 500, body: JSON.stringify({ error: e.message }) };
-  }
-};
+    url = `https://api.congress.gov/v3/${a
