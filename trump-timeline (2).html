@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>:root { color-scheme: light only !important; }</style>
+<title>The Campaign Against Trump — A Documented Timeline</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  background: #ffffff !important;
+  color: #111111 !important;
+  color-scheme: light only !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  html, body, div, p, h1, h2, h3, h4, span, td, th, li, 
+  blockquote, cite, strong, em, section, header, footer, nav {
+    color: inherit !important;
+  }
+  html { background: #ffffff !important; color: #111111 !important; }
+  body { background: #ffffff !important; color: #111111 !important; }
+}
+
+body {
+  padding-top: 56px;
+  font-family: 'Source Serif 4', serif;
+  font-size: 15px;
+  line-height: 1.65;
+  background: #ffffff !important;
+  color: #111111 !important;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 72px 32px 80px;
+}
+
+/* ── MASTHEAD ── */
+.masthead-rule { border-top: 8px double #111111; margin-bottom: 0; }
+.masthead-rule2 { border-top: 2px solid #111111; margin-top: 4px; margin-bottom: 12px; }
+
+.masthead {
+  text-align: center;
+  padding: 20px 0 16px;
+  border-bottom: 1px solid #cccccc;
+  margin-bottom: 6px;
+}
+
+.publication {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #555555 !important;
+  margin-bottom: 10px;
+}
+
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(24px, 4vw, 44px);
+  font-weight: 900;
+  line-height: 1.05;
+  color: #111111 !important;
+  margin-bottom: 14px;
+  letter-spacing: -0.02em;
+}
+
+.deck {
+  font-family: 'Source Serif 4', serif;
+  font-style: italic;
+  font-size: 16px;
+  color: #333333 !important;
+  max-width: 620px;
+  margin: 0 auto 16px;
+  line-height: 1.5;
+}
+
+.meta-row {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: #777777 !important;
+  text-transform: uppercase;
+  margin-top: 10px;
+}
+
+/* ── LEGEND ── */
+.legend {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  padding: 14px 0;
+  border-top: 2px solid #111111;
+  border-bottom: 1px solid #dddddd;
+  margin-bottom: 40px;
+  align-items: center;
+}
+
+.legend-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: #555555 !important;
+  text-transform: uppercase;
+  margin-right: 8px;
+}
+
+.badge {
+  display: inline-block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 0;
+}
+
+.badge-doc {
+  background: #1a3a1a !important;
+  color: #ffffff !important;
+}
+
+.badge-alleged {
+  background: #7a3a00 !important;
+  color: #ffffff !important;
+}
+
+.badge-disputed {
+  background: #2a2a6a !important;
+  color: #ffffff !important;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.legend-desc {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  color: #666666 !important;
+}
+
+/* ── PHASE HEADERS ── */
+.phase {
+  margin-bottom: 8px;
+}
+
+.phase-header {
+  background: #111111 !important;
+  color: #ffffff !important;
+  padding: 10px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0;
+  cursor: pointer;
+}
+
+.phase-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff !important;
+}
+
+.phase-dates {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  color: #aaaaaa !important;
+  text-transform: uppercase;
+}
+
+.phase-toggle {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  color: #aaaaaa !important;
+  transition: transform 0.2s;
+}
+
+.phase-body {
+  border-left: 4px solid #111111;
+  border-right: 1px solid #dddddd;
+  border-bottom: 1px solid #dddddd;
+  margin-bottom: 24px;
+}
+
+/* ── TIMELINE ENTRIES ── */
+.entry {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  border-bottom: 1px solid #eeeeee;
+  padding: 0;
+}
+
+.entry:last-child { border-bottom: none; }
+
+.entry-date {
+  padding: 16px 14px;
+  border-right: 1px solid #dddddd;
+  background: #f9f9f9 !important;
+}
+
+.date-month {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #888888 !important;
+  display: block;
+}
+
+.date-year {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #111111 !important;
+  display: block;
+  line-height: 1;
+  margin-top: 2px;
+}
+
+.entry-content {
+  padding: 14px 16px;
+}
+
+.entry-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.entry-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #111111 !important;
+  line-height: 1.3;
+  flex: 1;
+}
+
+.entry-body {
+  font-size: 13px;
+  color: #222222 !important;
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.entry-source {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  color: #888888 !important;
+  letter-spacing: 0.08em;
+}
+
+.entry-cost {
+  display: inline-block;
+  margin-top: 6px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: #cc3300 !important;
+  text-transform: uppercase;
+  border-top: 1px solid #ffccbb;
+  padding-top: 4px;
+}
+
+/* ── COST COUNTER ── */
+.cost-banner {
+  background: #111111 !important;
+  color: #ffffff !important;
+  padding: 20px 24px;
+  margin: 32px 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: #444444 !important;
+  border: 2px solid #111111;
+}
+
+.cost-cell {
+  background: #111111 !important;
+  padding: 18px 20px;
+  text-align: center;
+}
+
+.cost-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 28px;
+  font-weight: 900;
+  color: #ff6633 !important;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.cost-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.15em;
+  color: #aaaaaa !important;
+  text-transform: uppercase;
+  line-height: 1.5;
+}
+
+/* ── CATEGORY FILTERS ── */
+.filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #dddddd;
+}
+
+.filter-btn {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border: 1px solid #cccccc;
+  background: #ffffff !important;
+  color: #444444 !important;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.filter-btn:hover, .filter-btn.active {
+  background: #111111 !important;
+  color: #ffffff !important;
+  border-color: #111111;
+}
+
+.filter-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  color: #888888 !important;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  align-self: center;
+  margin-right: 4px;
+}
+
+/* ── CATEGORY TAGS ── */
+.cat-tag {
+  display: inline-block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border: 1px solid #cccccc;
+  color: #555555 !important;
+  margin-right: 4px;
+}
+
+/* ── FOOTER ── */
+.footer {
+  margin-top: 48px;
+  padding-top: 16px;
+  border-top: 3px double #111111;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  color: #666666 !important;
+  line-height: 1.8;
+  letter-spacing: 0.05em;
+}
+
+.footer strong {
+  color: #111111 !important;
+}
+
+hr { border: none; border-top: 1px solid #dddddd; margin: 32px 0; }
+
+@media (max-width: 560px) {
+  body { padding: 24px 16px 60px; }
+  .entry { grid-template-columns: 80px 1fr; }
+  .cost-banner { grid-template-columns: 1fr; }
+  .legend { gap: 12px; }
+  .filters { gap: 6px; }
+}
+
+</style>
+</head>
+<body>
+<!-- ═══════════════════════════════════════════════
+     THE RULING CLASS REPORT — PLATFORM NAV BAR
+     Add this right after <body> tag in every new HTML file
+     ═══════════════════════════════════════════════ -->
+<style>
+  .rcr-nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    height: 56px;
+    background: rgba(240,235,224,0.92);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    border-bottom: 1px solid rgba(200,151,58,0.2);
+    color-scheme: light only !important;
+  }
+  .rcr-nav-inner {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 28px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    overflow-x: auto;
+  }
+  .rcr-nav-inner::-webkit-scrollbar { display: none; }
+  .rcr-home {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    flex-shrink: 0;
+    padding-right: 20px;
+    border-right: 1px solid rgba(200,151,58,0.2);
+    margin-right: 8px;
+  }
+  .rcr-seal {
+    width: 30px; height: 30px;
+    border: 1.5px solid #c8973a;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Georgia, serif;
+    font-size: 10px;
+    font-weight: 700;
+    color: #8a6420;
+    flex-shrink: 0;
+  }
+  .rcr-wordmark {
+    font-family: Georgia, serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #0a0a0a;
+    white-space: nowrap;
+  }
+  .rcr-links {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    flex: 1;
+    overflow-x: auto;
+  }
+  .rcr-links::-webkit-scrollbar { display: none; }
+  .rcr-nav-link {
+    display: flex;
+    align-items: center;
+    height: 56px;
+    padding: 0 14px;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(10,10,10,0.5);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all 0.18s ease;
+    border-bottom: 2px solid transparent;
+  }
+  .rcr-nav-link:hover {
+    color: #0a0a0a;
+    border-bottom-color: #c8973a;
+    background: rgba(200,151,58,0.06);
+  }
+  .rcr-nav-link.museum {
+    color: #8a6420;
+    font-weight: 600;
+  }
+  .rcr-nav-link.museum:hover {
+    color: #c8973a;
+    border-bottom-color: #c8973a;
+  }
+  .rcr-nav-link.home-link {
+    color: #0a0a0a;
+    font-weight: 600;
+  }
+</style>
+<nav class="rcr-nav">
+  <div class="rcr-nav-inner">
+    <a href="/" class="rcr-home">
+      <div class="rcr-seal">RR</div>
+      <span class="rcr-wordmark">Ruling Class Report</span>
+    </a>
+    <div class="rcr-links">
+      <a href="/" class="rcr-nav-link home-link">⌂ Home</a>
+      <a href="/museum.html" class="rcr-nav-link museum">🏛 The Museum</a>
+      <a href="/congress" class="rcr-nav-link">Congress</a>
+      <a href="/trump-timeline.html" class="rcr-nav-link">Trump Timeline</a>
+      <a href="/obama-full-record.html" class="rcr-nav-link">Obama Record</a>
+      <a href="/deindustrialization-timeline.html" class="rcr-nav-link">Deindustrialization</a>
+      <a href="/suspicious-deaths.html" class="rcr-nav-link">Suspicious Deaths</a>
+      <a href="/wef-globalist-agenda.html" class="rcr-nav-link">Globalist Agenda</a>
+      <a href="/about-mission.html" class="rcr-nav-link">About</a>
+    </div>
+  </div>
+</nav>
+<!-- ═══════════════════════════════════════════════ -->
+
+
+<div class="masthead-rule"></div>
+<div class="masthead-rule2"></div>
+
+<!-- MASTHEAD -->
+<div class="masthead">
+  <div class="publication">The Ruling Class Report · Special Investigation</div>
+  <h1>What They Did<br>and What It Cost</h1>
+  <p class="deck">
+    A documented chronology of the political, legal, and institutional actions 
+    taken against Donald Trump from 2015 through 2026 — and the price paid 
+    by the American people.
+  </p>
+  <div class="meta-row">
+    Every entry labeled: Documented · Alleged · Disputed &nbsp;·&nbsp; 
+    Sources cited &nbsp;·&nbsp; Updated May 2026
+  </div>
+</div>
+
+<!-- LEGEND -->
+<div class="legend">
+  <span class="legend-label">Key:</span>
+  <div class="legend-item">
+    <span class="badge badge-doc">Documented</span>
+    <span class="legend-desc">Court record, official finding, signed admission, verified primary source</span>
+  </div>
+  <div class="legend-item">
+    <span class="badge badge-alleged">Alleged</span>
+    <span class="legend-desc">Claimed by named parties, not adjudicated or conclusively proven</span>
+  </div>
+  <div class="legend-item">
+    <span class="badge badge-disputed">Disputed</span>
+    <span class="legend-desc">Competing credible accounts, evidence on both sides, no definitive resolution</span>
+  </div>
+</div>
+
+<!-- COST COUNTER -->
+<div class="cost-banner">
+  <div class="cost-cell">
+    <div class="cost-number">$200M+</div>
+    <div class="cost-label">Estimated taxpayer cost<br>of investigations &amp; prosecutions</div>
+  </div>
+  <div class="cost-cell">
+    <div class="cost-number">6 Years</div>
+    <div class="cost-label">Continuous legal &amp;<br>political warfare</div>
+  </div>
+  <div class="cost-cell">
+    <div class="cost-number">2</div>
+    <div class="cost-label">Impeachments —<br>both ended in acquittal</div>
+  </div>
+</div>
+
+<!-- FILTERS -->
+<div class="filters">
+  <span class="filter-label">Filter:</span>
+  <button class="filter-btn active" onclick="filterEntries('all')">All</button>
+  <button class="filter-btn" onclick="filterEntries('intelligence')">Intelligence Community</button>
+  <button class="filter-btn" onclick="filterEntries('legal')">Legal</button>
+  <button class="filter-btn" onclick="filterEntries('political')">Political</button>
+  <button class="filter-btn" onclick="filterEntries('media')">Media</button>
+</div>
+
+
+<!-- PHASE 1 -->
+<div class="phase">
+  <div class="phase-header" onclick="togglePhase(this)">
+    <div>
+      <div class="phase-title">Phase I — The Primary &amp; Campaign</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px;">
+      <div class="phase-dates">2015 — Nov 2016</div>
+      <div class="phase-toggle">▼</div>
+    </div>
+  </div>
+  <div class="phase-body">
+
+    <div class="entry" data-cat="political">
+      <div class="entry-date">
+        <span class="date-month">Jul–Nov</span>
+        <span class="date-year">2015</span>
+      </div>
+      <div class="entry-content">
+        <div class="entry-header">
+          <span class="badge badge-doc">Documented</span>
+          <div class="entry-title">DNC Actively Works Against Bernie Sanders to Clear Path for Clinton</div>
+          <span class="cat-tag">Political</span>
+        </div>
+        <p class="entry-body">
+          Internal DNC emails published by WikiLeaks in July 2016 revealed DNC staff 
+          coordinating against Bernie Sanders during the primary — including discussing 
+          using his Jewish faith against him in Southern states. DNC Chair Debbie 
+          Wasserman Schultz resigned as a direct result. The DNC later settled a 
+          class-action lawsuit brought by Sanders donors.
+        </p>
+        <div class="entry-source">Sources: WikiLeaks DNC email archive · DNC class action settlement · Wasserman Schultz resignation letter</div>
+        <div class="entry-cost">Cost: Fractured Democratic primary, undermined Sanders voters' trust in process</div>
+      </div>
+    </div>
+
+    <div class="entry" data-cat="political">
+      <div class="entry-date">
+        <span class="date-month">Mar</span>
+        <span class="date-year">2016</span>
+      </div>
+      <div class="entry-content">
+        <div class="entry-header">
+          <span class="badge badge-doc">Documented</span>
+          <div class="entry-title">Clinton Campaign &amp; DNC Fund Steele Dossier Through Fusion GPS</div>
+          <span class="cat-tag">Political</span>
+        </div>
+        <p class="entry-body">
+          The Clinton campaign and DNC hired law firm Perkins Coie, which retained 
+          opposition research firm Fusion GPS, which hired former British spy Christopher 
+          Steele to compile a dossier on Trump's alleged Russia connections. The funding 
+          arrangement was initially concealed. The FEC later fined the Clinton campaign 
+          and DNC a combined $113,000 for failing to accurately disclose payments.
+        </p>
+        <div class="entry-source">Sources: FEC MUR 7282 final determination · Perkins Coie billing records · Senate Judiciary Committee report</div>
+        <div class="entry-cost">Cost: $113,000 FEC fine (Clinton campaign + DNC) · Launched years of Russia investigation predicated partly on unverified dossier</div>
+      </div>
+    </div>
+
+    <div class="entry" data-cat="political media">
+      <div class="entry-date">
+        <span class="date-month">Oct</span>
+        <span class="date-year">2016</span>
+      </div>
+      <div class="entry-content">
+        <div class="entry-header">
+          <span class="badge badge-doc">Documented</span>
+          <div class="entry-title">Donna Brazile Leaks CNN Debate Questions to Clinton Campaign</div>
+          <span class="cat-tag">Media</span>
+          <span class="cat-tag">Political</span>
+        </div>
+        <p class="entry-body">
+          Then-CNN contributor and DNC interim chair Donna Brazile shared at least 
+          two debate questions with the Clinton campaign prior to a CNN town hall and 
+          a primary debate. CNN terminated her contract. Brazile initially denied it, 
+          then admitted it in her 2017 book <em>Hacks</em>, writing she felt 
+          "a sense of shame" about her actions.
+        </p>
+        <div class="entry-source">Sources: Brazile, <em>Hacks</em> (2017) · Podesta email archive · CNN termination statement</div>
+        <div class="entry-cost">Cost: Compromised debate integrity · No legal consequence for Brazile</div>
+      </div>
+    </div>
+
+    <div class="entry" data-cat="intelligence">
+      <div class="entry-date">
+        <span class="date-month">Jul</span>
+        <span class="date-year">2016</span>
+      </div>
+      <div class="entry-content">
+        <div class="entry-header">
+          <span class="badge badge-doc">Documented</span>
+          <div class="entry-title">FBI Opens Crossfire Hurricane — Counterintelligence Investigation on Trump Campaign</div>
+          <span class="cat-tag">Intelligence</span>
+        </div>
+        <p class="entry-body">
+          The FBI opened a counterintelligence investigation called "Crossfire Hurricane" 
+          on July 31, 2016 — 99 days before the election. The investigation targeted 
+          four Trump campaign associates: Carter Page, Paul Manafort, Flynn, and Papadopoulos. 
+          The DOJ Inspector General later found the predication was "adequate" but identified 
+          17 significant errors and omissions in FISA warrant applications, including an 
+          FBI lawyer who falsified an email to obtain a surveillance warrant on Carter Page.
+        </p>
+        <div class="entry-source">Sources: DOJ IG Report Dec 2019 (Horowitz) · Kevin Clinesmith plea agreement · Senate Judiciary Committee interim report</div>
+        <div class="entry-cost">Cost: Launched investigation that would consume 2+ years and $32M · FBI lawyer Clinesmith convicted of falsifying evidence</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- PHASE 2 -->
+<div class="phase">
+  <div class="phase-header" onclick="togglePhase(this)">
+    <div>
+      <div class="phase-title">Phase II — Transition &amp; Early Presidency</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px;">
+      <div class="phase-dates">Nov 2016 — Dec 2017</div>
+      <div class="phase-toggle">▼</div>
+    </div>
+  </div>
+  <div class="phase-body">
+
+    <div class="entry" data-cat="intelligence">
+      <div class="entry-date">
+        <span class="date-month">Nov–Jan</span>
+        <span class="date-year">2016–17</span>
+      </div>
+      <div class="entry-content">
+        <div class="entry-header">
+          <span class="badge badge-doc">Documented</span>
+          <div class="entry-title">Unmasking of Trump Transition Officials by Obama Administration</div>
+          <span class="cat-tag">Intelligence</span>
+        </div>
+        <p class="entry-body">
+          Declassified records show Obama administration officials — including Ambassador 
+          to the UN Samantha Power, National Security Advisor Susan Rice, and VP Joe Biden — 
+          made requests to unmask the identities of Trump transition officials who appeared 
+          in intelligence intercepts. Power made 97 unmasking requests in 2016 alone, 
+          more than any ambassador in history. Rice submitted unmasking requests the 
+          day before Trump's inauguration.
+        </p>
+        <div class="entry-source">Sources: Declassified DNI list released Sept 2020 · Senate Judiciary Committee · Acting DNI Grenell declassification</div>
+        <div class="entry-cost">Cost: Transition communications compromised · Identity of officials leaked to press</div>
+      </div>
+    </div>
+
+    <div class="entry" data-cat="intelligence legal">
+      <div class="entry-date">
+        <span class="date-month">Jan</span>
+        <span class="date-year">2017</span>
+      </div>
+      <div class="entry-content">
+        <div class="entry-header">
+          <span class="badge badge-doc">Documented</span>
+          <div class="entry-title">Flynn Targeted — Call with Russian Ambassador Leaked to Press</div>
+          <span class="cat-tag">Intelligence</span>
+          <span class="cat-tag">Legal</span>
+        </div>
+        <p class="entry-body">
+          NSA intercepts of incoming National Security Advisor Michael Flynn's calls 
+          with Russian Ambassador Kislyak were leaked to the Washington Post — itself 
+          a federal felony. Flynn was later prosecuted for lying to FBI agents about 
+          the calls. His case was subsequently dropped by DOJ after it emerged the 
+          FBI had debated whether the interview's purpose was to get Flynn to lie. 
+          Judge Emmet Sullivan refused to dismiss for over a year, prompting an 
+          extraordinary mandamus appeal. Flynn was ultimately pardoned by Trump.
+        </p>
+        <div class="entry-source">Sources: DOJ motion to dismiss Flynn case (2020) · FBI internal notes released by court order · Judge Sullivan recusal motion</div>
+        <div class="entry-cost">Cost: Flynn spent $5M+ on legal fees · Lost home · Career destroyed · Leak of classified intercepts never prosecuted</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- PHASE 3 -->
+<div class="phase">
+  <div class="phase-header" onclick="togglePhase(this)">
+    <div>
+      <div class="phase-title">Phase III — The Mueller Investigation</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px;">
+      <div class="phase-dates">May 2017 — Mar 2019</div>
+      <div class="phase-toggle">▼</div>
+    </div>
+  </div>
+  <div class="phase-body">
+
+    <div class="entry" data-cat="legal">
+      <div class="entry-date">
+        <span class="date-month">May</span>
+        <span class="date-year">2017</span>
+      </div>
+      <div class="entry-content">
+        <div class="entry-header">
+          <span class="badge badge-doc">Documented</span>
+          <div class="entry-title">Special Counsel Mueller Appointed — Russia Collusion Investigation Begins</div>
+          <span class="cat-tag">Legal</span>
+        </div>
+        <p class="entry-body">
+          Deputy AG Rod Rosenstein appointed Robert Mueller as Special Counsel on 
+          May 17, 2017 following the firing of FBI Director James Comey. The 
+          investigation ran 674 days, employed 19 attorneys and 40 FBI agents, 
+          issued 2,800 subpoenas, executed 500 search warrants, interviewed 500 
+          witnesses, and obtained 230 orders for communication records. Final report 
+          found no evidence of criminal conspiracy or coordination between the Trump 
+          campaign and Russia.
+        </p>
+        <div class="entry-source">Sources: Mueller Report Vol. I conclusion · DOJ Special Counsel budget reports · Senate Intelligence Committee</div>
+        <div class="entry-cost">Cost: $32 million taxpayer dollars · 674 days · Governance paralysis during critical policy window</div>
+      </div>
+    </div>
+
+    <div class="entry" data-cat="media">
+      <div class="entry-date">
+        <span class="date-month">2017</span>
+        <span class="date-year">–2019</span>
+      </div>
+      <div class="entry-content">
+        <div class="entry-header">
+          <span class="badge badge-disputed">Disputed</span>
+          <div class="entry-title">Media Collusion Narrative — Claim vs. Finding</div>
+          <span class="cat-tag">Media</span>
+        </div>
+        <p class="entry-body">
+          Major media outlets ran hundreds of stories asserting or strongly implying 
+          Trump-Russia collusion as established fact before Mueller concluded his 
+          investigation. CNN, MSNBC, and others promoted claims later found to be 
+          unsubstantiated. The Pulitzer Prize board awarded prizes for Russia coverage 
+          to the New York Times and Washington Post in 2018. After Mueller's no-collusion 
+          finding, no prizes were returned and no significant corrections were issued. 
+          Media organizations dispute the characterization that their coverage was inaccurate.
+        </p>
+        <div class="entry-source">Sources: Mueller Report final conclusions · Columbia Journalism Review post-mortem (2019) · Pulitzer Board statement</div>
+        <div class="entry-cost">Cost: Years of public belief in collusion narrative later unsupported by investigation findings</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- PHASE 4 -->
+<div class="phase">
+  <div class="phase-header" onclick="togglePhase(this)">
+    <div>
+      <div class="phase-title">Phase IV — First Impeachment</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px;">
+      <div class="phase-dates">Sep 2019 — Feb 2020</div>
+      <div class="phase-toggle">▼</div>
+    </div>
+  </div>
+  <div class="phase-body">
+
+    <div class="entry" data-cat="political">
+      <div class="entry-date">
+        <span class="date-month">Sep</span>
+        <span class="date-year">2019</span>
+      </div>
+      <div class="entry-content">
+        <div class="entry-header">
+          <span class="badge badge-doc">Documented</span>
+          <div class="entry-title">Adam Schiff Fabricates Reading of Trump-Zelensky Transcript at House Hearing</div>
+          <span class="cat-tag">Political</span>
+        </div>
+        <p class="entry-body">
+          During a September 26, 2019 House Intelligence Committee hearing, Chairman 
+          Adam Schiff read aloud what he described as the "essence" of Trump's call 
+          with Ukrainian President Zelensky — but the version he read was fabricated, 
+          containing language not in the actual transcript. When challenged, Schiff 
+          called it a "parody." The actual transcript had been publicly released by 
+          the White House the day prior.
+        </p>
+        <div class="entry-source">Sources: C-SPAN hearing video · White House released transcript (Sept 25, 2019) · Congressional Record</div>
+        <div class="entry-cost">Cost: Fabricated version of call entered into public record at official hearing</div>
+      </div>
+    </div>
+
+    <div class="entry" data-cat="political legal">
+      <div class="entry-date">
+        <span class="date-month">Dec 2019</span>
+        <span class="date-year">– Feb 2020</span>
+      </div>
+      <div class="entry-content">
+        <div class="entry-header">
+          <span class="badge badge-doc">Documented</span>
+          <div class="entry-title">First Impeachment — House Votes to Impeach, Senate Acquits</div>
+          <span class="cat-tag">Political</span>
+          <span class="cat-tag">Legal</span>
+        </div>
+        <p class="entry-body">
+          The House voted to impeach Trump on two articles — abuse of power and 
+          obstruction of Congress — on December 18, 2019. The Senate voted to 
+          acquit on both articles on February 5, 2020. It was the third presidential 
+          impeachment in U.S. history. Zero Republican senators voted to convict.
+        </p>
+        <div class="entry-source">Sources: House impeachment vote record · Senate acquittal vote record · Congressional Research Service</div>
+        <div class="entry-cost">Cost: Months of congressional time consumed · Estimated $40M+ in congressional and legal costs</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- PHASE 5 -->
+<div class="phase">
+  <div class="phase-header" onclick="togglePhase(this)">
+    <div>
+      <div class="phase-title">Phase V — 2020 Election &amp; Hunter Biden</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px;">
+      <div class="phase-dates">2020</div>
+      <div class="phase-toggle">▼</div>
+    </div>
+  </div>
+  <div class="phase-body">
+
+    <div class="entry" data-cat="media intelligence">
+      <div class="entry-date">
+        <span class="date-month">Oct</span>
+        <span class="date-year">2020</span>
+      </div>
+      <div class="entry-content">
+        <div class="entry-header">
+          <span class="badge badge-doc">Documented</span>
+          <div class="entry-title">51 Intelligence Officials Sign Letter Calling Hunter Biden Laptop "Russian Disinformation"</div>
+          <span class="cat-tag">Intelligence</span>
+          <span class="cat-tag">Media</span>
+        </div>
+        <p class="entry-body">
+          Days before the 2020 election, 51 former intelligence officials signed a 
+          public letter stating the Hunter Biden laptop story had "all the hallmarks 
+          of Russian disinformation." Twitter and Facebook used the letter to justify 
+          suppressing the New York Post story. The laptop was subsequently authenticated 
+          by the DOJ, FBI, and multiple independent forensic analysts. Several signatories 
+          later acknowledged they had no actual evidence of Russian disinformation 
+          when they signed. The letter was organized with assistance from Biden campaign 
+          advisor Antony Blinken, later confirmed in congressional testimony by former 
+          CIA Deputy Director Mike Morell.
+        </p>
+        <div class="entry-source">Sources: Mike Morell congressional testimony (2023) · DOJ laptop authentication · FBI acknowledgment · Meta congressional testimony</div>
+        <div class="entry-cost">Cost: Story suppressed weeks before election · Polling showed significant percentage of Biden voters said knowledge of laptop would have changed their vote</div>
+      </div>
+    </div>
+
+    <div class="entry" data-cat="legal political">
+      <div class="entry-date">
+        <span class="date-month">2020</span>
+        <span class="date-year"></span>
+      </div>
+      <div class="entry-content">
+        <div class="entry-header">
+          <span class="badge badge-doc">Documented</span>
+          <div class="entry-title">Government Officials Coordinate with Social Media Platforms to Suppress Speech</div>
+          <span class="cat-tag">Legal</span>
+          <span class="cat-tag">Political</span>
+        </div>
+        <p class="entry-body">
+          Internal documents released through the "Twitter Files" (2022–2023) and 
+          the Missouri v. Biden lawsuit (later Murthy v. Missouri) revealed extensive 
+          coordination between federal agencies — including the FBI, DHS, and White House — 
+          and social media platforms to flag and remove content. A federal district court 
+          found the government had likely violated the First Amendment. The Supreme Court 
+          ultimately ruled on standing grounds without reaching the First Amendment merits.
+        </p>
+        <div class="entry-source">Sources: Twitter Files releases · Missouri v. Biden district court opinion · Murthy v. Missouri SCOTUS opinion (2024)</div>
+        <div class="entry-cost">Cost: Unresolved First Amendment questions · Suppression of political speech in election year</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- PHASE 6 -->
+<div class="phase">
+  <div class="phase-header" onclick="togglePhase(this)">
+    <div>
+      <div class="phase-title">Phase VI — Second Impeachment &amp; Jan 6</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px;">
+      <div class="phase-dates">Jan — Feb 2021</div>
+      <div class="phase-toggle">▼</div>
+    </div>
+  </div>
+  <div class="phase-body">
+
+    <div class="entry" data-cat="political legal">
+      <div class="entry-date">
+        <span class="date-month">Jan–Feb</span>
+        <span class="date-year">2021</span>
+      </div>
+      <div class="entry-content">
+        <div class="entry-header">
+          <span class="badge badge-doc">Documented</span>
+          <div class="entry-title">Second Impeachment — After Leaving Office, Senate Acquits Again</div>
+          <span class="cat-tag">Political</span>
+          <span class="cat-tag">Legal</span>
+        </div>
+        <p class="entry-body">
+          Trump was impeached a second time on January 13, 2021 — one week before 
+          leaving office — on a charge of incitement of insurrection. He was acquitted 
+          by the Senate on February 13, 2021, with 57 senators voting to convict — 
+          10 short of the required 67. Seven Republican senators voted to convict. 
+          It was the first impeachment of a president after leaving office and raised 
+          unresolved constitutional questions about Senate jurisdiction over a former official.
+        </p>
+        <div class="entry-source">Sources: House impeachment vote record · Senate acquittal vote (57-43) · Congressional Research Service constitutional analysis</div>
+        <div class="entry-cost">Cost: Constitutional precedent of post-office impeachment established · National division deepened</div>
+      </div>
+    </div>
+
+    <div class="entry" data-cat="political legal">
+      <div class="entry-date">
+        <span class="date-month">Jun</span>
+        <span class="date-year">2022</span>
+      </div>
+      <div class="entry-content">
+        <div class="entry-header">
+          <span class="badge badge-disputed">Disputed</span>
+          <div class="entry-title">January 6 Committee — Deleted Texts, Missing Evidence, Ray Epps</div>
+          <span class="cat-tag">Political</span>
+          <span class="cat-tag">Legal</span>
+        </div>
+        <p class="entry-body">
+          The January 6 Select Committee held public hearings and issued a final report 
+          recommending criminal referrals. Republican members and critics alleged the 
+          committee operated one-sidedly — no cross-examination, selective presentation 
+          of evidence, and exclusion of exculpatory testimony. Secret Service texts from 
+          Jan 5–6 were deleted after the committee requested them, which the DHS Inspector 
+          General referred to DOJ. Ray Epps, seen on video urging people to enter the Capitol, 
+          was initially on the FBI's most wanted list, then removed, then interviewed without 
+          charges — a sequence that remains unexplained by the committee's public record.
+        </p>
+        <div class="entry-source">Sources: DHS IG referral to DOJ on deleted texts · Committee final report · Ray Epps congressional testimony · House Rules on select committee composition</div>
+        <div class="entry-cost">Cost: Incomplete public record · Deleted evidence never recovered · Unresolved questions about federal involvement</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- PHASE 7 -->
+<div class="phase">
+  <div class="phase-header" onclick="togglePhase(this)">
+    <div>
+      <div class="phase-title">Phase VII — The Legal Prosecution Campaign</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px;">
+      <div class="phase-dates">2022 — 2025</div>
+      <div class="phase-toggle">▼</div>
+    </div>
+  </div>
+  <div class="phase-body">
+
+    <div class="entry" data-cat="legal">
+      <div class="entry-date">
+        <span class="date-month">Aug</span>
+        <span class="date-year">2022</span>
+      </div>
+      <div class="entry-content">
+        <div class="entry-header">
+          <span class="badge badge-doc">Documented</span>
+          <div class="entry-title">Mar-a-Lago Raided by FBI — Documents Case Opens</div>
+          <span class="cat-tag">Legal</span>
+        </div>
+        <p class="entry-body">
+          The FBI executed a search warrant at Trump's Mar-a-Lago residence on 
+          August 8, 2022, removing boxes of documents. Special Counsel Jack Smith 
+          later indicted Trump on 37 federal counts related to document retention. 
+          The case was ultimately dismissed by Judge Aileen Cannon in July 2024, 
+          who ruled Smith's appointment was unconstitutional. The Supreme Court did 
+          not reinstate it. Biden's handling of classified documents in his garage 
+          and office was also investigated; Special Counsel Hur declined to prosecute, 
+          describing Biden as a "sympathetic, elderly man with a poor memory."
+        </p>
+        <div class="entry-source">Sources: Smith indictment (June 2023) · Judge Cannon dismissal order (July 2024) · Hur Report (Feb 2024)</div>
+        <div class="entry-cost">Cost: Case dismissed · Disparate treatment of Trump vs. Biden documents widely noted · $20M+ in legal costs estimated</div>
+      </div>
+    </div>
+
+    <div class="entry" data-cat="legal">
+      <div class="entry-date">
+        <span class="date-month">Mar</span>
+        <span class="date-year">2023</span>
+      </div>
+      <div class="entry-content">
+        <div class="entry-header">
+          <span class="badge badge-doc">Documented</span>
+          <div class="entry-title">Manhattan DA Alvin Bragg Indicts Trump on 34 Felony Counts — Novel Legal Theory</div>
+          <span class="cat-tag">Legal</span>
+        </div>
+        <p class="entry-body">
+          Manhattan DA Alvin Bragg indicted Trump on 34 counts of falsifying business 
+          records, using a novel legal theory that elevated misdemeanor charges to 
+          felonies by tying them to an alleged federal campaign finance violation — 
+          a theory the federal government had declined to pursue. Bragg had campaigned 
+          on prosecuting Trump. The case was tried during the 2024 presidential campaign. 
+          Trump was convicted on all 34 counts. Sentencing was repeatedly delayed. 
+          The judge ultimately imposed an unconditional discharge — no prison, no probation, 
+          no fine — in January 2025, widely interpreted as an acknowledgment of the 
+          case's unprecedented nature.
+        </p>
+        <div class="entry-source">Sources: Bragg indictment · Trial verdict · Sentencing transcript (Jan 10, 2025) · Legal scholars' commentary on novel theory</div>
+        <div class="entry-cost">Cost: First criminal conviction of a U.S. president · Unconditional discharge at sentencing · Significant legal fees · Constitutional precedent concerns</div>
+      </div>
+    </div>
+
+    <div class="entry" data-cat="legal">
+      <div class="entry-date">
+        <span class="date-month">Aug</span>
+        <span class="date-year">2023</span>
+      </div>
+      <div class="entry-content">
+        <div class="entry-header">
+          <span class="badge badge-doc">Documented</span>
+          <div class="entry-title">Georgia RICO Indictment — Fani Willis Relationship Scandal</div>
+          <span class="cat-tag">Legal</span>
+        </div>
+        <p class="entry-body">
+          Fulton County DA Fani Willis indicted Trump and 18 co-defendants on RICO 
+          and other charges related to alleged efforts to overturn Georgia's 2020 
+          election results. The case was significantly complicated when it emerged 
+          that Willis had a romantic relationship with Nathan Wade, the special 
+          prosecutor she hired to lead the case, and that both had initially denied 
+          the relationship under oath before acknowledging it. A judge allowed Willis 
+          to remain on the case after Wade resigned. The case remained largely stalled 
+          through 2025 pending appeals on Willis's disqualification.
+        </p>
+        <div class="entry-source">Sources: Fulton County indictment · Disqualification hearing transcripts · Georgia Court of Appeals ruling on Willis</div>
+        <div class="entry-cost">Cost: Case stalled for years · Willis's credibility damaged · Co-defendants' cases in limbo</div>
+      </div>
+    </div>
+
+    <div class="entry" data-cat="legal political">
+      <div class="entry-date">
+        <span class="date-month">Dec 2023</span>
+        <span class="date-year">– 2024</span>
+      </div>
+      <div class="entry-content">
+        <div class="entry-header">
+          <span class="badge badge-doc">Documented</span>
+          <div class="entry-title">States Attempt to Remove Trump from 2024 Ballot</div>
+          <span class="cat-tag">Political</span>
+          <span class="cat-tag">Legal</span>
+        </div>
+        <p class="entry-body">
+          The Colorado Supreme Court ruled 4-3 in December 2023 that Trump was 
+          disqualified from the state's primary ballot under Section 3 of the 14th 
+          Amendment. Maine's Secretary of State made a similar administrative ruling. 
+          Multiple other states considered similar actions. The U.S. Supreme Court 
+          reversed the Colorado ruling unanimously in Trump v. Anderson (March 2024), 
+          holding that states cannot enforce Section 3 disqualification of federal 
+          candidates — only Congress can.
+        </p>
+        <div class="entry-source">Sources: Colorado Supreme Court opinion · Trump v. Anderson, 601 U.S. ___ (2024) · Maine Secretary of State ruling</div>
+        <div class="entry-cost">Cost: First attempt in U.S. history to remove a major party presidential candidate from the ballot · Reversed unanimously by SCOTUS</div>
+      </div>
+    </div>
+
+    <div class="entry" data-cat="political legal">
+      <div class="entry-date">
+        <span class="date-month">Jul &amp; Sep</span>
+        <span class="date-year">2024</span>
+      </div>
+      <div class="entry-content">
+        <div class="entry-header">
+          <span class="badge badge-doc">Documented</span>
+          <div class="entry-title">Two Assassination Attempts on Trump</div>
+          <span class="cat-tag">Political</span>
+        </div>
+        <p class="entry-body">
+          On July 13, 2024, a shooter opened fire at Trump's Butler, Pennsylvania 
+          rally. Trump was struck by a bullet that grazed his ear. One rallygoer 
+          was killed, two others critically wounded. The shooter was killed by 
+          Secret Service. Congressional investigations revealed significant Secret 
+          Service security failures including denied requests for additional protection. 
+          On September 15, 2024, a second suspect was arrested at Trump's West Palm 
+          Beach golf course with a weapon in the treeline. Both incidents led to 
+          the resignation of Secret Service Director Kimberly Cheatle.
+        </p>
+        <div class="entry-source">Sources: Secret Service after-action reports · Congressional hearing testimony · Cheatle resignation · FBI investigation findings</div>
+        <div class="entry-cost">Cost: One rallygoer killed · Two critically injured · Director resigned · Security failures documented under oath</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<hr>
+
+<!-- FOOTER -->
+<div class="footer">
+  <strong>Editorial Standard:</strong> Every entry on this timeline is labeled DOCUMENTED, ALLEGED, or DISPUTED. 
+  DOCUMENTED entries are supported by court records, official findings, signed admissions, or verified primary sources. 
+  ALLEGED entries are claimed by named parties but not conclusively adjudicated. DISPUTED entries involve competing 
+  credible accounts with no definitive resolution. No entry mixes categories. Sources are cited for every claim.<br><br>
+  This timeline will be updated as new developments are documented. Corrections and additional sourcing 
+  welcome at therulingclassreport.com<br><br>
+  <strong>The Ruling Class Report</strong> · Accountability Through Public Record · therulingclassreport.com
+</div>
+
+<script>
+function togglePhase(header) {
+  const body = header.nextElementSibling;
+  const toggle = header.querySelector('.phase-toggle');
+  if (body.style.display === 'none') {
+    body.style.display = 'block';
+    toggle.textContent = '▼';
+  } else {
+    body.style.display = 'none';
+    toggle.textContent = '▶';
+  }
+}
+
+function filterEntries(cat) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  
+  document.querySelectorAll('.entry').forEach(entry => {
+    if (cat === 'all') {
+      entry.style.display = 'grid';
+    } else {
+      const cats = entry.dataset.cat || '';
+      entry.style.display = cats.includes(cat) ? 'grid' : 'none';
+    }
+  });
+}
+</script>
+
+</body>
+</html>
