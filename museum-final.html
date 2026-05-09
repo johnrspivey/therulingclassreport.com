@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Museum — 21st Century American Government</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Cinzel:wght@400;500;600;700;900&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+
+/* ── SYSTEM ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink:        #0a0a0a;
+  --parchment:  #f0ebe0;
+  --aged:       #e8e0cc;
+  --vellum:     #faf7f0;
+  --gold:       #c8973a;
+  --gold-dim:   #8a6420;
+  --gold-pale:  rgba(200,151,58,0.12);
+  --red:        #8b1a1a;
+  --red-bright: #cc2222;
+  --border:     rgba(10,10,10,0.12);
+  --border-gold:rgba(200,151,58,0.3);
+  --shadow:     0 2px 40px rgba(0,0,0,0.12);
+  --shadow-lg:  0 8px 80px rgba(0,0,0,0.18);
+}
+
+html {
+  scroll-behavior: smooth;
+  cursor: default;
+}
+
+body {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  background: var(--parchment);
+  color: var(--ink);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── GRAIN OVERLAY ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 256px;
+}
+
+/* ── BACKGROUND TEXTURE ── */
+.bg-texture {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% -10%, rgba(200,151,58,0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 40% at 100% 100%, rgba(139,26,26,0.05) 0%, transparent 60%),
+    linear-gradient(170deg, #f0ebe0 0%, #ede5d0 40%, #e8dfc8 100%);
+}
+
+/* ── ENTRY CURTAIN ANIMATION ── */
+.curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  background: #0a0a0a;
+  animation: curtainLift 1.4s cubic-bezier(0.76,0,0.24,1) 0.3s both;
+  pointer-events: none;
+}
+
+@keyframes curtainLift {
+  from { transform: scaleY(1); transform-origin: top; }
+  to   { transform: scaleY(0); transform-origin: top; }
+}
+
+/* ── CONTENT WRAPPER ── */
+.content {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── NAV ── */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  height: 56px;
+  background: rgba(240,235,224,0.88);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  border-bottom: 1px solid var(--border-gold);
+}
+
+.nav-inner {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 32px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.nav-seal {
+  width: 32px; height: 32px;
+  border: 1.5px solid var(--gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--gold-dim);
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+}
+
+.nav-wordmark {
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.nav-link {
+  padding: 0 16px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(10,10,10,0.5);
+  text-decoration: none;
+  border-left: 1px solid var(--border);
+  transition: all 0.2s ease;
+}
+
+.nav-link:hover { color: var(--ink); background: var(--gold-pale); }
+
+.nav-link.accent {
+  background: var(--ink);
+  color: var(--parchment);
+  border-left: none;
+  letter-spacing: 0.15em;
+}
+
+.nav-link.accent:hover { background: #1a1a1a; }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 32px 80px;
+  position: relative;
+}
+
+.hero-rule-top {
+  position: absolute;
+  top: 80px; left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(to bottom, transparent, var(--gold));
+  animation: fadeIn 1s ease 1.8s both;
+}
+
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  margin-bottom: 32px;
+  animation: fadeUp 0.8s ease 1.5s both;
+}
+
+.hero-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(42px, 7vw, 96px);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: 0.06em;
+  color: var(--ink);
+  margin-bottom: 8px;
+  animation: fadeUp 0.9s ease 1.6s both;
+}
+
+.hero-title-sub {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(14px, 2.5vw, 22px);
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  color: var(--gold-dim);
+  margin-bottom: 48px;
+  animation: fadeUp 0.9s ease 1.7s both;
+}
+
+.hero-ornament {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 48px;
+  animation: fadeUp 0.8s ease 1.8s both;
+}
+
+.ornament-line {
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold));
+}
+
+.ornament-line.rev {
+  background: linear-gradient(to left, transparent, var(--gold));
+}
+
+.ornament-diamond {
+  width: 6px; height: 6px;
+  background: var(--gold);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+
+.hero-desc {
+  font-size: clamp(16px, 2vw, 21px);
+  font-weight: 300;
+  line-height: 1.7;
+  color: rgba(10,10,10,0.65);
+  max-width: 620px;
+  font-style: italic;
+  margin-bottom: 64px;
+  animation: fadeUp 0.8s ease 1.9s both;
+}
+
+.hero-ctas {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+  animation: fadeUp 0.8s ease 2.0s both;
+}
+
+.btn-museum {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 32px;
+  font-family: 'Cinzel', serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  position: relative;
+}
+
+.btn-museum.primary {
+  background: var(--ink);
+  color: var(--parchment);
+  border: 1px solid var(--ink);
+}
+
+.btn-museum.primary:hover {
+  background: transparent;
+  color: var(--ink);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.btn-museum.secondary {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--border-gold);
+}
+
+.btn-museum.secondary:hover {
+  background: var(--gold-pale);
+  border-color: var(--gold);
+  transform: translateY(-2px);
+}
+
+.hero-rule-bottom {
+  position: absolute;
+  bottom: 40px; left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  animation: fadeIn 1s ease 2.5s both;
+}
+
+.scroll-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(10,10,10,0.3);
+}
+
+.scroll-line {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.4; transform: scaleY(1); }
+  50% { opacity: 1; transform: scaleY(1.1); }
+}
+
+/* ── SECTION ── */
+.museum-section {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 32px 120px;
+}
+
+/* ── SECTION HEADER ── */
+.section-header {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 64px;
+  padding-top: 80px;
+}
+
+.section-rule {
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--border-gold));
+}
+
+.section-rule.rev {
+  background: linear-gradient(to left, transparent, var(--border-gold));
+}
+
+.section-center {
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.section-number {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  margin-bottom: 6px;
+}
+
+.section-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(18px, 3vw, 28px);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+/* ── GALLERY GRID ── */
+.gallery {
+  display: grid;
+  gap: 2px;
+}
+
+.gallery-3 { grid-template-columns: repeat(3, 1fr); }
+.gallery-2 { grid-template-columns: repeat(2, 1fr); }
+.gallery-4 { grid-template-columns: repeat(4, 1fr); }
+
+/* ── EXHIBIT CARDS ── */
+.exhibit {
+  position: relative;
+  background: var(--vellum);
+  border: 1px solid var(--border);
+  padding: 36px 32px;
+  text-decoration: none;
+  color: var(--ink);
+  transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 280px;
+}
+
+.exhibit::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-dim));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+
+.exhibit:hover {
+  background: #fdfaf3;
+  border-color: var(--border-gold);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  z-index: 2;
+}
+
+.exhibit:hover::before { transform: scaleX(1); }
+
+.exhibit.featured {
+  grid-column: span 2;
+  min-height: 360px;
+  background: #1c1c1e;
+  color: #ffffff;
+  border-color: var(--gold-dim);
+}
+
+.exhibit.featured::before {
+  background: linear-gradient(90deg, var(--gold), var(--red));
+}
+
+.exhibit.featured:hover {
+  background: #111;
+  border-color: var(--gold);
+  box-shadow: 0 12px 80px rgba(0,0,0,0.3);
+}
+
+.exhibit-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  margin-bottom: 20px;
+}
+
+.exhibit.featured .exhibit-num { color: #f0b952 !important; font-size: 10px; }
+
+.exhibit-category {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(10,10,10,0.35);
+  margin-bottom: 10px;
+}
+
+.exhibit.featured .exhibit-category { color: #ffffff !important; font-size: 10px; letter-spacing: 0.2em; }
+
+.exhibit-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(20px, 2.5vw, 28px);
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: 14px;
+  letter-spacing: -0.01em;
+}
+
+.exhibit.featured .exhibit-title { color: #ffffff !important; }
+
+.exhibit-desc {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: rgba(10,10,10,0.82);
+  flex: 1;
+  margin-bottom: 24px;
+  font-style: normal;
+  letter-spacing: 0
+}
+
+.exhibit.featured .exhibit-desc { color: #ffffff !important; font-style: normal; font-weight: 400; }
+
+.exhibit-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+}
+
+.exhibit-label-group {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.label-pip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border: 1px solid;
+}
+
+.pip-doc   { border-color: rgba(40,160,80,0.3); color: #28a050; }
+.pip-disp  { border-color: rgba(30,100,200,0.3); color: #1e64c8; }
+.pip-alleg { border-color: rgba(180,100,20,0.3); color: #b46414; }
+.pip-spec  { border-color: rgba(100,100,100,0.3); color: #646464; }
+
+.exhibit.featured .pip-doc   { border-color: rgba(40,200,100,0.6); color: #5ddc8a; }
+.exhibit.featured .pip-disp  { border-color: rgba(80,150,255,0.6); color: #7ab0ff; }
+.exhibit.featured .pip-alleg { border-color: rgba(255,160,40,0.6); color: #ffb84a; }
+.exhibit.featured .pip-spec  { border-color: rgba(180,180,180,0.5); color: #c8c8c8; }
+
+.exhibit-arrow {
+  font-size: 20px;
+  color: var(--gold-dim);
+  transition: all 0.25s ease;
+  flex-shrink: 0;
+}
+
+.exhibit.featured .exhibit-arrow { color: var(--gold); }
+.exhibit:hover .exhibit-arrow { transform: translate(4px, -4px); color: var(--gold); }
+
+/* GHOST EXHIBITS */
+.exhibit.ghost {
+  opacity: 0.4;
+  pointer-events: none;
+  cursor: default;
+  min-height: 200px;
+}
+
+.exhibit.ghost::before { display: none; }
+
+/* ── DIVIDER ORNAMENT ── */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 60px 0;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
+.divider-line { flex: 1; height: 1px; background: var(--border-gold); opacity: 0.5; }
+.divider-text {
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  white-space: nowrap;
+}
+
+/* ── DECLARATION ── */
+.declaration {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 80px 32px 120px;
+  text-align: center;
+}
+
+.declaration-rule {
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+  margin: 0 auto 40px;
+}
+
+.declaration-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(22px, 4vw, 36px);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+  margin-bottom: 32px;
+  line-height: 1.3;
+}
+
+.declaration-body {
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.9;
+  color: rgba(10,10,10,0.65);
+  font-style: italic;
+  margin-bottom: 40px;
+}
+
+.declaration-sig {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+}
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border-gold);
+  padding: 40px 32px;
+  position: relative;
+  z-index: 1;
+}
+
+.footer-inner {
+  max-width: 1300px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.footer-brand {
+  font-family: 'Cinzel', serif;
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  color: var(--ink);
+}
+
+.footer-copy {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  color: rgba(10,10,10,0.35);
+  line-height: 1.7;
+  max-width: 400px;
+  text-align: center;
+}
+
+.footer-links {
+  display: flex;
+  gap: 24px;
+}
+
+.footer-link {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(10,10,10,0.4);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.footer-link:hover { color: var(--gold-dim); }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .gallery-3, .gallery-4 { grid-template-columns: repeat(2, 1fr); }
+  .exhibit.featured { grid-column: span 2; }
+  .nav-links { display: none; }
+}
+
+@media (max-width: 580px) {
+  .gallery-3, .gallery-4, .gallery-2 { grid-template-columns: 1fr; }
+  .exhibit.featured { grid-column: span 1; }
+  .hero { padding: 100px 20px 60px; }
+  .museum-section { padding-left: 20px; padding-right: 20px; }
+}
+
+
+/* NUCLEAR CONTRAST FIX - featured dark cards */
+.exhibit.featured,
+.exhibit.featured * {
+  color: #ffffff !important;
+}
+.exhibit.featured .exhibit-num {
+  color: #c8973a !important;
+}
+.exhibit.featured .exhibit-category {
+  color: #ffffff !important;
+  opacity: 1 !important;
+}
+.exhibit.featured .exhibit-title {
+  color: #ffffff !important;
+}
+.exhibit.featured .exhibit-desc {
+  color: #ffffff !important;
+  opacity: 1 !important;
+  font-style: normal !important;
+  font-weight: 400 !important;
+}
+.exhibit.featured .pip-doc   { color: #5ddc8a !important; border-color: rgba(93,220,138,0.6) !important; }
+.exhibit.featured .pip-disp  { color: #7ab0ff !important; border-color: rgba(122,176,255,0.6) !important; }
+.exhibit.featured .pip-alleg { color: #ffb84a !important; border-color: rgba(255,184,74,0.6) !important; }
+.exhibit.featured .pip-spec  { color: #e0e0e0 !important; border-color: rgba(224,224,224,0.5) !important; }
+.exhibit.featured .exhibit-arrow { color: #c8973a !important; }
+
+</style>
+</head>
+<body>
+
+<div class="curtain" aria-hidden="true"></div>
+<div class="bg-texture" aria-hidden="true"></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <div class="nav-seal">RR</div>
+      <span class="nav-wordmark">The Ruling Class Report</span>
+    </a>
+    <div class="nav-links">
+      <a href="/" class="nav-link">← Platform Home</a>
+      <a href="/congress" class="nav-link">Congress Tracker</a>
+      <a href="/about-mission.html" class="nav-link">Our Standard</a>
+      <a href="/congress" class="nav-link accent">Open Tracker</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="content">
+<section class="hero">
+  <div class="hero-rule-top"></div>
+
+  <div class="hero-eyebrow">Established 2026 · Northwest Florida</div>
+
+  <h1 class="hero-title">The Museum</h1>
+  <div class="hero-title-sub">of 21st Century American Government</div>
+
+  <div class="hero-ornament">
+    <div class="ornament-line"></div>
+    <div class="ornament-diamond"></div>
+    <div class="ornament-line rev"></div>
+  </div>
+
+  <p class="hero-desc">
+    A permanent archive of the decisions, deceptions, and power structures 
+    that shaped American life over the last thirty years. 
+    Documented. Sourced. Labeled with precision. 
+    Open to every American who believes they deserve the whole truth.
+  </p>
+
+  <div class="hero-ctas">
+    <a href="#galleries" class="btn-museum primary">Enter the Museum</a>
+    <a href="/about-mission.html" class="btn-museum secondary">Our Editorial Standard</a>
+  </div>
+
+  <div class="hero-rule-bottom">
+    <div class="scroll-label">Scroll</div>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+
+<!-- GALLERY I: POLITICAL TIMELINES -->
+<div id="galleries">
+<section class="museum-section">
+  <div class="section-header reveal">
+    <div class="section-rule"></div>
+    <div class="section-center">
+      <div class="section-number">Gallery I</div>
+      <div class="section-title">Political Timelines</div>
+    </div>
+    <div class="section-rule rev"></div>
+  </div>
+
+  <div class="gallery gallery-3">
+
+    <a href="/trump-timeline.html" class="exhibit featured reveal">
+      <div class="exhibit-num" style="color:#c8973a !important;">Exhibit 1.01</div>
+      <div class="exhibit-category">Full Investigation · 2015 — 2026</div>
+      <div class="exhibit-title">What They Did to Trump — and What It Cost America</div>
+      <p class="exhibit-desc">
+        The most comprehensive documented record of the political, legal, and 
+        institutional campaign waged against a sitting and former president. 
+        From Crossfire Hurricane to two assassination attempts. 
+        Every entry sourced. Every label honest.
+      </p>
+      <div class="exhibit-footer">
+        <div class="exhibit-label-group">
+          <span class="label-pip pip-doc">Documented</span>
+          <span class="label-pip pip-disp">Disputed</span>
+          <span class="label-pip pip-alleg">Alleged</span>
+        </div>
+        <span class="exhibit-arrow">↗</span>
+      </div>
+    </a>
+
+    <a href="/obama-full-record.html" class="exhibit reveal">
+      <div class="exhibit-num">Exhibit 1.02</div>
+      <div class="exhibit-category">Full Record · 2009 — 2017</div>
+      <div class="exhibit-title">The Obama Record</div>
+      <p class="exhibit-desc">
+        Smith-Mundt repeal. IRS targeting. Fast & Furious. 
+        NSA mass surveillance. $400M to Iran. 
+        The Alinsky influence network mapped four generations deep.
+      </p>
+      <div class="exhibit-footer">
+        <div class="exhibit-label-group">
+          <span class="label-pip pip-doc">Documented</span>
+          <span class="label-pip pip-alleg">Alleged</span>
+        </div>
+        <span class="exhibit-arrow">↗</span>
+      </div>
+    </a>
+
+    <a href="/about-mission.html" class="exhibit ghost reveal">
+      <div class="exhibit-num">Exhibit 1.03</div>
+      <div class="exhibit-category">Coming Soon</div>
+      <div class="exhibit-title">The Clinton Record</div>
+      <p class="exhibit-desc">
+        State Department. Benghazi. The email server. 
+        The Foundation. Fully documented and sourced.
+      </p>
+      <div class="exhibit-footer">
+        <div class="exhibit-label-group">
+          <span class="label-pip pip-spec">In Development</span>
+        </div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+
+<!-- GALLERY II: ECONOMIC HISTORY -->
+<section class="museum-section" style="padding-top:0;">
+  <div class="section-header reveal">
+    <div class="section-rule"></div>
+    <div class="section-center">
+      <div class="section-number">Gallery II</div>
+      <div class="section-title">Economic Dismantling</div>
+    </div>
+    <div class="section-rule rev"></div>
+  </div>
+
+  <div class="gallery gallery-2">
+
+    <a href="/deindustrialization-timeline.html" class="exhibit featured reveal" style="grid-column:span 1;min-height:340px;">
+      <div class="exhibit-num" style="color:#c8973a !important;">Exhibit 2.01</div>
+      <div class="exhibit-category">Economic History · 1971 — Present</div>
+      <div class="exhibit-title">How They Dismantled American Industry</div>
+      <p class="exhibit-desc">
+        7.5 million manufacturing jobs. 60,000 factory closures. 
+        The Nixon shock, NAFTA, China WTO, Glass-Steagall repeal, 
+        private equity gutting. Who decided. Who profited. 
+        What your town lost.
+      </p>
+      <div class="exhibit-footer">
+        <div class="exhibit-label-group">
+          <span class="label-pip pip-doc">Documented</span>
+          <span class="label-pip pip-disp">Disputed</span>
+        </div>
+        <span class="exhibit-arrow">↗</span>
+      </div>
+    </a>
+
+    <div class="exhibit ghost reveal" style="min-height:340px;">
+      <div class="exhibit-num">Exhibit 2.02</div>
+      <div class="exhibit-category">Coming Soon</div>
+      <div class="exhibit-title">The Federal Reserve & the Wealth Transfer</div>
+      <p class="exhibit-desc">
+        Quantitative easing, asset inflation, and how monetary policy 
+        systematically transferred wealth upward while Main Street paid the price.
+      </p>
+      <div class="exhibit-footer">
+        <span class="label-pip pip-spec">In Development</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- GALLERY III: UNANSWERED QUESTIONS -->
+<div class="divider reveal">
+  <div class="divider-line"></div>
+  <div class="divider-text">Gallery III · Unanswered Questions</div>
+  <div class="divider-line"></div>
+</div>
+
+<section class="museum-section" style="padding-top:0;">
+
+  <div class="gallery gallery-3">
+
+    <a href="/suspicious-deaths.html" class="exhibit featured reveal">
+      <div class="exhibit-num" style="color:#c8973a !important;">Exhibit 3.01</div>
+      <div class="exhibit-category">Investigation · Five Cases</div>
+      <div class="exhibit-title">Suspicious Deaths & Unanswered Questions</div>
+      <p class="exhibit-desc">
+        Vince Foster. Ron Brown. Seth Rich. Jeffrey Epstein. 
+        The Weiner laptop. What official investigations concluded. 
+        What remains genuinely open. What is speculative. 
+        Five labels. Nothing hidden. Nothing inflated.
+      </p>
+      <div class="exhibit-footer">
+        <div class="exhibit-label-group">
+          <span class="label-pip pip-doc">Documented</span>
+          <span class="label-pip pip-disp">Disputed</span>
+          <span class="label-pip pip-alleg">Alleged</span>
+          <span class="label-pip pip-spec">Speculative</span>
+        </div>
+        <span class="exhibit-arrow">↗</span>
+      </div>
+    </a>
+
+    <div class="exhibit ghost reveal">
+      <div class="exhibit-num">Exhibit 3.02</div>
+      <div class="exhibit-category">Coming Soon</div>
+      <div class="exhibit-title">Voter Fraud Tracker</div>
+      <p class="exhibit-desc">
+        Documented convictions, alleged claims, disputed evidence. 
+        By state, by method, by year.
+      </p>
+      <div class="exhibit-footer">
+        <span class="label-pip pip-spec">In Development</span>
+      </div>
+    </div>
+
+    <div class="exhibit ghost reveal">
+      <div class="exhibit-num">Exhibit 3.03</div>
+      <div class="exhibit-category">Coming Soon</div>
+      <div class="exhibit-title">Congressional Portfolio Watch</div>
+      <p class="exhibit-desc">
+        Trades vs. committee assignments vs. votes. 
+        The correlation map nobody wants you to see.
+      </p>
+      <div class="exhibit-footer">
+        <span class="label-pip pip-spec">In Development</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- GALLERY IV: GLOBAL POWER -->
+<div class="divider reveal">
+  <div class="divider-line"></div>
+  <div class="divider-text">Gallery IV · Global Power Structures</div>
+  <div class="divider-line"></div>
+</div>
+
+<section class="museum-section" style="padding-top:0;">
+
+  <div class="gallery gallery-3">
+
+    <a href="/wef-globalist-agenda.html" class="exhibit featured reveal">
+      <div class="exhibit-num" style="color:#c8973a !important;">Exhibit 4.01</div>
+      <div class="exhibit-category">Investigation · WEF · UN · CBDC</div>
+      <div class="exhibit-title">The Globalist Agenda</div>
+      <p class="exhibit-desc">
+        The World Economic Forum. The Young Global Leaders program. 
+        The Great Reset. Central Bank Digital Currencies. UN Agenda 2030. 
+        Documented from their own publications and speeches. 
+        No embellishment needed.
+      </p>
+      <div class="exhibit-footer">
+        <div class="exhibit-label-group">
+          <span class="label-pip pip-doc">Documented</span>
+          <span class="label-pip pip-disp">Disputed</span>
+          <span class="label-pip pip-spec">Speculative</span>
+        </div>
+        <span class="exhibit-arrow">↗</span>
+      </div>
+    </a>
+
+    <div class="exhibit ghost reveal">
+      <div class="exhibit-num">Exhibit 4.02</div>
+      <div class="exhibit-category">Coming Soon</div>
+      <div class="exhibit-title">Infrastructure Vulnerability</div>
+      <p class="exhibit-desc">
+        Chinese transformers in the U.S. power grid. 
+        Foreign cranes at military ports. 
+        Undersea cable ownership. What we know.
+      </p>
+      <div class="exhibit-footer">
+        <span class="label-pip pip-spec">In Development</span>
+      </div>
+    </div>
+
+    <div class="exhibit ghost reveal">
+      <div class="exhibit-num">Exhibit 4.03</div>
+      <div class="exhibit-category">Coming Soon</div>
+      <div class="exhibit-title">Satellite & Space Watch</div>
+      <p class="exhibit-desc">
+        Foreign satellites overhead. Anti-satellite weapons. 
+        GPS vulnerability. Who controls what.
+      </p>
+      <div class="exhibit-footer">
+        <span class="label-pip pip-spec">In Development</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- GALLERY V: THE MACHINE -->
+<div class="divider reveal">
+  <div class="divider-line"></div>
+  <div class="divider-text">Gallery V · The Machine</div>
+  <div class="divider-line"></div>
+</div>
+
+<section class="museum-section" style="padding-top:0;">
+  <div class="gallery gallery-4">
+
+    <div class="exhibit ghost reveal">
+      <div class="exhibit-num">Exhibit 5.01</div>
+      <div class="exhibit-category">Coming Soon</div>
+      <div class="exhibit-title">Military Industrial Complex</div>
+      <p class="exhibit-desc">Donations, contracts, revolving door, cost overruns.</p>
+      <div class="exhibit-footer"><span class="label-pip pip-spec">In Development</span></div>
+    </div>
+
+    <div class="exhibit ghost reveal">
+      <div class="exhibit-num">Exhibit 5.02</div>
+      <div class="exhibit-category">Coming Soon</div>
+      <div class="exhibit-title">Supply Chain Watch</div>
+      <p class="exhibit-desc">Rare earths, semiconductors, pharma — Chinese dependency.</p>
+      <div class="exhibit-footer"><span class="label-pip pip-spec">In Development</span></div>
+    </div>
+
+    <div class="exhibit ghost reveal">
+      <div class="exhibit-num">Exhibit 5.03</div>
+      <div class="exhibit-category">Coming Soon</div>
+      <div class="exhibit-title">Technology & Data Exposure</div>
+      <p class="exhibit-desc">Foreign apps, Chinese AI investment, university research funding.</p>
+      <div class="exhibit-footer"><span class="label-pip pip-spec">In Development</span></div>
+    </div>
+
+    <div class="exhibit ghost reveal">
+      <div class="exhibit-num">Exhibit 5.04</div>
+      <div class="exhibit-category">Coming Soon</div>
+      <div class="exhibit-title">The Media Record</div>
+      <p class="exhibit-desc">What they covered, what they buried, and what it cost you.</p>
+      <div class="exhibit-footer"><span class="label-pip pip-spec">In Development</span></div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- DECLARATION -->
+<div class="declaration reveal">
+  <div class="declaration-rule"></div>
+  <h2 class="declaration-title">
+    Why This Exists
+  </h2>
+  <p class="declaration-body">
+    The people in power are counting on you being confused, distracted, and tribal. 
+    They have spent decades making the truth harder to find, 
+    the record harder to read, and the connections harder to see.
+    This museum exists because you deserve the whole picture — 
+    not a partisan version of it, not a sanitized version of it, 
+    but the documented, sourced, honestly labeled record 
+    of what was done, who did it, and what it cost.
+    Every American, regardless of party, is welcome here.
+    The truth has no agenda.
+  </p>
+  <div class="declaration-sig">
+    The Ruling Class Report · Northwest Florida · Est. 2026
+  </div>
+</div>
+
+</div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">The Ruling Class Report</div>
+    <div class="footer-copy">
+      No advertisers. No sponsors. No agenda but accuracy.
+      Every claim labeled. Every source cited. Corrections published publicly.
+    </div>
+    <div class="footer-links">
+      <a href="/" class="footer-link">Home</a>
+      <a href="/congress" class="footer-link">Tracker</a>
+      <a href="/about-mission.html" class="footer-link">Our Standard</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => {
+        entry.target.classList.add('visible');
+      }, i * 60);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
