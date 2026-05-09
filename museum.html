@@ -1,3 +1,6 @@
+The museum · HTML
+Copy
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,10 +10,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-
+ 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
-
+ 
 :root {
   --ink:       #0a0a0a;
   --parchment: #f0ebe0;
@@ -22,7 +25,7 @@ html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
   --border:    rgba(10,10,10,0.1);
   --border-gold: rgba(200,151,58,0.25);
 }
-
+ 
 body {
   font-family: 'Cormorant Garamond', Georgia, serif;
   background: #f0ebe0;
@@ -30,7 +33,7 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
 }
-
+ 
 /* grain */
 body::before {
   content: '';
@@ -42,7 +45,7 @@ body::before {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 200px;
 }
-
+ 
 /* NAV */
 .nav {
   position: fixed;
@@ -110,7 +113,7 @@ body::before {
   border-left: none;
 }
 .nav-link.dark:hover { background: #1a1a1a; color: #f0ebe0; }
-
+ 
 /* HERO */
 .hero {
   min-height: 100vh;
@@ -193,7 +196,7 @@ body::before {
 .btn-primary:hover { background: transparent; color: #0a0a0a; transform: translateY(-2px); }
 .btn-secondary { background: transparent; color: #0a0a0a; border: 1px solid rgba(200,151,58,0.4); }
 .btn-secondary:hover { background: rgba(200,151,58,0.08); border-color: #c8973a; transform: translateY(-2px); }
-
+ 
 /* SECTIONS */
 .section {
   max-width: 1300px;
@@ -227,13 +230,13 @@ body::before {
   color: #0a0a0a;
   white-space: nowrap;
 }
-
+ 
 /* GALLERY */
 .gallery { display: grid; gap: 2px; }
 .g3 { grid-template-columns: repeat(3, 1fr); }
 .g2 { grid-template-columns: repeat(2, 1fr); }
 .g4 { grid-template-columns: repeat(4, 1fr); }
-
+ 
 /* ── EXHIBIT CARDS ── */
 .exhibit {
   position: relative;
@@ -265,7 +268,7 @@ body::before {
   z-index: 2;
 }
 .exhibit:hover::before { transform: scaleX(1); }
-
+ 
 /* FEATURED DARK CARD */
 .exhibit.featured {
   grid-column: span 2;
@@ -278,7 +281,7 @@ body::before {
   border-color: rgba(200,151,58,0.4);
   box-shadow: 0 16px 80px rgba(0,0,0,0.3);
 }
-
+ 
 /* GHOST */
 .exhibit.ghost {
   opacity: 0.4;
@@ -286,7 +289,7 @@ body::before {
   min-height: 220px;
 }
 .exhibit.ghost::before { display: none; }
-
+ 
 /* EXHIBIT CONTENT - LIGHT CARDS */
 .ex-num {
   font-family: 'JetBrains Mono', monospace;
@@ -349,7 +352,7 @@ body::before {
   flex-shrink: 0;
 }
 .exhibit:hover .ex-arrow { transform: translate(3px,-3px); }
-
+ 
 /* FEATURED DARK CARD OVERRIDES - ALL TEXT BRIGHT */
 .exhibit.featured .ex-num {
   color: #c8973a;
@@ -373,7 +376,7 @@ body::before {
 .exhibit.featured .pip-alleg { color: #ffb84a; border-color: rgba(255,184,74,0.5); }
 .exhibit.featured .pip-spec  { color: #cccccc; border-color: rgba(204,204,204,0.4); }
 .exhibit.featured .ex-arrow  { color: #c8973a; }
-
+ 
 /* DIVIDER */
 .divider {
   display: flex;
@@ -392,7 +395,7 @@ body::before {
   color: #8a6420;
   white-space: nowrap;
 }
-
+ 
 /* DECLARATION */
 .declaration {
   max-width: 760px;
@@ -429,7 +432,7 @@ body::before {
   text-transform: uppercase;
   color: #8a6420;
 }
-
+ 
 /* FOOTER */
 footer {
   border-top: 1px solid rgba(200,151,58,0.2);
@@ -469,7 +472,7 @@ footer {
   transition: color 0.15s;
 }
 .footer-link:hover { color: #8a6420; }
-
+ 
 /* ANIMATIONS */
 @keyframes up {
   from { opacity: 0; transform: translateY(20px); }
@@ -481,7 +484,7 @@ footer {
   transition: opacity 0.65s ease, transform 0.65s ease;
 }
 .reveal.on { opacity: 1; transform: translateY(0); }
-
+ 
 /* CURTAIN */
 .curtain {
   position: fixed;
@@ -495,7 +498,7 @@ footer {
   from { transform: scaleY(1); transform-origin: top; }
   to   { transform: scaleY(0); transform-origin: top; }
 }
-
+ 
 /* RESPONSIVE */
 @media (max-width: 900px) {
   .g3, .g4 { grid-template-columns: repeat(2,1fr); }
@@ -506,13 +509,13 @@ footer {
   .g3, .g4, .g2 { grid-template-columns: 1fr; }
   .exhibit.featured { grid-column: span 1; }
 }
-
+ 
 </style>
 </head>
 <body>
-
+ 
 <div class="curtain"></div>
-
+ 
 <!-- NAV -->
 <nav class="nav">
   <div class="nav-inner">
@@ -528,7 +531,7 @@ footer {
     </div>
   </div>
 </nav>
-
+ 
 <!-- HERO -->
 <section class="hero">
   <div class="eyebrow">Established 2026 · Northwest Florida</div>
@@ -550,7 +553,7 @@ footer {
     <a href="/about-mission.html" class="btn btn-secondary">Our Editorial Standard</a>
   </div>
 </section>
-
+ 
 <!-- GALLERY I -->
 <div id="galleries"></div>
 <section class="section">
@@ -562,9 +565,9 @@ footer {
     </div>
     <div class="sec-rule r"></div>
   </div>
-
+ 
   <div class="gallery g3">
-
+ 
     <a href="/trump-timeline.html" class="exhibit featured reveal">
       <div class="ex-num">Exhibit 1.01</div>
       <div class="ex-cat">Full Investigation · 2015 — 2026</div>
@@ -579,7 +582,7 @@ footer {
         <span class="ex-arrow">↗</span>
       </div>
     </a>
-
+ 
     <a href="/obama-full-record.html" class="exhibit reveal">
       <div class="ex-num">Exhibit 1.02</div>
       <div class="ex-cat">Full Record · 2009 — 2017</div>
@@ -593,7 +596,7 @@ footer {
         <span class="ex-arrow">↗</span>
       </div>
     </a>
-
+ 
     <div class="exhibit ghost reveal">
       <div class="ex-num">Exhibit 1.03</div>
       <div class="ex-cat">Coming Soon</div>
@@ -603,10 +606,10 @@ footer {
         <span class="pip pip-spec">In Development</span>
       </div>
     </div>
-
+ 
   </div>
 </section>
-
+ 
 <!-- GALLERY II -->
 <section class="section" style="padding-top:0;">
   <div class="sec-hdr reveal">
@@ -617,9 +620,9 @@ footer {
     </div>
     <div class="sec-rule r"></div>
   </div>
-
+ 
   <div class="gallery g2">
-
+ 
     <a href="/deindustrialization-timeline.html" class="exhibit featured reveal" style="grid-column:span 1;min-height:340px;">
       <div class="ex-num">Exhibit 2.01</div>
       <div class="ex-cat">Economic History · 1971 — Present</div>
@@ -633,7 +636,7 @@ footer {
         <span class="ex-arrow">↗</span>
       </div>
     </a>
-
+ 
     <div class="exhibit ghost reveal" style="min-height:340px;">
       <div class="ex-num">Exhibit 2.02</div>
       <div class="ex-cat">Coming Soon</div>
@@ -643,20 +646,20 @@ footer {
         <span class="pip pip-spec">In Development</span>
       </div>
     </div>
-
+ 
   </div>
 </section>
-
+ 
 <!-- GALLERY III -->
 <div class="divider reveal">
   <div class="div-line"></div>
   <div class="div-text">Gallery III · Unanswered Questions</div>
   <div class="div-line"></div>
 </div>
-
+ 
 <section class="section" style="padding-top:0;">
   <div class="gallery g3">
-
+ 
     <a href="/suspicious-deaths.html" class="exhibit featured reveal">
       <div class="ex-num">Exhibit 3.01</div>
       <div class="ex-cat">Investigation · Five Cases</div>
@@ -672,7 +675,7 @@ footer {
         <span class="ex-arrow">↗</span>
       </div>
     </a>
-
+ 
     <div class="exhibit ghost reveal">
       <div class="ex-num">Exhibit 3.02</div>
       <div class="ex-cat">Coming Soon</div>
@@ -680,7 +683,7 @@ footer {
       <p class="ex-desc">Documented convictions, alleged claims, disputed evidence. By state, by method, by year.</p>
       <div class="ex-footer"><span class="pip pip-spec">In Development</span></div>
     </div>
-
+ 
     <div class="exhibit ghost reveal">
       <div class="ex-num">Exhibit 3.03</div>
       <div class="ex-cat">Coming Soon</div>
@@ -688,20 +691,20 @@ footer {
       <p class="ex-desc">Trades vs. committee assignments vs. votes. The correlation map nobody wants you to see.</p>
       <div class="ex-footer"><span class="pip pip-spec">In Development</span></div>
     </div>
-
+ 
   </div>
 </section>
-
+ 
 <!-- GALLERY IV -->
 <div class="divider reveal">
   <div class="div-line"></div>
   <div class="div-text">Gallery IV · Global Power Structures</div>
   <div class="div-line"></div>
 </div>
-
+ 
 <section class="section" style="padding-top:0;">
   <div class="gallery g3">
-
+ 
     <a href="/wef-globalist-agenda.html" class="exhibit featured reveal">
       <div class="ex-num">Exhibit 4.01</div>
       <div class="ex-cat">Investigation · WEF · UN · CBDC</div>
@@ -716,7 +719,7 @@ footer {
         <span class="ex-arrow">↗</span>
       </div>
     </a>
-
+ 
     <div class="exhibit ghost reveal">
       <div class="ex-num">Exhibit 4.02</div>
       <div class="ex-cat">Coming Soon</div>
@@ -724,7 +727,7 @@ footer {
       <p class="ex-desc">Chinese transformers in the U.S. power grid. Foreign cranes at military ports. Undersea cable ownership.</p>
       <div class="ex-footer"><span class="pip pip-spec">In Development</span></div>
     </div>
-
+ 
     <div class="exhibit ghost reveal">
       <div class="ex-num">Exhibit 4.03</div>
       <div class="ex-cat">Coming Soon</div>
@@ -732,17 +735,17 @@ footer {
       <p class="ex-desc">Foreign satellites overhead. Anti-satellite weapons. GPS vulnerability. Who controls what.</p>
       <div class="ex-footer"><span class="pip pip-spec">In Development</span></div>
     </div>
-
+ 
   </div>
 </section>
-
+ 
 <!-- GALLERY V -->
 <div class="divider reveal">
   <div class="div-line"></div>
   <div class="div-text">Gallery V · The Machine</div>
   <div class="div-line"></div>
 </div>
-
+ 
 <section class="section" style="padding-top:0;">
   <div class="gallery g4">
     <div class="exhibit ghost reveal">
@@ -775,7 +778,7 @@ footer {
     </div>
   </div>
 </section>
-
+ 
 <!-- DECLARATION -->
 <div class="declaration reveal">
   <div class="decl-rule"></div>
@@ -790,7 +793,7 @@ footer {
   </p>
   <div class="decl-sig">The Ruling Class Report · Northwest Florida · Est. 2026</div>
 </div>
-
+ 
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
@@ -803,7 +806,7 @@ footer {
     </div>
   </div>
 </footer>
-
+ 
 <script>
 const obs = new IntersectionObserver((entries) => {
   entries.forEach((e, i) => {
@@ -815,6 +818,6 @@ const obs = new IntersectionObserver((entries) => {
 }, { threshold: 0.08 });
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 </script>
-
+ 
 </body>
 </html>
