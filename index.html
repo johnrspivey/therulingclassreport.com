@@ -53,7 +53,6 @@
   }
 }
 
-/* ── RESET ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
 
@@ -65,685 +64,141 @@ body {
   overflow-x: hidden;
 }
 
-/* ── BACKGROUND MESH ── */
-.bg-mesh {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.bg-orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.35;
-}
-
-@media (prefers-color-scheme: dark) {
-  .bg-orb { opacity: 0.2; }
-}
-
-.orb-1 {
-  width: 600px; height: 600px;
-  background: radial-gradient(circle, rgba(255,59,48,0.4), transparent 70%);
-  top: -200px; right: -100px;
-  animation: drift1 20s ease-in-out infinite alternate;
-}
-
-.orb-2 {
-  width: 500px; height: 500px;
-  background: radial-gradient(circle, rgba(100,120,255,0.3), transparent 70%);
-  bottom: 10%; left: -150px;
-  animation: drift2 25s ease-in-out infinite alternate;
-}
-
-.orb-3 {
-  width: 400px; height: 400px;
-  background: radial-gradient(circle, rgba(255,180,50,0.25), transparent 70%);
-  top: 40%; right: 10%;
-  animation: drift3 30s ease-in-out infinite alternate;
-}
-
+.bg-mesh { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.bg-orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.35; }
+@media (prefers-color-scheme: dark) { .bg-orb { opacity: 0.2; } }
+.orb-1 { width: 600px; height: 600px; background: radial-gradient(circle, rgba(255,59,48,0.4), transparent 70%); top: -200px; right: -100px; animation: drift1 20s ease-in-out infinite alternate; }
+.orb-2 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(100,120,255,0.3), transparent 70%); bottom: 10%; left: -150px; animation: drift2 25s ease-in-out infinite alternate; }
+.orb-3 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(255,180,50,0.25), transparent 70%); top: 40%; right: 10%; animation: drift3 30s ease-in-out infinite alternate; }
 @keyframes drift1 { from { transform: translate(0,0) scale(1); } to { transform: translate(-60px, 80px) scale(1.1); } }
 @keyframes drift2 { from { transform: translate(0,0) scale(1); } to { transform: translate(80px, -60px) scale(0.9); } }
 @keyframes drift3 { from { transform: translate(0,0) scale(1); } to { transform: translate(-40px, 40px) scale(1.05); } }
 
-/* ── NAV ── */
-.nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 100;
-  height: 52px;
-  background: var(--bg-glass);
-  backdrop-filter: var(--blur);
-  -webkit-backdrop-filter: var(--blur);
-  border-bottom: 1px solid var(--border);
-}
-
-.nav-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-}
-
-.nav-logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-  flex-shrink: 0;
-}
-
-.nav-mark {
-  width: 28px; height: 28px;
-  background: var(--accent);
-  border-radius: 7px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  font-weight: 800;
-  color: white;
-  letter-spacing: -0.5px;
-  flex-shrink: 0;
-}
-
-.nav-name {
-  font-size: 14px;
-  font-weight: 650;
-  color: var(--text-primary);
-  letter-spacing: -0.2px;
-  white-space: nowrap;
-}
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  overflow-x: auto;
-}
-
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: 52px; background: var(--bg-glass); backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur); border-bottom: 1px solid var(--border); }
+.nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; flex-shrink: 0; }
+.nav-mark { width: 28px; height: 28px; background: var(--accent); border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; color: white; letter-spacing: -0.5px; flex-shrink: 0; }
+.nav-name { font-size: 14px; font-weight: 650; color: var(--text-primary); letter-spacing: -0.2px; white-space: nowrap; }
+.nav-links { display: flex; align-items: center; gap: 2px; overflow-x: auto; }
 .nav-links::-webkit-scrollbar { display: none; }
+.nav-link { display: flex; align-items: center; height: 32px; padding: 0 12px; border-radius: 8px; font-size: 13px; font-weight: 500; color: var(--text-secondary); text-decoration: none; transition: all 0.15s ease; white-space: nowrap; }
+.nav-link:hover { color: var(--text-primary); background: var(--border); }
+.nav-link.primary { background: var(--accent); color: white; font-weight: 600; }
+.nav-link.primary:hover { background: var(--accent); opacity: 0.88; color: white; }
+.nav-link.museum { background: rgba(200,151,58,0.12); color: #8a6420; font-weight: 600; }
+@media (prefers-color-scheme: dark) { .nav-link.museum { background: rgba(200,151,58,0.15); color: #c8973a; } }
+.nav-link.museum:hover { background: rgba(200,151,58,0.2); color: #c8973a; }
 
-.nav-link {
-  display: flex;
-  align-items: center;
-  height: 32px;
-  padding: 0 12px;
-  border-radius: 8px;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--text-secondary);
-  text-decoration: none;
-  transition: all 0.15s ease;
-  white-space: nowrap;
-}
+.content { position: relative; z-index: 1; padding-top: 52px; }
 
-.nav-link:hover {
-  color: var(--text-primary);
-  background: var(--border);
-}
+.hero { max-width: 1200px; margin: 0 auto; padding: 100px 24px 80px; text-align: center; }
+.hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 24px; padding: 6px 14px; background: var(--accent-soft); border-radius: 100px; border: 1px solid var(--accent-mid); }
+.hero-eyebrow-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.3); } }
 
-.nav-link.primary {
-  background: var(--accent);
-  color: white;
-  font-weight: 600;
-}
+h1 { font-size: clamp(48px, 7vw, 88px); font-weight: 800; line-height: 1.02; letter-spacing: -0.04em; color: var(--text-primary); margin-bottom: 20px; }
+h1 em { font-style: normal; color: var(--accent); }
+.hero-sub { font-size: clamp(17px, 2.5vw, 22px); font-weight: 400; line-height: 1.5; color: var(--text-secondary); max-width: 580px; margin: 0 auto 48px; }
 
-.nav-link.primary:hover {
-  background: var(--accent);
-  opacity: 0.88;
-  color: white;
-}
+.label-pills { display: flex; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 56px; }
+.pill { display: flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 100px; font-size: 13px; font-weight: 500; border: 1px solid var(--border); background: var(--bg-card); backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur); color: var(--text-primary); transition: all 0.2s ease; box-shadow: var(--shadow-sm); }
+.pill:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: var(--border-hover); }
+.pill-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.pill-dot.green { background: #30d158; }
+.pill-dot.amber { background: #ff9f0a; }
+.pill-dot.blue  { background: #0a84ff; }
+.pill-dot.gray  { background: #98989d; }
 
-/* ── MAIN CONTENT ── */
-.content {
-  position: relative;
-  z-index: 1;
-  padding-top: 52px;
-}
-
-/* ── HERO ── */
-.hero {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 100px 24px 80px;
-  text-align: center;
-}
-
-.hero-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 24px;
-  padding: 6px 14px;
-  background: var(--accent-soft);
-  border-radius: 100px;
-  border: 1px solid var(--accent-mid);
-}
-
-.hero-eyebrow-dot {
-  width: 6px; height: 6px;
-  background: var(--accent);
-  border-radius: 50%;
-  animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(1.3); }
-}
-
-h1 {
-  font-size: clamp(48px, 7vw, 88px);
-  font-weight: 800;
-  line-height: 1.02;
-  letter-spacing: -0.04em;
-  color: var(--text-primary);
-  margin-bottom: 20px;
-}
-
-h1 em {
-  font-style: normal;
-  color: var(--accent);
-}
-
-.hero-sub {
-  font-size: clamp(17px, 2.5vw, 22px);
-  font-weight: 400;
-  line-height: 1.5;
-  color: var(--text-secondary);
-  max-width: 580px;
-  margin: 0 auto 48px;
-}
-
-/* ── LABEL PILLS ── */
-.label-pills {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-bottom: 56px;
-}
-
-.pill {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 16px;
-  border-radius: 100px;
-  font-size: 13px;
-  font-weight: 500;
-  border: 1px solid var(--border);
-  background: var(--bg-card);
-  backdrop-filter: var(--blur);
-  -webkit-backdrop-filter: var(--blur);
-  color: var(--text-primary);
-  transition: all 0.2s ease;
-  box-shadow: var(--shadow-sm);
-}
-
-.pill:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-  border-color: var(--border-hover);
-}
-
-.pill-dot {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-.pill-dot.green  { background: #30d158; }
-.pill-dot.amber  { background: #ff9f0a; }
-.pill-dot.blue   { background: #0a84ff; }
-.pill-dot.gray   { background: #98989d; }
-
-/* ── HERO CTA ── */
-.hero-ctas {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 14px 28px;
-  border-radius: 100px;
-  font-size: 15px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 0.2s ease;
-  letter-spacing: -0.1px;
-}
-
-.btn-primary {
-  background: var(--text-primary);
-  color: var(--bg);
-}
-
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-  opacity: 0.88;
-}
-
-.btn-secondary {
-  background: var(--bg-card);
-  color: var(--text-primary);
-  border: 1px solid var(--border);
-  backdrop-filter: var(--blur);
-  -webkit-backdrop-filter: var(--blur);
-}
-
-.btn-secondary:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-  border-color: var(--border-hover);
-}
-
-.btn-arrow {
-  font-size: 18px;
-  transition: transform 0.2s ease;
-}
-
+.hero-ctas { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; border-radius: 100px; font-size: 15px; font-weight: 600; text-decoration: none; transition: all 0.2s ease; letter-spacing: -0.1px; }
+.btn-primary { background: var(--text-primary); color: var(--bg); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); opacity: 0.88; }
+.btn-secondary { background: var(--bg-card); color: var(--text-primary); border: 1px solid var(--border); backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur); }
+.btn-secondary:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: var(--border-hover); }
+.btn-arrow { font-size: 18px; transition: transform 0.2s ease; }
 .btn:hover .btn-arrow { transform: translateX(3px); }
 
-/* ── DIVIDER ── */
-.section-divider {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px;
-  border-top: 1px solid var(--border);
-  margin-bottom: 80px;
-}
+.section-divider { max-width: 1200px; margin: 0 auto; padding: 0 24px; border-top: 1px solid var(--border); margin-bottom: 80px; }
 
-/* ── SECTIONS ── */
-.section {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px 100px;
-}
+.section { max-width: 1200px; margin: 0 auto; padding: 0 24px 100px; }
+.section-label { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 8px; }
+.section-title { font-size: clamp(28px, 4vw, 40px); font-weight: 750; letter-spacing: -0.03em; color: var(--text-primary); margin-bottom: 8px; line-height: 1.1; }
+.section-desc { font-size: 16px; color: var(--text-secondary); line-height: 1.6; max-width: 500px; margin-bottom: 40px; }
 
-.section-label {
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text-tertiary);
-  margin-bottom: 8px;
-}
-
-.section-title {
-  font-size: clamp(28px, 4vw, 40px);
-  font-weight: 750;
-  letter-spacing: -0.03em;
-  color: var(--text-primary);
-  margin-bottom: 8px;
-  line-height: 1.1;
-}
-
-.section-desc {
-  font-size: 16px;
-  color: var(--text-secondary);
-  line-height: 1.6;
-  max-width: 500px;
-  margin-bottom: 40px;
-}
-
-/* ── BENTO GRID ── */
-.bento {
-  display: grid;
-  gap: 12px;
-}
-
+.bento { display: grid; gap: 12px; }
 .bento-2 { grid-template-columns: repeat(2, 1fr); }
 .bento-3 { grid-template-columns: repeat(3, 1fr); }
 .bento-4 { grid-template-columns: repeat(4, 1fr); }
 
-.bento-card {
-  background: var(--bg-card);
-  backdrop-filter: var(--blur);
-  -webkit-backdrop-filter: var(--blur);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 28px;
-  text-decoration: none;
-  transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
-  box-shadow: var(--shadow-sm);
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow: hidden;
-}
-
-.bento-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 60%);
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.25s ease;
-}
-
-.bento-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--border-hover);
-  background: var(--bg-card-hover);
-}
-
+.bento-card { background: var(--bg-card); backdrop-filter: var(--blur); -webkit-backdrop-filter: var(--blur); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 28px; text-decoration: none; transition: all 0.25s cubic-bezier(0.4,0,0.2,1); box-shadow: var(--shadow-sm); display: flex; flex-direction: column; position: relative; overflow: hidden; }
+.bento-card::before { content: ''; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 60%); pointer-events: none; opacity: 0; transition: opacity 0.25s ease; }
+.bento-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--border-hover); background: var(--bg-card-hover); }
 .bento-card:hover::before { opacity: 1; }
-
 .bento-card.span-2 { grid-column: span 2; }
 .bento-card.span-3 { grid-column: span 3; }
 .bento-card.featured { grid-column: span 2; grid-row: span 2; }
 
-.card-accent-bar {
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-}
-
+.card-accent-bar { position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
 .bar-red    { background: linear-gradient(90deg, #ff3b30, #ff6b63); }
 .bar-blue   { background: linear-gradient(90deg, #0a84ff, #5ac8fa); }
 .bar-gold   { background: linear-gradient(90deg, #ff9f0a, #ffd60a); }
 .bar-green  { background: linear-gradient(90deg, #30d158, #34c759); }
 .bar-purple { background: linear-gradient(90deg, #bf5af2, #6e40c9); }
 .bar-gray   { background: linear-gradient(90deg, #636366, #98989d); }
+.bar-museum { background: linear-gradient(90deg, #c8973a, #8a6420); }
 
-.card-icon {
-  font-size: 28px;
-  margin-bottom: 16px;
-  display: block;
-  line-height: 1;
-}
-
-.card-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--text-tertiary);
-  margin-bottom: 8px;
-}
-
-.card-title {
-  font-size: 19px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  color: var(--text-primary);
-  line-height: 1.25;
-  margin-bottom: 8px;
-}
-
+.card-icon { font-size: 28px; margin-bottom: 16px; display: block; line-height: 1; }
+.card-tag { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 8px; }
+.card-title { font-size: 19px; font-weight: 700; letter-spacing: -0.02em; color: var(--text-primary); line-height: 1.25; margin-bottom: 8px; }
 .bento-card.featured .card-title { font-size: 26px; }
+.card-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.55; flex: 1; margin-bottom: 16px; }
+.card-meta { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; color: var(--text-tertiary); margin-top: auto; }
+.card-meta-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse 2s ease-in-out infinite; }
+.card-link-arrow { font-size: 16px; color: var(--text-tertiary); transition: all 0.2s ease; margin-left: auto; }
+.bento-card:hover .card-link-arrow { color: var(--text-primary); transform: translate(3px,-3px); }
 
-.card-desc {
-  font-size: 14px;
-  color: var(--text-secondary);
-  line-height: 1.55;
-  flex: 1;
-  margin-bottom: 16px;
-}
-
-.card-meta {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--text-tertiary);
-  margin-top: auto;
-}
-
-.card-meta-dot {
-  width: 6px; height: 6px;
-  background: var(--accent);
-  border-radius: 50%;
-  animation: pulse 2s ease-in-out infinite;
-}
-
-.card-link-arrow {
-  font-size: 16px;
-  color: var(--text-tertiary);
-  transition: all 0.2s ease;
-  margin-left: auto;
-}
-
-.bento-card:hover .card-link-arrow {
-  color: var(--text-primary);
-  transform: translate(3px,-3px);
-}
-
-/* GHOST CARDS (coming soon) */
-.bento-card.ghost {
-  opacity: 0.45;
-  cursor: default;
-  pointer-events: none;
-}
-
+.bento-card.ghost { opacity: 0.45; cursor: default; pointer-events: none; }
 .bento-card.ghost:hover { transform: none; box-shadow: var(--shadow-sm); }
 
-/* ── STANDARD SECTION — CONGRESS TRACKER ── */
-.feature-card {
-  background: var(--text-primary);
-  border-radius: var(--radius-lg);
-  padding: 56px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 48px;
-  align-items: center;
-  box-shadow: var(--shadow-lg);
-  position: relative;
-  overflow: hidden;
-}
-
-.feature-card::after {
-  content: '';
-  position: absolute;
-  top: -50%; right: -20%;
-  width: 500px; height: 500px;
-  background: radial-gradient(circle, rgba(255,59,48,0.15), transparent 60%);
-  pointer-events: none;
-}
-
-.feature-label {
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 12px;
-}
-
-.feature-title {
-  font-size: clamp(28px, 4vw, 44px);
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  color: #f5f5f7;
-  line-height: 1.05;
-  margin-bottom: 16px;
-}
-
-.feature-desc {
-  font-size: 16px;
-  color: rgba(245,245,247,0.6);
-  line-height: 1.6;
-  margin-bottom: 28px;
-}
-
-.feature-stats {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-}
-
-.fstat {
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: var(--radius-sm);
-  padding: 16px;
-}
-
-.fstat-val {
-  font-size: 32px;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  color: #f5f5f7;
-  line-height: 1;
-  margin-bottom: 4px;
-}
-
+.feature-card { background: var(--text-primary); border-radius: var(--radius-lg); padding: 56px; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; box-shadow: var(--shadow-lg); position: relative; overflow: hidden; }
+.feature-card::after { content: ''; position: absolute; top: -50%; right: -20%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(255,59,48,0.15), transparent 60%); pointer-events: none; }
+.feature-label { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+.feature-title { font-size: clamp(28px, 4vw, 44px); font-weight: 800; letter-spacing: -0.04em; color: #f5f5f7; line-height: 1.05; margin-bottom: 16px; }
+.feature-desc { font-size: 16px; color: rgba(245,245,247,0.6); line-height: 1.6; margin-bottom: 28px; }
+.feature-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.fstat { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-sm); padding: 16px; }
+.fstat-val { font-size: 32px; font-weight: 800; letter-spacing: -0.03em; color: #f5f5f7; line-height: 1; margin-bottom: 4px; }
 .fstat-val.red { color: #ff453a; }
 .fstat-val.gold { color: #ff9f0a; }
+.fstat-label { font-size: 11px; font-weight: 500; color: rgba(245,245,247,0.45); text-transform: uppercase; letter-spacing: 0.06em; }
 
-.fstat-label {
-  font-size: 11px;
-  font-weight: 500;
-  color: rgba(245,245,247,0.45);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
+.standards-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.standard-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 24px; box-shadow: var(--shadow-sm); }
+.standard-badge { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px; border-radius: 6px; margin-bottom: 14px; }
+.sb-doc  { background: rgba(48,209,88,0.12); color: #30d158; border: 1px solid rgba(48,209,88,0.2); }
+.sb-alleg{ background: rgba(255,159,10,0.12); color: #ff9f0a; border: 1px solid rgba(255,159,10,0.2); }
+.sb-disp { background: rgba(10,132,255,0.12); color: #0a84ff; border: 1px solid rgba(10,132,255,0.2); }
+.sb-spec { background: rgba(152,152,157,0.12); color: #98989d; border: 1px solid rgba(152,152,157,0.2); }
+.standard-title { font-size: 15px; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; letter-spacing: -0.01em; }
+.standard-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.55; }
 
-/* ── EDITORIAL STANDARD ── */
-.standards-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-}
-
-.standard-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  padding: 24px;
-  box-shadow: var(--shadow-sm);
-}
-
-.standard-badge {
-  display: inline-block;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 4px 10px;
-  border-radius: 6px;
-  margin-bottom: 14px;
-}
-
-.sb-doc    { background: rgba(48,209,88,0.12); color: #30d158; border: 1px solid rgba(48,209,88,0.2); }
-.sb-alleg  { background: rgba(255,159,10,0.12); color: #ff9f0a; border: 1px solid rgba(255,159,10,0.2); }
-.sb-disp   { background: rgba(10,132,255,0.12); color: #0a84ff; border: 1px solid rgba(10,132,255,0.2); }
-.sb-spec   { background: rgba(152,152,157,0.12); color: #98989d; border: 1px solid rgba(152,152,157,0.2); }
-
-.standard-title {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: 6px;
-  letter-spacing: -0.01em;
-}
-
-.standard-desc {
-  font-size: 13px;
-  color: var(--text-secondary);
-  line-height: 1.55;
-}
-
-/* ── FOOTER ── */
-footer {
-  border-top: 1px solid var(--border);
-  padding: 40px 24px;
-  position: relative;
-  z-index: 1;
-}
-
-.footer-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  flex-wrap: wrap;
-}
-
-.footer-brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.footer-name {
-  font-size: 14px;
-  font-weight: 650;
-  color: var(--text-primary);
-}
-
-.footer-copy {
-  font-size: 12px;
-  color: var(--text-tertiary);
-  line-height: 1.6;
-  max-width: 400px;
-}
-
-.footer-links {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.footer-link {
-  font-size: 13px;
-  color: var(--text-secondary);
-  text-decoration: none;
-  transition: color 0.15s;
-}
-
+footer { border-top: 1px solid var(--border); padding: 40px 24px; position: relative; z-index: 1; }
+.footer-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+.footer-brand { display: flex; align-items: center; gap: 10px; }
+.footer-name { font-size: 14px; font-weight: 650; color: var(--text-primary); }
+.footer-copy { font-size: 12px; color: var(--text-tertiary); line-height: 1.6; max-width: 400px; }
+.footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+.footer-link { font-size: 13px; color: var(--text-secondary); text-decoration: none; transition: color 0.15s; }
 .footer-link:hover { color: var(--text-primary); }
 
-/* ── ANIMATIONS ── */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-.animate-in {
-  animation: fadeUp 0.6s cubic-bezier(0.4,0,0.2,1) both;
-}
-
+@keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+.animate-in { animation: fadeUp 0.6s cubic-bezier(0.4,0,0.2,1) both; }
 .delay-1 { animation-delay: 0.1s; }
 .delay-2 { animation-delay: 0.2s; }
 .delay-3 { animation-delay: 0.3s; }
 .delay-4 { animation-delay: 0.4s; }
 .delay-5 { animation-delay: 0.5s; }
 
-/* ── RESPONSIVE ── */
 @media (max-width: 900px) {
   .bento-2, .bento-3, .bento-4 { grid-template-columns: repeat(2, 1fr); }
   .bento-card.featured { grid-column: span 2; grid-row: span 1; }
@@ -751,27 +206,23 @@ footer {
   .standards-grid { grid-template-columns: repeat(2, 1fr); }
   .nav-links { display: none; }
 }
-
 @media (max-width: 580px) {
   .bento-2, .bento-3, .bento-4 { grid-template-columns: 1fr; }
   .bento-card.span-2, .bento-card.featured { grid-column: span 1; }
   .standards-grid { grid-template-columns: 1fr; }
   .feature-stats { grid-template-columns: repeat(2,1fr); }
-  hero { padding: 72px 20px 60px; }
 }
 
 </style>
 </head>
 <body>
 
-<!-- BACKGROUND -->
 <div class="bg-mesh" aria-hidden="true">
   <div class="bg-orb orb-1"></div>
   <div class="bg-orb orb-2"></div>
   <div class="bg-orb orb-3"></div>
 </div>
 
-<!-- NAV -->
 <nav class="nav">
   <div class="nav-inner">
     <a href="/" class="nav-logo">
@@ -780,6 +231,7 @@ footer {
     </a>
     <div class="nav-links">
       <a href="/congress" class="nav-link">Congress</a>
+      <a href="/museum.html" class="nav-link museum">🏛 The Museum</a>
       <a href="/trump-timeline.html" class="nav-link">Trump Timeline</a>
       <a href="/obama-full-record.html" class="nav-link">Obama Record</a>
       <a href="/deindustrialization-timeline.html" class="nav-link">Deindustrialization</a>
@@ -790,10 +242,8 @@ footer {
   </div>
 </nav>
 
-<!-- CONTENT -->
 <main class="content">
 
-  <!-- HERO -->
   <section class="hero">
     <div class="hero-eyebrow animate-in">
       <div class="hero-eyebrow-dot"></div>
@@ -811,31 +261,19 @@ footer {
     </p>
 
     <div class="label-pills animate-in delay-3">
-      <div class="pill">
-        <div class="pill-dot green"></div>
-        Documented — verified by primary sources
-      </div>
-      <div class="pill">
-        <div class="pill-dot amber"></div>
-        Alleged — claimed, not proven
-      </div>
-      <div class="pill">
-        <div class="pill-dot blue"></div>
-        Disputed — credible disagreement
-      </div>
-      <div class="pill">
-        <div class="pill-dot gray"></div>
-        Speculative — in circulation, unverified
-      </div>
+      <div class="pill"><div class="pill-dot green"></div>Documented — verified by primary sources</div>
+      <div class="pill"><div class="pill-dot amber"></div>Alleged — claimed, not proven</div>
+      <div class="pill"><div class="pill-dot blue"></div>Disputed — credible disagreement</div>
+      <div class="pill"><div class="pill-dot gray"></div>Speculative — in circulation, unverified</div>
     </div>
 
     <div class="hero-ctas animate-in delay-4">
-      <a href="/congress" class="btn btn-primary">
-        Open Congress Tracker
+      <a href="/museum.html" class="btn btn-primary">
+        Enter the Museum
         <span class="btn-arrow">→</span>
       </a>
-      <a href="/about-mission.html" class="btn btn-secondary">
-        Our Standard
+      <a href="/congress" class="btn btn-secondary">
+        Congress Tracker
         <span class="btn-arrow">→</span>
       </a>
     </div>
@@ -843,8 +281,25 @@ footer {
 
   <div class="section-divider"></div>
 
-  <!-- INVESTIGATIONS -->
+  <!-- MUSEUM FEATURE -->
   <section class="section">
+    <div class="section-label">The Archive</div>
+    <div class="section-title">The Museum of 21st Century American Government</div>
+    <p class="section-desc">Five galleries. Every exhibit documented, sourced, and labeled. Open to every American who believes they deserve the whole truth.</p>
+
+    <a href="/museum.html" class="bento-card animate-in" style="margin-bottom:12px;display:flex;flex-direction:row;align-items:center;gap:32px;padding:36px 40px;min-height:auto;">
+      <div class="card-accent-bar bar-museum"></div>
+      <span class="card-icon" style="margin-bottom:0;font-size:48px;">🏛</span>
+      <div style="flex:1;">
+        <div class="card-tag">Gallery I — V · Full Archive</div>
+        <div class="card-title" style="font-size:24px;margin-bottom:8px;">Enter the Museum →</div>
+        <p class="card-desc" style="margin-bottom:0;">Political timelines · Economic dismantling · Suspicious deaths · Globalist agenda · The machine</p>
+      </div>
+    </a>
+  </section>
+
+  <!-- INVESTIGATIONS -->
+  <section class="section" style="padding-top:0;">
     <div class="section-label">Investigations</div>
     <div class="section-title">The documented record.</div>
     <p class="section-desc">Every entry labeled. Every claim sourced. No mixing of categories.</p>
@@ -911,8 +366,7 @@ footer {
         <p class="card-desc">
           Vince Foster. Ron Brown. Seth Rich. Jeffrey Epstein. 
           The Weiner laptop. What official investigations found, 
-          what remains genuinely open, and what is speculative — 
-          clearly labeled, honestly sourced.
+          what remains genuinely open, and what is speculative.
         </p>
         <div class="card-meta">
           <div class="card-meta-dot"></div>
@@ -929,8 +383,7 @@ footer {
         <p class="card-desc">
           WEF. The Young Global Leaders program. The Great Reset. 
           CBDCs. UN Agenda 2030. Documented from their own 
-          publications, speeches, and membership records. 
-          No embellishment needed.
+          publications, speeches, and membership records.
         </p>
         <div class="card-meta">
           <div class="card-meta-dot"></div>
@@ -952,30 +405,17 @@ footer {
           536 members tracked. Live vote data from Congress.gov. 
           Conservative loyalty scores updated in real time. 
           AI-generated constituent message drafts. 
-          Media Scorecard, Supreme Court ratings, DOGE Report, 
-          Governors, and more.
+          Media Scorecard, Supreme Court ratings, DOGE Report, Governors, and more.
         </p>
         <a href="/congress" class="btn btn-primary" style="background:#f5f5f7;color:#1d1d1f;">
           Open Tracker <span class="btn-arrow">→</span>
         </a>
       </div>
       <div class="feature-stats">
-        <div class="fstat">
-          <div class="fstat-val red">536</div>
-          <div class="fstat-label">Members Tracked</div>
-        </div>
-        <div class="fstat">
-          <div class="fstat-val">8</div>
-          <div class="fstat-label">Key Votes Scored</div>
-        </div>
-        <div class="fstat">
-          <div class="fstat-val gold">Live</div>
-          <div class="fstat-label">Congress.gov Data</div>
-        </div>
-        <div class="fstat">
-          <div class="fstat-val">11</div>
-          <div class="fstat-label">Platform Tabs</div>
-        </div>
+        <div class="fstat"><div class="fstat-val red">536</div><div class="fstat-label">Members Tracked</div></div>
+        <div class="fstat"><div class="fstat-val">8</div><div class="fstat-label">Key Votes Scored</div></div>
+        <div class="fstat"><div class="fstat-val gold">Live</div><div class="fstat-label">Congress.gov Data</div></div>
+        <div class="fstat"><div class="fstat-val">11</div><div class="fstat-label">Platform Tabs</div></div>
       </div>
     </div>
   </section>
@@ -987,54 +427,14 @@ footer {
     <p class="section-desc">The archive grows. Every tab is built to the same four-label standard.</p>
 
     <div class="bento bento-4">
-      <div class="bento-card ghost">
-        <div class="card-accent-bar bar-gold"></div>
-        <span class="card-icon">💼</span>
-        <div class="card-title">Congressional Portfolio Watch</div>
-        <p class="card-desc">Trades vs. committee assignments vs. votes.</p>
-      </div>
-      <div class="bento-card ghost">
-        <div class="card-accent-bar bar-red"></div>
-        <span class="card-icon">🗳</span>
-        <div class="card-title">Voter Fraud Tracker</div>
-        <p class="card-desc">Documented cases by state, method, and year.</p>
-      </div>
-      <div class="bento-card ghost">
-        <div class="card-accent-bar bar-blue"></div>
-        <span class="card-icon">🛰</span>
-        <div class="card-title">Satellite & Space Watch</div>
-        <p class="card-desc">Foreign satellites, GPS vulnerability, who controls overhead.</p>
-      </div>
-      <div class="bento-card ghost">
-        <div class="card-accent-bar bar-purple"></div>
-        <span class="card-icon">⚡</span>
-        <div class="card-title">Infrastructure Vulnerability</div>
-        <p class="card-desc">Chinese grid equipment, port cranes, undersea cables.</p>
-      </div>
-      <div class="bento-card ghost">
-        <div class="card-accent-bar bar-gray"></div>
-        <span class="card-icon">⚔️</span>
-        <div class="card-title">Military Industrial Complex</div>
-        <p class="card-desc">Contracts, donations, the revolving door, cost overruns.</p>
-      </div>
-      <div class="bento-card ghost">
-        <div class="card-accent-bar bar-red"></div>
-        <span class="card-icon">👩‍⚖️</span>
-        <div class="card-title">Hillary Clinton Record</div>
-        <p class="card-desc">State Dept, Benghazi, Foundation, email server — sourced.</p>
-      </div>
-      <div class="bento-card ghost">
-        <div class="card-accent-bar bar-gold"></div>
-        <span class="card-icon">📈</span>
-        <div class="card-title">Supply Chain Watch</div>
-        <p class="card-desc">Rare earths, semiconductors, pharma — what we owe China.</p>
-      </div>
-      <div class="bento-card ghost">
-        <div class="card-accent-bar bar-green"></div>
-        <span class="card-icon">🗞</span>
-        <div class="card-title">News Feed</div>
-        <p class="card-desc">Ongoing developments, labeled and sourced as they happen.</p>
-      </div>
+      <div class="bento-card ghost"><div class="card-accent-bar bar-gold"></div><span class="card-icon">💼</span><div class="card-title">Congressional Portfolio Watch</div><p class="card-desc">Trades vs. committee assignments vs. votes.</p></div>
+      <div class="bento-card ghost"><div class="card-accent-bar bar-red"></div><span class="card-icon">🗳</span><div class="card-title">Voter Fraud Tracker</div><p class="card-desc">Documented cases by state, method, and year.</p></div>
+      <div class="bento-card ghost"><div class="card-accent-bar bar-blue"></div><span class="card-icon">🛰</span><div class="card-title">Satellite & Space Watch</div><p class="card-desc">Foreign satellites, GPS vulnerability, who controls overhead.</p></div>
+      <div class="bento-card ghost"><div class="card-accent-bar bar-purple"></div><span class="card-icon">⚡</span><div class="card-title">Infrastructure Vulnerability</div><p class="card-desc">Chinese grid equipment, port cranes, undersea cables.</p></div>
+      <div class="bento-card ghost"><div class="card-accent-bar bar-gray"></div><span class="card-icon">⚔️</span><div class="card-title">Military Industrial Complex</div><p class="card-desc">Contracts, donations, the revolving door, cost overruns.</p></div>
+      <div class="bento-card ghost"><div class="card-accent-bar bar-red"></div><span class="card-icon">👩‍⚖️</span><div class="card-title">Hillary Clinton Record</div><p class="card-desc">State Dept, Benghazi, Foundation, email server — sourced.</p></div>
+      <div class="bento-card ghost"><div class="card-accent-bar bar-gold"></div><span class="card-icon">📈</span><div class="card-title">Supply Chain Watch</div><p class="card-desc">Rare earths, semiconductors, pharma — what we owe China.</p></div>
+      <div class="bento-card ghost"><div class="card-accent-bar bar-green"></div><span class="card-icon">🗞</span><div class="card-title">News Feed</div><p class="card-desc">Ongoing developments, labeled and sourced as they happen.</p></div>
     </div>
   </section>
 
@@ -1076,7 +476,6 @@ footer {
 
 </main>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
@@ -1091,16 +490,15 @@ footer {
       Built by one person who thinks you deserve the whole truth.
     </div>
     <div class="footer-links">
+      <a href="/museum.html" class="footer-link">The Museum</a>
       <a href="/congress" class="footer-link">Congress Tracker</a>
       <a href="/trump-timeline.html" class="footer-link">Trump Timeline</a>
-      <a href="/obama-full-record.html" class="footer-link">Obama Record</a>
       <a href="/about-mission.html" class="footer-link">About</a>
     </div>
   </div>
 </footer>
 
 <script>
-// Intersection observer for scroll animations
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -1114,12 +512,9 @@ document.querySelectorAll('.animate-in').forEach(el => {
   observer.observe(el);
 });
 
-// Active nav link
 const path = window.location.pathname;
 document.querySelectorAll('.nav-link').forEach(link => {
-  if (link.getAttribute('href') === path) {
-    link.classList.add('active');
-  }
+  if (link.getAttribute('href') === path) link.classList.add('active');
 });
 </script>
 
