@@ -17,6 +17,7 @@ html, body { background: #ffffff !important; color: #111111 !important; color-sc
 }
 
 body {
+  padding-top: 56px;
   font-family: 'Source Serif 4', serif;
   font-size: 15px;
   line-height: 1.7;
@@ -151,6 +152,127 @@ hr { border: none; border-top: 1px solid #ddd; margin: 32px 0; }
 </style>
 </head>
 <body>
+<!-- ═══════════════════════════════════════════════
+     THE RULING CLASS REPORT — PLATFORM NAV BAR
+     Add this right after <body> tag in every new HTML file
+     ═══════════════════════════════════════════════ -->
+<style>
+  .rcr-nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    height: 56px;
+    background: rgba(240,235,224,0.92);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    border-bottom: 1px solid rgba(200,151,58,0.2);
+    color-scheme: light only !important;
+  }
+  .rcr-nav-inner {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 28px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    overflow-x: auto;
+  }
+  .rcr-nav-inner::-webkit-scrollbar { display: none; }
+  .rcr-home {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    flex-shrink: 0;
+    padding-right: 20px;
+    border-right: 1px solid rgba(200,151,58,0.2);
+    margin-right: 8px;
+  }
+  .rcr-seal {
+    width: 30px; height: 30px;
+    border: 1.5px solid #c8973a;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Georgia, serif;
+    font-size: 10px;
+    font-weight: 700;
+    color: #8a6420;
+    flex-shrink: 0;
+  }
+  .rcr-wordmark {
+    font-family: Georgia, serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #0a0a0a;
+    white-space: nowrap;
+  }
+  .rcr-links {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    flex: 1;
+    overflow-x: auto;
+  }
+  .rcr-links::-webkit-scrollbar { display: none; }
+  .rcr-nav-link {
+    display: flex;
+    align-items: center;
+    height: 56px;
+    padding: 0 14px;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(10,10,10,0.5);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all 0.18s ease;
+    border-bottom: 2px solid transparent;
+  }
+  .rcr-nav-link:hover {
+    color: #0a0a0a;
+    border-bottom-color: #c8973a;
+    background: rgba(200,151,58,0.06);
+  }
+  .rcr-nav-link.museum {
+    color: #8a6420;
+    font-weight: 600;
+  }
+  .rcr-nav-link.museum:hover {
+    color: #c8973a;
+    border-bottom-color: #c8973a;
+  }
+  .rcr-nav-link.home-link {
+    color: #0a0a0a;
+    font-weight: 600;
+  }
+</style>
+<nav class="rcr-nav">
+  <div class="rcr-nav-inner">
+    <a href="/" class="rcr-home">
+      <div class="rcr-seal">RR</div>
+      <span class="rcr-wordmark">Ruling Class Report</span>
+    </a>
+    <div class="rcr-links">
+      <a href="/" class="rcr-nav-link home-link">⌂ Home</a>
+      <a href="/museum.html" class="rcr-nav-link museum">🏛 The Museum</a>
+      <a href="/congress" class="rcr-nav-link">Congress</a>
+      <a href="/trump-timeline.html" class="rcr-nav-link">Trump Timeline</a>
+      <a href="/obama-full-record.html" class="rcr-nav-link">Obama Record</a>
+      <a href="/deindustrialization-timeline.html" class="rcr-nav-link">Deindustrialization</a>
+      <a href="/suspicious-deaths.html" class="rcr-nav-link">Suspicious Deaths</a>
+      <a href="/wef-globalist-agenda.html" class="rcr-nav-link">Globalist Agenda</a>
+      <a href="/about-mission.html" class="rcr-nav-link">About</a>
+    </div>
+  </div>
+</nav>
+<!-- ═══════════════════════════════════════════════ -->
+
 
 <div class="rule-thick"></div>
 <div class="rule-thin"></div>
