@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>:root { color-scheme: light only !important; }</style>
+<title>The Deindustrialization of America — The Ruling Class Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { background: #ffffff !important; color: #111111 !important; color-scheme: light only !important; }
+@media (prefers-color-scheme: dark) {
+  html { background: #ffffff !important; color: #111111 !important; }
+  body { background: #ffffff !important; color: #111111 !important; }
+  * { color: inherit !important; background-color: inherit !important; }
+}
+
+body {
+  padding-top: 56px;
+  font-family: 'Source Serif 4', serif;
+  font-size: 15px;
+  line-height: 1.7;
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 48px 28px 80px;
+  background: #ffffff !important;
+  color: #111111 !important;
+}
+
+.rule-thick { border-top: 8px double #111; }
+.rule-thin  { border-top: 2px solid #111; margin-top: 4px; margin-bottom: 20px; }
+
+.masthead { text-align: center; padding: 20px 0 16px; border-bottom: 1px solid #ccc; margin-bottom: 8px; }
+.pub-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: #555 !important; margin-bottom: 10px; }
+h1 { font-family: 'Playfair Display', serif; font-size: clamp(26px, 5vw, 54px); font-weight: 900; line-height: 1.0; color: #111 !important; margin-bottom: 14px; }
+h1 .accent { color: #cc3300 !important; }
+.deck { font-style: italic; font-size: 16px; color: #333 !important; max-width: 640px; margin: 0 auto 14px; line-height: 1.5; }
+.meta { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.18em; color: #777 !important; text-transform: uppercase; }
+
+/* LABEL EXPLAINER */
+.label-bar {
+  display: flex; gap: 16px; flex-wrap: wrap;
+  padding: 12px 0; border-top: 2px solid #111; border-bottom: 1px solid #ddd;
+  margin-bottom: 24px; align-items: center;
+}
+.label-bar-title { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: #555 !important; }
+.badge { display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 8px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; padding: 3px 8px; white-space: nowrap; }
+.badge-doc      { background: #1a3a1a !important; color: #fff !important; }
+.badge-alleged  { background: #7a3a00 !important; color: #fff !important; }
+.badge-disputed { background: #2a2a6a !important; color: #fff !important; }
+.badge-spec     { background: #666 !important; color: #fff !important; }
+.legend-item { display: flex; align-items: center; gap: 6px; }
+.legend-desc { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: #555 !important; }
+
+/* COST BANNER */
+.cost-banner { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: #444 !important; border: 2px solid #111; margin-bottom: 28px; }
+.cost-cell { background: #111 !important; padding: 16px 12px; text-align: center; }
+.cost-number { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 900; color: #ff6633 !important; line-height: 1; margin-bottom: 5px; }
+.cost-label { font-family: 'IBM Plex Mono', monospace; font-size: 8px; letter-spacing: 0.1em; color: #aaa !important; text-transform: uppercase; line-height: 1.5; }
+
+/* FILTERS */
+.filters { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 22px; padding-bottom: 14px; border-bottom: 1px solid #ddd; }
+.filter-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: #888 !important; letter-spacing: 0.1em; text-transform: uppercase; align-self: center; }
+.filter-btn { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; padding: 5px 10px; border: 1px solid #ccc; background: #fff !important; color: #444 !important; cursor: pointer; transition: all 0.15s; }
+.filter-btn:hover, .filter-btn.active { background: #111 !important; color: #fff !important; border-color: #111; }
+
+/* TIMELINE */
+.timeline { position: relative; padding-left: 24px; border-left: 3px solid #111; margin: 8px 0 32px; }
+
+.t-entry {
+  position: relative;
+  margin-bottom: 0;
+  padding: 20px 0 20px 24px;
+  border-bottom: 1px solid #eee;
+}
+.t-entry:last-child { border-bottom: none; }
+
+.t-dot {
+  position: absolute;
+  left: -35px;
+  top: 24px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid #111;
+  background: #fff !important;
+}
+.t-dot-doc      { background: #1a3a1a !important; border-color: #1a3a1a; }
+.t-dot-alleged  { background: #7a3a00 !important; border-color: #7a3a00; }
+.t-dot-disputed { background: #2a2a6a !important; border-color: #2a2a6a; }
+
+.t-date {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #888 !important;
+  margin-bottom: 6px;
+}
+
+.t-header { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; flex-wrap: wrap; }
+
+.t-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: #111 !important;
+  line-height: 1.25;
+  flex: 1;
+}
+
+.t-body { font-size: 13px; color: #222 !important; line-height: 1.65; margin-bottom: 8px; }
+
+.t-source { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: #888 !important; letter-spacing: 0.04em; margin-bottom: 4px; }
+
+.t-cost { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.07em; color: #cc3300 !important; border-top: 1px solid #ffd0c0; padding-top: 5px; margin-top: 6px; text-transform: uppercase; }
+
+.t-who { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.07em; color: #1a3a1a !important; padding-bottom: 2px; text-transform: uppercase; }
+
+.cat-tag { display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 8px; letter-spacing: 0.1em; text-transform: uppercase; padding: 2px 5px; border: 1px solid #ccc; color: #555 !important; margin-right: 3px; }
+
+/* ERA HEADERS */
+.era-header {
+  background: #111 !important;
+  color: #fff !important;
+  padding: 10px 18px;
+  margin: 28px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+.era-title { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: #fff !important; }
+.era-dates { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: #aaa !important; letter-spacing: 0.15em; text-transform: uppercase; }
+.era-toggle { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #aaa !important; }
+
+/* WHO PROFITED */
+.profited-box {
+  background: #fff8f0 !important;
+  border: 1px solid #ffddbb;
+  border-left: 5px solid #cc3300;
+  padding: 16px 20px;
+  margin: 8px 0 4px;
+  font-size: 12px;
+  color: #333 !important;
+  line-height: 1.6;
+}
+.profited-label { font-family: 'IBM Plex Mono', monospace; font-size: 8px; letter-spacing: 0.2em; text-transform: uppercase; color: #cc3300 !important; margin-bottom: 6px; }
+
+/* JOBS CHART */
+.jobs-chart { margin: 28px 0; }
+.jobs-title { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: #555 !important; margin-bottom: 12px; }
+.jobs-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.jobs-year { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: #888 !important; width: 40px; text-align: right; }
+.jobs-bar-wrap { flex: 1; background: #eeeeee !important; height: 22px; position: relative; }
+.jobs-bar { height: 100%; background: #1a3a1a !important; position: relative; transition: width 0.3s; }
+.jobs-bar.decline { background: #cc3300 !important; }
+.jobs-num { font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: #555 !important; width: 60px; }
+
+hr { border: none; border-top: 1px solid #ddd; margin: 32px 0; }
+
+.footer { margin-top: 40px; padding-top: 14px; border-top: 3px double #111; font-family: 'IBM Plex Mono', monospace; font-size: 9px; color: #666 !important; line-height: 1.8; letter-spacing: 0.04em; }
+.footer strong { color: #111 !important; }
+
+@media (max-width: 580px) {
+  body { padding: 24px 14px 60px; }
+  .cost-banner { grid-template-columns: repeat(2,1fr); }
+  .timeline { padding-left: 16px; }
+  .t-dot { left: -27px; }
+}
+
+</style>
+</head>
+<body>
+<!-- ═══════════════════════════════════════════════
+     THE RULING CLASS REPORT — PLATFORM NAV BAR
+     Add this right after <body> tag in every new HTML file
+     ═══════════════════════════════════════════════ -->
+<style>
+  .rcr-nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    height: 56px;
+    background: rgba(240,235,224,0.92);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    border-bottom: 1px solid rgba(200,151,58,0.2);
+    color-scheme: light only !important;
+  }
+  .rcr-nav-inner {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 28px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    overflow-x: auto;
+  }
+  .rcr-nav-inner::-webkit-scrollbar { display: none; }
+  .rcr-home {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    flex-shrink: 0;
+    padding-right: 20px;
+    border-right: 1px solid rgba(200,151,58,0.2);
+    margin-right: 8px;
+  }
+  .rcr-seal {
+    width: 30px; height: 30px;
+    border: 1.5px solid #c8973a;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Georgia, serif;
+    font-size: 10px;
+    font-weight: 700;
+    color: #8a6420;
+    flex-shrink: 0;
+  }
+  .rcr-wordmark {
+    font-family: Georgia, serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #0a0a0a;
+    white-space: nowrap;
+  }
+  .rcr-links {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    flex: 1;
+    overflow-x: auto;
+  }
+  .rcr-links::-webkit-scrollbar { display: none; }
+  .rcr-nav-link {
+    display: flex;
+    align-items: center;
+    height: 56px;
+    padding: 0 14px;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(10,10,10,0.5);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all 0.18s ease;
+    border-bottom: 2px solid transparent;
+  }
+  .rcr-nav-link:hover {
+    color: #0a0a0a;
+    border-bottom-color: #c8973a;
+    background: rgba(200,151,58,0.06);
+  }
+  .rcr-nav-link.museum {
+    color: #8a6420;
+    font-weight: 600;
+  }
+  .rcr-nav-link.museum:hover {
+    color: #c8973a;
+    border-bottom-color: #c8973a;
+  }
+  .rcr-nav-link.home-link {
+    color: #0a0a0a;
+    font-weight: 600;
+  }
+</style>
+<nav class="rcr-nav">
+  <div class="rcr-nav-inner">
+    <a href="/" class="rcr-home">
+      <div class="rcr-seal">RR</div>
+      <span class="rcr-wordmark">Ruling Class Report</span>
+    </a>
+    <div class="rcr-links">
+      <a href="/" class="rcr-nav-link home-link">⌂ Home</a>
+      <a href="/museum.html" class="rcr-nav-link museum">🏛 The Museum</a>
+      <a href="/congress" class="rcr-nav-link">Congress</a>
+      <a href="/trump-timeline.html" class="rcr-nav-link">Trump Timeline</a>
+      <a href="/obama-full-record.html" class="rcr-nav-link">Obama Record</a>
+      <a href="/deindustrialization-timeline.html" class="rcr-nav-link">Deindustrialization</a>
+      <a href="/suspicious-deaths.html" class="rcr-nav-link">Suspicious Deaths</a>
+      <a href="/wef-globalist-agenda.html" class="rcr-nav-link">Globalist Agenda</a>
+      <a href="/about-mission.html" class="rcr-nav-link">About</a>
+    </div>
+  </div>
+</nav>
+<!-- ═══════════════════════════════════════════════ -->
+
+
+<div class="rule-thick"></div>
+<div class="rule-thin"></div>
+
+<div class="masthead">
+  <div class="pub-label">The Ruling Class Report · Special Investigation</div>
+  <h1>The <span class="accent">Dismantling</span><br>of American Industry</h1>
+  <p class="deck">
+    How the jobs, factories, and manufacturing base that built the American middle class 
+    were systematically moved overseas — the decisions, the people who made them, 
+    and who got rich while your town got hollowed out.
+  </p>
+  <div class="meta">Every claim labeled · Sources cited · Updated May 2026</div>
+</div>
+
+<!-- LABEL BAR -->
+<div class="label-bar">
+  <span class="label-bar-title">Labels:</span>
+  <div class="legend-item"><span class="badge badge-doc">Documented</span><span class="legend-desc">Verified, primary sources</span></div>
+  <div class="legend-item"><span class="badge badge-alleged">Alleged</span><span class="legend-desc">Claimed, not proven</span></div>
+  <div class="legend-item"><span class="badge badge-disputed">Disputed</span><span class="legend-desc">Credible disagreement</span></div>
+  <div class="legend-item"><span class="badge badge-spec">Speculative</span><span class="legend-desc">Circulating, unverified</span></div>
+</div>
+
+<!-- COST BANNER -->
+<div class="cost-banner">
+  <div class="cost-cell"><div class="cost-number">7.5M</div><div class="cost-label">Manufacturing jobs lost<br>1980–2020</div></div>
+  <div class="cost-cell"><div class="cost-number">$4.6T</div><div class="cost-label">U.S. trade deficit<br>with China 2001–2020</div></div>
+  <div class="cost-cell"><div class="cost-number">60K+</div><div class="cost-label">U.S. factories<br>closed 2001–2010</div></div>
+  <div class="cost-cell"><div class="cost-number">2.4M</div><div class="cost-label">Jobs lost to China<br>in first decade of WTO</div></div>
+</div>
+
+<!-- JOBS CHART -->
+<div class="jobs-chart">
+  <div class="jobs-title">U.S. Manufacturing Employment — Key Inflection Points (millions of workers)</div>
+  <div class="jobs-row"><div class="jobs-year">1979</div><div class="jobs-bar-wrap"><div class="jobs-bar" style="width:100%"></div></div><div class="jobs-num">19.4M peak</div></div>
+  <div class="jobs-row"><div class="jobs-year">1994</div><div class="jobs-bar-wrap"><div class="jobs-bar" style="width:85%"></div></div><div class="jobs-num">16.8M</div></div>
+  <div class="jobs-row"><div class="jobs-year">2001</div><div class="jobs-bar-wrap"><div class="jobs-bar decline" style="width:80%"></div></div><div class="jobs-num">15.3M</div></div>
+  <div class="jobs-row"><div class="jobs-year">2010</div><div class="jobs-bar-wrap"><div class="jobs-bar decline" style="width:58%"></div></div><div class="jobs-num">11.5M</div></div>
+  <div class="jobs-row"><div class="jobs-year">2020</div><div class="jobs-bar-wrap"><div class="jobs-bar decline" style="width:60%"></div></div><div class="jobs-num">11.9M</div></div>
+  <div class="jobs-row"><div class="jobs-year">2025</div><div class="jobs-bar-wrap"><div class="jobs-bar decline" style="width:62%"></div></div><div class="jobs-num">12.9M</div></div>
+  <p style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#888 !important;margin-top:8px;">Source: Bureau of Labor Statistics · Red bars = period of significant decline</p>
+</div>
+
+<!-- FILTERS -->
+<div class="filters">
+  <span class="filter-label">Filter:</span>
+  <button class="filter-btn active" onclick="filterEntries('all',event)">All</button>
+  <button class="filter-btn" onclick="filterEntries('trade',event)">Trade Policy</button>
+  <button class="filter-btn" onclick="filterEntries('finance',event)">Finance &amp; PE</button>
+  <button class="filter-btn" onclick="filterEntries('political',event)">Political Decisions</button>
+  <button class="filter-btn" onclick="filterEntries('china',event)">China Specifically</button>
+</div>
+
+
+<!-- ERA 1 -->
+<div class="era-header" onclick="toggleEra(this)">
+  <div><div class="era-title">Era I — The Foundation Is Laid</div></div>
+  <div style="display:flex;align-items:center;gap:14px;"><div class="era-dates">1944 — 1979</div><div class="era-toggle">▼</div></div>
+</div>
+<div class="era-body">
+<div class="timeline">
+
+  <div class="t-entry" data-cat="trade political">
+    <div class="t-dot t-dot-doc"></div>
+    <div class="t-date">1944 — Bretton Woods</div>
+    <div class="t-header">
+      <span class="badge badge-doc">Documented</span>
+      <div class="t-title">U.S. Opens Markets to Rebuild War-Devastated Allies — Strategic Decision With Long Consequences</div>
+      <span class="cat-tag">Trade</span>
+    </div>
+    <p class="t-body">
+      After World War II, the U.S. deliberately adopted a policy of asymmetric 
+      trade openness — allowing allies to sell into American markets while 
+      protecting their own — to rebuild Western Europe and Japan as bulwarks 
+      against Soviet communism. This was a conscious, documented strategic 
+      decision, not an accident. The Marshall Plan and subsequent trade 
+      arrangements transferred technology and market access to 
+      rebuilt foreign manufacturers. American workers began competing 
+      with foreign workers for the first time.
+    </p>
+    <span class="t-who">Decision makers: FDR administration · Truman administration · Bipartisan congressional support</span>
+    <div class="t-source">Sources: Bretton Woods Agreement · Marshall Plan documentation · State Dept foreign policy archives</div>
+    <div class="t-cost">Cost: Justified strategically — but planted the seeds of foreign industrial competition that would accelerate decades later</div>
+  </div>
+
+  <div class="t-entry" data-cat="finance political">
+    <div class="t-dot t-dot-doc"></div>
+    <div class="t-date">August 15, 1971</div>
+    <div class="t-header">
+      <span class="badge badge-doc">Documented</span>
+      <div class="t-title">Nixon Closes the Gold Window — Enables Permanent Trade Deficits</div>
+      <span class="cat-tag">Finance</span>
+      <span class="cat-tag">Political</span>
+    </div>
+    <p class="t-body">
+      President Nixon ended the convertibility of the U.S. dollar to gold, 
+      collapsing the Bretton Woods system. Under a gold standard, 
+      persistent trade deficits are self-correcting — gold flows out, 
+      the money supply contracts, prices fall, exports become competitive again. 
+      After 1971, with a fiat currency, the U.S. could run permanent, 
+      structural trade deficits indefinitely — importing more than it exported 
+      year after year without automatic correction. 
+      Every year since 1976 the U.S. has run a trade deficit. 
+      Before 1971 the U.S. ran consistent trade surpluses.
+    </p>
+    <span class="t-who">Decision maker: President Richard Nixon · Treasury Secretary John Connally</span>
+    <div class="t-source">Sources: Nixon television address Aug 15, 1971 · Federal Reserve historical data · BLS trade balance records</div>
+    <div class="t-cost">Cost: Removed the automatic mechanism that had prevented permanent trade deficits · U.S. has run a trade deficit every year since 1976</div>
+    <div class="profited-box">
+      <div class="profited-label">Who Profited</div>
+      U.S. banks and financial institutions — the dollar's reserve currency status expanded dramatically after Bretton Woods collapse, 
+      cementing Wall Street's global dominance. Multinational corporations gained ability to offshore production without 
+      currency penalty. U.S. consumers gained short-term access to cheaper imports.
+    </div>
+  </div>
+
+  <div class="t-entry" data-cat="finance">
+    <div class="t-dot t-dot-doc"></div>
+    <div class="t-date">1979 — 1982</div>
+    <div class="t-header">
+      <span class="badge badge-doc">Documented</span>
+      <div class="t-title">Volcker Shock — 20% Interest Rates Crush American Manufacturing</div>
+      <span class="cat-tag">Finance</span>
+    </div>
+    <p class="t-body">
+      Fed Chairman Paul Volcker raised interest rates to nearly 20% to break 
+      the inflation of the 1970s. This caused the severe recession of 1981–82. 
+      Manufacturers who had survived on credit — particularly in steel, auto, 
+      and heavy industry — could not service debt at those rates. 
+      Factory closures accelerated sharply. The Rust Belt was born in this period. 
+      Unemployment hit 10.8% in December 1982 — the highest since the Great Depression.
+    </p>
+    <span class="t-who">Decision maker: Fed Chairman Paul Volcker · Appointed by Carter, continued under Reagan</span>
+    <div class="t-source">Sources: Federal Reserve historical rate data · BLS unemployment records · Congressional testimony Volcker</div>
+    <div class="t-cost">Cost: Manufacturing employment peaked at 19.4 million in 1979 and never recovered · Rust Belt communities permanently restructured</div>
+    <div class="profited-box">
+      <div class="profited-label">Who Profited</div>
+      Banks and bondholders — high interest rates paid enormous returns to creditors. 
+      Wall Street financial sector expanded as manufacturing contracted. 
+      The inflation-adjusted wealth of the top 1% grew sharply through the 1980s 
+      as working-class wages stagnated.
+    </div>
+  </div>
+
+</div>
+</div>
+
+
+<!-- ERA 2 -->
+<div class="era-header" onclick="toggleEra(this)">
+  <div><div class="era-title">Era II — The Great Giveaway</div></div>
+  <div style="display:flex;align-items:center;gap:14px;"><div class="era-dates">1980 — 2000</div><div class="era-toggle">▼</div></div>
+</div>
+<div class="era-body">
+<div class="timeline">
+
+  <div class="t-entry" data-cat="trade political">
+    <div class="t-dot t-dot-doc"></div>
+    <div class="t-date">January 1, 1994</div>
+    <div class="t-header">
+      <span class="badge badge-doc">Documented</span>
+      <div class="t-title">NAFTA Takes Effect — Ross Perot's "Giant Sucking Sound" Proves Correct</div>
+      <span class="cat-tag">Trade</span>
+      <span class="cat-tag">Political</span>
+    </div>
+    <p class="t-body">
+      The North American Free Trade Agreement eliminated most tariffs between 
+      the U.S., Mexico, and Canada. Manufacturing jobs — particularly in auto, 
+      textiles, and electronics — began migrating to Mexico immediately. 
+      During the 1992 presidential debate Ross Perot warned of "a giant sucking 
+      sound" of jobs going south. The Economic Policy Institute later estimated 
+      NAFTA displaced 700,000 U.S. jobs by 2010. The auto industry was 
+      particularly hard hit — Mexican auto wages were $1–2/hour vs. $25–30/hour 
+      in the U.S. Maquiladora factories along the border boomed. 
+      American factory towns in the Midwest and South collapsed.
+    </p>
+    <span class="t-who">Decision maker: President Bill Clinton signed · Negotiated under Bush · Bipartisan congressional passage</span>
+    <div class="t-source">Sources: NAFTA treaty text · EPI analysis of NAFTA job displacement · BLS manufacturing employment by sector · Perot 1992 debate transcript</div>
+    <div class="t-cost">Cost: 700,000+ jobs displaced by 2010 per EPI · Auto, textile, and electronics communities devastated · Mexican wages suppressed — workers on both sides lost</div>
+    <div class="profited-box">
+      <div class="profited-label">Who Profited</div>
+      U.S. multinationals — Ford, GM, GE, and hundreds of manufacturers cut labor costs dramatically by relocating production to Mexico. 
+      Corporate profits expanded. CEO compensation accelerated. 
+      The financial sector — which financed the restructuring — earned fees on every plant closure and relocation.
+    </div>
+  </div>
+
+  <div class="t-entry" data-cat="trade political">
+    <div class="t-dot t-dot-doc"></div>
+    <div class="t-date">January 1, 1995</div>
+    <div class="t-header">
+      <span class="badge badge-doc">Documented</span>
+      <div class="t-title">WTO Established — Rules Locked In That Disadvantaged American Workers</div>
+      <span class="cat-tag">Trade</span>
+      <span class="cat-tag">Political</span>
+    </div>
+    <p class="t-body">
+      The World Trade Organization replaced GATT, creating binding global 
+      free trade rules. The WTO system prohibited tariffs and trade 
+      protections that countries had historically used to develop domestic 
+      industries — but it did not prohibit currency manipulation, 
+      state subsidies, or the lack of labor and environmental standards 
+      that gave developing countries a structural cost advantage. 
+      American workers competed against workers paid in currencies 
+      deliberately suppressed to make their goods cheap. 
+      The rules were written by trade lawyers representing multinationals — 
+      not workers.
+    </p>
+    <span class="t-who">Decision makers: Clinton administration · USTR Mickey Kantor · Bipartisan Senate ratification 76-24</span>
+    <div class="t-source">Sources: WTO founding agreement · Senate ratification vote · USTR historical records · Congressional debate transcripts</div>
+    <div class="t-cost">Cost: Locked in trade rules that systematically disadvantaged U.S. manufacturing vs. countries with no labor or environmental standards</div>
+  </div>
+
+  <div class="t-entry" data-cat="finance political">
+    <div class="t-dot t-dot-doc"></div>
+    <div class="t-date">November 12, 1999</div>
+    <div class="t-header">
+      <span class="badge badge-doc">Documented</span>
+      <div class="t-title">Gramm-Leach-Bliley Repeals Glass-Steagall — Wall Street Unleashed</div>
+      <span class="cat-tag">Finance</span>
+      <span class="cat-tag">Political</span>
+    </div>
+    <p class="t-body">
+      The Gramm-Leach-Bliley Act repealed the Glass-Steagall Act of 1933, 
+      which had separated commercial banking from investment banking since 
+      the Great Depression. After repeal, banks could use depositor money 
+      for speculative investments. Capital that had previously funded 
+      Main Street business loans increasingly flowed to Wall Street speculation. 
+      Private equity — which would devastate American manufacturing in the 
+      following decade — was supercharged by the newly available capital. 
+      The repeal is widely cited as a contributing factor to the 2008 financial crisis.
+    </p>
+    <span class="t-who">Decision maker: President Clinton signed · Sponsored by Sen. Phil Gramm (R-TX) · Passed 90-8 in Senate</span>
+    <div class="t-source">Sources: Gramm-Leach-Bliley Act (P.L. 106-102) · Senate vote record · FCIC report on Glass-Steagall repeal · Congressional testimony</div>
+    <div class="t-cost">Cost: Capital shifted from productive investment to financial speculation · Contributed to 2008 crisis that wiped out remaining manufacturing communities</div>
+    <div class="profited-box">
+      <div class="profited-label">Who Profited</div>
+      Citigroup had already merged with Travelers Group in anticipation of the repeal — its lobbyists had written large portions of the bill. 
+      Citigroup CEO Sandy Weill reportedly hung a plaque in his office reading "The Shatterer of Glass-Steagall." 
+      Wall Street bonuses exploded in the decade following repeal.
+    </div>
+  </div>
+
+</div>
+</div>
+
+
+<!-- ERA 3 -->
+<div class="era-header" onclick="toggleEra(this)">
+  <div><div class="era-title">Era III — The China Shock</div></div>
+  <div style="display:flex;align-items:center;gap:14px;"><div class="era-dates">2001 — 2010</div><div class="era-toggle">▼</div></div>
+</div>
+<div class="era-body">
+<div class="timeline">
+
+  <div class="t-entry" data-cat="trade china political">
+    <div class="t-dot t-dot-doc"></div>
+    <div class="t-date">December 11, 2001</div>
+    <div class="t-header">
+      <span class="badge badge-doc">Documented</span>
+      <div class="t-title">China Admitted to WTO — The Single Biggest Accelerant of American Deindustrialization</div>
+      <span class="cat-tag">Trade</span>
+      <span class="cat-tag">China</span>
+      <span class="cat-tag">Political</span>
+    </div>
+    <p class="t-body">
+      China's admission to the WTO granted it Permanent Normal Trade Relations 
+      with the United States. American companies could now manufacture in China — 
+      with workers earning $0.50–$1.00/hour — and sell products back into the 
+      U.S. market with minimal tariffs. The result was the most rapid 
+      deindustrialization in American history. Economists David Autor, David Dorn, 
+      and Gordon Hanson documented what they called the "China Shock" — 
+      between 2 and 2.4 million American manufacturing jobs eliminated in 
+      the decade following China's WTO entry. Communities in the Midwest, 
+      South, and Appalachia were hollowed out. 60,000+ U.S. factories closed 
+      between 2001 and 2010.
+    </p>
+    <span class="t-who">Decision makers: President Clinton negotiated PNTR · President Bush presided over WTO entry · Bipartisan congressional support</span>
+    <div class="t-source">Sources: China WTO accession documents · Autor, Dorn & Hanson "China Syndrome" (2013, American Economic Review) · BLS manufacturing employment data · Economic Policy Institute China trade deficit tracker</div>
+    <div class="t-cost">Cost: 2–2.4 million jobs · 60,000+ factory closures · $4.6 trillion cumulative trade deficit with China 2001–2020 · Communities devastated — correlated with increased opioid use, suicide rates, and political radicalization in affected regions</div>
+    <div class="profited-box">
+      <div class="profited-label">Who Profited</div>
+      Walmart became the largest company in the world largely on the back of Chinese manufacturing — 
+      its supply chain moved wholesale to China. Apple, which had manufactured in the U.S., 
+      moved production to Foxconn in China. U.S. consumer goods companies across every category 
+      cut costs dramatically. Wall Street banks earned billions in fees facilitating the 
+      restructuring. Chinese Communist Party consolidated industrial power.
+    </div>
+  </div>
+
+  <div class="t-entry" data-cat="finance">
+    <div class="t-dot t-dot-doc"></div>
+    <div class="t-date">2001 — Present</div>
+    <div class="t-header">
+      <span class="badge badge-doc">Documented</span>
+      <div class="t-title">Private Equity Gutting of American Manufacturing — The Mechanism Nobody Talks About</div>
+      <span class="cat-tag">Finance</span>
+    </div>
+    <p class="t-body">
+      Private equity firms — KKR, Bain Capital, Blackstone, Apollo and others — 
+      developed a model of buying manufacturers, loading them with debt 
+      (often using the company's own assets as collateral), extracting 
+      management fees and dividends, offshoring production to cut costs, 
+      then selling or bankrupting the hollowed-out company. 
+      Workers lost jobs and pensions. PE partners collected billions. 
+      Examples: Toys R Us (bankrupt 2017 after PE loaded it with $5B debt), 
+      Simmons Bedding (bankrupt twice under PE ownership), 
+      numerous steel, textile, and auto parts manufacturers. 
+      The Obama administration's own auto bailout task force included 
+      multiple PE veterans who advocated for Chrysler and GM dealership 
+      closures that disproportionately affected rural communities.
+    </p>
+    <span class="t-who">Key players: KKR · Bain Capital (Mitt Romney founded) · Blackstone · Apollo Global · Cerberus Capital</span>
+    <div class="t-source">Sources: PE Hub database · Toys R Us bankruptcy filings · Harvard Business School PE studies · Senate Finance Committee PE investigation (2021) · "Plunder" by Brendan Ballou (2023)</div>
+    <div class="t-cost">Cost: Tens of thousands of jobs across hundreds of companies · Pension obligations stripped · Communities lost anchor employers · No criminal accountability for any PE executive</div>
+    <div class="profited-box">
+      <div class="profited-label">Who Profited</div>
+      PE partners paid 20% "carried interest" on profits — taxed at capital gains rates (15–20%) rather than income rates (37%). 
+      This tax preference — the "carried interest loophole" — has survived every attempt to close it 
+      despite bipartisan political rhetoric against it. Both parties' politicians receive PE campaign contributions.
+    </div>
+  </div>
+
+  <div class="t-entry" data-cat="china trade">
+    <div class="t-dot t-dot-doc"></div>
+    <div class="t-date">2005 — 2015</div>
+    <div class="t-header">
+      <span class="badge badge-doc">Documented</span>
+      <div class="t-title">China Currency Manipulation — Deliberate Policy to Make Chinese Goods Artificially Cheap</div>
+      <span class="cat-tag">China</span>
+      <span class="cat-tag">Trade</span>
+    </div>
+    <p class="t-body">
+      The U.S. Treasury Department repeatedly declined to formally designate 
+      China as a currency manipulator despite documented evidence of deliberate 
+      yuan suppression. China held its currency artificially low — 
+      estimates ranged from 15% to 40% undervalued — making Chinese exports 
+      proportionally cheaper in every global market. The Peterson Institute 
+      estimated currency manipulation cost the U.S. 1–5 million jobs. 
+      Treasury's refusal to formally designate China was influenced by 
+      Wall Street banks that profited from China trade and lobbied against designation.
+    </p>
+    <span class="t-who">Decision makers: Treasury Secretaries Paulson (Goldman Sachs), Geithner (NY Fed) — both with Wall Street ties declined formal designation</span>
+    <div class="t-source">Sources: Treasury semi-annual currency reports · Peterson Institute currency manipulation studies · Congressional testimony Paulson · IMF Article IV China consultations</div>
+    <div class="t-cost">Cost: 1–5 million jobs per Peterson Institute estimates · American manufacturers competed against artificially cheap Chinese goods for a decade · Treasury officials later joined firms that profited from China trade</div>
+  </div>
+
+</div>
+</div>
+
+
+<!-- ERA 4 -->
+<div class="era-header" onclick="toggleEra(this)">
+  <div><div class="era-title">Era IV — The Reckoning Begins</div></div>
+  <div style="display:flex;align-items:center;gap:14px;"><div class="era-dates">2016 — Present</div><div class="era-toggle">▼</div></div>
+</div>
+<div class="era-body">
+<div class="timeline">
+
+  <div class="t-entry" data-cat="trade political china">
+    <div class="t-dot t-dot-doc"></div>
+    <div class="t-date">2018 — 2019</div>
+    <div class="t-header">
+      <span class="badge badge-doc">Documented</span>
+      <div class="t-title">Trump Tariffs on China — First Serious Policy Response in 25 Years</div>
+      <span class="cat-tag">Trade</span>
+      <span class="cat-tag">China</span>
+      <span class="cat-tag">Political</span>
+    </div>
+    <p class="t-body">
+      The Trump administration imposed tariffs of 25% on $250 billion in Chinese 
+      goods and 7.5% on another $120 billion — the first significant use of 
+      trade protection against China since WTO entry. The stated goals were 
+      to reduce the trade deficit, address intellectual property theft, and 
+      force supply chain repatriation. The trade deficit with China decreased 
+      modestly. Some manufacturing began returning. Critics argued tariffs 
+      were paid by American consumers and businesses. Supporters argued they 
+      were the first credible deterrent to Chinese mercantilism in 25 years. 
+      The Biden administration kept most tariffs in place.
+    </p>
+    <span class="t-who">Decision maker: President Donald Trump · USTR Robert Lighthizer</span>
+    <div class="t-source">Sources: USTR Section 301 investigation · Federal Register tariff schedules · BLS import price data · Phase One Trade Deal text</div>
+    <div class="t-cost">Cost / Benefit: Trade deficit with China fell from $419B (2018) to $345B (2019) · Some supply chain movement began · Consumer prices rose on some goods · Still debated by economists</div>
+  </div>
+
+  <div class="t-entry" data-cat="trade political china">
+    <div class="t-dot t-dot-doc"></div>
+    <div class="t-date">2022 — 2026</div>
+    <div class="t-header">
+      <span class="badge badge-doc">Documented</span>
+      <div class="t-title">CHIPS Act, IRA, and Reshoring Push — Partial Reversal Begins</div>
+      <span class="cat-tag">Trade</span>
+      <span class="cat-tag">Political</span>
+    </div>
+    <p class="t-body">
+      The CHIPS and Science Act (2022) provided $52 billion to rebuild 
+      domestic semiconductor manufacturing. The Inflation Reduction Act 
+      included $370 billion in incentives for domestic clean energy manufacturing. 
+      Taiwan Semiconductor, Samsung, and Intel announced major U.S. fab investments. 
+      The rare earth and critical minerals push accelerated under both Biden 
+      and Trump administrations. These represent the first systematic policy 
+      reversal of deindustrialization in 40 years — though economists note 
+      it will take 10–20 years to meaningfully rebuild what was lost in two decades.
+    </p>
+    <span class="t-who">Decision makers: Biden administration · Trump administration continuation · Bipartisan CHIPS Act passage</span>
+    <div class="t-source">Sources: CHIPS Act (P.L. 117-167) · Commerce Dept CHIPS program · IRA text · TSMC Arizona groundbreaking · Intel Ohio announcement</div>
+    <div class="t-cost">Cost / Benefit: $400B+ in government commitments · Reshoring trend documented but slow · Semiconductor fabs take 5–10 years to build · A generation of manufacturing knowledge has been lost</div>
+  </div>
+
+  <div class="t-entry" data-cat="political trade">
+    <div class="t-dot t-dot-doc"></div>
+    <div class="t-date">The Through-Line</div>
+    <div class="t-header">
+      <span class="badge badge-doc">Documented</span>
+      <div class="t-title">The Bipartisan Consensus That Destroyed the Working Class</div>
+      <span class="cat-tag">Political</span>
+    </div>
+    <p class="t-body">
+      Every major policy decision that accelerated deindustrialization was 
+      bipartisan. NAFTA was negotiated under Bush and signed by Clinton. 
+      WTO was bipartisan. China WTO entry was Clinton-negotiated and 
+      Bush-era. Glass-Steagall repeal was bipartisan 90-8. 
+      Currency manipulation non-designation was both parties. 
+      Private equity's carried interest loophole has survived under 
+      every administration. The workers who lost were not Democrats or 
+      Republicans — they were Americans. The people who profited 
+      donated to both parties. This is not a partisan story. 
+      It is a ruling class story.
+    </p>
+    <div class="t-source">Sources: All cited above · Federal Election Commission donation records showing PE, Wall Street, and multinational donations to both parties throughout this period</div>
+    <div class="t-cost">Cost: The American manufacturing middle class — the economic foundation of working-class prosperity — was systematically dismantled over 40 years by bipartisan policy choices made by people who faced no personal consequences for those choices</div>
+  </div>
+
+</div>
+</div>
+
+<hr>
+
+<div class="footer">
+  <strong>Editorial Standard:</strong> Every entry labeled DOCUMENTED, ALLEGED, DISPUTED, or SPECULATIVE/UNVERIFIED. 
+  Sources cited for every claim. "Who Profited" sections show documented financial beneficiaries — 
+  not alleged or speculative. These are facts of public record.<br><br>
+  <strong>The Ruling Class Report</strong> · Accountability Through Public Record · therulingclassreport.com
+</div>
+
+<script>
+function toggleEra(header) {
+  const body = header.nextElementSibling;
+  const toggle = header.querySelector('.era-toggle');
+  if (body.style.display === 'none') {
+    body.style.display = 'block';
+    toggle.textContent = '▼';
+  } else {
+    body.style.display = 'none';
+    toggle.textContent = '▶';
+  }
+}
+
+function filterEntries(cat, event) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  document.querySelectorAll('.t-entry').forEach(entry => {
+    if (cat === 'all') {
+      entry.style.display = 'block';
+    } else {
+      const cats = entry.dataset.cat || '';
+      entry.style.display = cats.includes(cat) ? 'block' : 'none';
+    }
+  });
+}
+</script>
+
+</body>
+</html>
