@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Ruling Class Report — Accountability Through Public Record</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wdth,wght@0,75..125,200..900;1,75..125,200..900&display=swap" rel="stylesheet">
+<style>
+
+/* ── ADAPTIVE COLOR SYSTEM ── */
+:root {
+  --bg:           #f5f5f7;
+  --bg-elevated:  #ffffff;
+  --bg-glass:     rgba(255,255,255,0.72);
+  --bg-card:      rgba(255,255,255,0.8);
+  --bg-card-hover:rgba(255,255,255,0.95);
+  --border:       rgba(0,0,0,0.08);
+  --border-hover: rgba(0,0,0,0.14);
+  --text-primary:   #1d1d1f;
+  --text-secondary: #6e6e73;
+  --text-tertiary:  #aeaeb2;
+  --accent:       #ff3b30;
+  --accent-soft:  rgba(255,59,48,0.08);
+  --accent-mid:   rgba(255,59,48,0.15);
+  --shadow-sm:    0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md:    0 4px 16px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
+  --shadow-lg:    0 20px 60px rgba(0,0,0,0.10), 0 8px 20px rgba(0,0,0,0.06);
+  --radius-sm:    10px;
+  --radius-md:    16px;
+  --radius-lg:    24px;
+  --blur:         blur(24px) saturate(180%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:           #000000;
+    --bg-elevated:  #1c1c1e;
+    --bg-glass:     rgba(28,28,30,0.80);
+    --bg-card:      rgba(28,28,30,0.90);
+    --bg-card-hover:rgba(44,44,46,0.95);
+    --border:       rgba(255,255,255,0.08);
+    --border-hover: rgba(255,255,255,0.14);
+    --text-primary:   #f5f5f7;
+    --text-secondary: #98989d;
+    --text-tertiary:  #48484a;
+    --accent:       #ff453a;
+    --accent-soft:  rgba(255,69,58,0.10);
+    --accent-mid:   rgba(255,69,58,0.18);
+    --shadow-sm:    0 1px 3px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2);
+    --shadow-md:    0 4px 16px rgba(0,0,0,0.4), 0 2px 4px rgba(0,0,0,0.2);
+    --shadow-lg:    0 20px 60px rgba(0,0,0,0.5), 0 8px 20px rgba(0,0,0,0.3);
+  }
+}
+
+/* ── RESET ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+
+body {
+  font-family: 'Mona Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── BACKGROUND MESH ── */
+.bg-mesh {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.bg-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.35;
+}
+
+@media (prefers-color-scheme: dark) {
+  .bg-orb { opacity: 0.2; }
+}
+
+.orb-1 {
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(255,59,48,0.4), transparent 70%);
+  top: -200px; right: -100px;
+  animation: drift1 20s ease-in-out infinite alternate;
+}
+
+.orb-2 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(100,120,255,0.3), transparent 70%);
+  bottom: 10%; left: -150px;
+  animation: drift2 25s ease-in-out infinite alternate;
+}
+
+.orb-3 {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(255,180,50,0.25), transparent 70%);
+  top: 40%; right: 10%;
+  animation: drift3 30s ease-in-out infinite alternate;
+}
+
+@keyframes drift1 { from { transform: translate(0,0) scale(1); } to { transform: translate(-60px, 80px) scale(1.1); } }
+@keyframes drift2 { from { transform: translate(0,0) scale(1); } to { transform: translate(80px, -60px) scale(0.9); } }
+@keyframes drift3 { from { transform: translate(0,0) scale(1); } to { transform: translate(-40px, 40px) scale(1.05); } }
+
+/* ── NAV ── */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  height: 52px;
+  background: var(--bg-glass);
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.nav-mark {
+  width: 28px; height: 28px;
+  background: var(--accent);
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 800;
+  color: white;
+  letter-spacing: -0.5px;
+  flex-shrink: 0;
+}
+
+.nav-name {
+  font-size: 14px;
+  font-weight: 650;
+  color: var(--text-primary);
+  letter-spacing: -0.2px;
+  white-space: nowrap;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  overflow-x: auto;
+}
+
+.nav-links::-webkit-scrollbar { display: none; }
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  height: 32px;
+  padding: 0 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.nav-link:hover {
+  color: var(--text-primary);
+  background: var(--border);
+}
+
+.nav-link.primary {
+  background: var(--accent);
+  color: white;
+  font-weight: 600;
+}
+
+.nav-link.primary:hover {
+  background: var(--accent);
+  opacity: 0.88;
+  color: white;
+}
+
+/* ── MAIN CONTENT ── */
+.content {
+  position: relative;
+  z-index: 1;
+  padding-top: 52px;
+}
+
+/* ── HERO ── */
+.hero {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 100px 24px 80px;
+  text-align: center;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 24px;
+  padding: 6px 14px;
+  background: var(--accent-soft);
+  border-radius: 100px;
+  border: 1px solid var(--accent-mid);
+}
+
+.hero-eyebrow-dot {
+  width: 6px; height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.3); }
+}
+
+h1 {
+  font-size: clamp(48px, 7vw, 88px);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  color: var(--text-primary);
+  margin-bottom: 20px;
+}
+
+h1 em {
+  font-style: normal;
+  color: var(--accent);
+}
+
+.hero-sub {
+  font-size: clamp(17px, 2.5vw, 22px);
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  max-width: 580px;
+  margin: 0 auto 48px;
+}
+
+/* ── LABEL PILLS ── */
+.label-pills {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 56px;
+}
+
+.pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
+  color: var(--text-primary);
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.pill:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--border-hover);
+}
+
+.pill-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.pill-dot.green  { background: #30d158; }
+.pill-dot.amber  { background: #ff9f0a; }
+.pill-dot.blue   { background: #0a84ff; }
+.pill-dot.gray   { background: #98989d; }
+
+/* ── HERO CTA ── */
+.hero-ctas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 100px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  letter-spacing: -0.1px;
+}
+
+.btn-primary {
+  background: var(--text-primary);
+  color: var(--bg);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  opacity: 0.88;
+}
+
+.btn-secondary {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
+}
+
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--border-hover);
+}
+
+.btn-arrow {
+  font-size: 18px;
+  transition: transform 0.2s ease;
+}
+
+.btn:hover .btn-arrow { transform: translateX(3px); }
+
+/* ── DIVIDER ── */
+.section-divider {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  border-top: 1px solid var(--border);
+  margin-bottom: 80px;
+}
+
+/* ── SECTIONS ── */
+.section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px 100px;
+}
+
+.section-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 8px;
+}
+
+.section-title {
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 750;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  line-height: 1.1;
+}
+
+.section-desc {
+  font-size: 16px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 500px;
+  margin-bottom: 40px;
+}
+
+/* ── BENTO GRID ── */
+.bento {
+  display: grid;
+  gap: 12px;
+}
+
+.bento-2 { grid-template-columns: repeat(2, 1fr); }
+.bento-3 { grid-template-columns: repeat(3, 1fr); }
+.bento-4 { grid-template-columns: repeat(4, 1fr); }
+
+.bento-card {
+  background: var(--bg-card);
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  text-decoration: none;
+  transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.bento-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 60%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.bento-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--border-hover);
+  background: var(--bg-card-hover);
+}
+
+.bento-card:hover::before { opacity: 1; }
+
+.bento-card.span-2 { grid-column: span 2; }
+.bento-card.span-3 { grid-column: span 3; }
+.bento-card.featured { grid-column: span 2; grid-row: span 2; }
+
+.card-accent-bar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.bar-red    { background: linear-gradient(90deg, #ff3b30, #ff6b63); }
+.bar-blue   { background: linear-gradient(90deg, #0a84ff, #5ac8fa); }
+.bar-gold   { background: linear-gradient(90deg, #ff9f0a, #ffd60a); }
+.bar-green  { background: linear-gradient(90deg, #30d158, #34c759); }
+.bar-purple { background: linear-gradient(90deg, #bf5af2, #6e40c9); }
+.bar-gray   { background: linear-gradient(90deg, #636366, #98989d); }
+
+.card-icon {
+  font-size: 28px;
+  margin-bottom: 16px;
+  display: block;
+  line-height: 1;
+}
+
+.card-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 8px;
+}
+
+.card-title {
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  line-height: 1.25;
+  margin-bottom: 8px;
+}
+
+.bento-card.featured .card-title { font-size: 26px; }
+
+.card-desc {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  flex: 1;
+  margin-bottom: 16px;
+}
+
+.card-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  margin-top: auto;
+}
+
+.card-meta-dot {
+  width: 6px; height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.card-link-arrow {
+  font-size: 16px;
+  color: var(--text-tertiary);
+  transition: all 0.2s ease;
+  margin-left: auto;
+}
+
+.bento-card:hover .card-link-arrow {
+  color: var(--text-primary);
+  transform: translate(3px,-3px);
+}
+
+/* GHOST CARDS (coming soon) */
+.bento-card.ghost {
+  opacity: 0.45;
+  cursor: default;
+  pointer-events: none;
+}
+
+.bento-card.ghost:hover { transform: none; box-shadow: var(--shadow-sm); }
+
+/* ── STANDARD SECTION — CONGRESS TRACKER ── */
+.feature-card {
+  background: var(--text-primary);
+  border-radius: var(--radius-lg);
+  padding: 56px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-card::after {
+  content: '';
+  position: absolute;
+  top: -50%; right: -20%;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(255,59,48,0.15), transparent 60%);
+  pointer-events: none;
+}
+
+.feature-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+.feature-title {
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: #f5f5f7;
+  line-height: 1.05;
+  margin-bottom: 16px;
+}
+
+.feature-desc {
+  font-size: 16px;
+  color: rgba(245,245,247,0.6);
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+
+.feature-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.fstat {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+}
+
+.fstat-val {
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #f5f5f7;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.fstat-val.red { color: #ff453a; }
+.fstat-val.gold { color: #ff9f0a; }
+
+.fstat-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(245,245,247,0.45);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* ── EDITORIAL STANDARD ── */
+.standards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.standard-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.standard-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 6px;
+  margin-bottom: 14px;
+}
+
+.sb-doc    { background: rgba(48,209,88,0.12); color: #30d158; border: 1px solid rgba(48,209,88,0.2); }
+.sb-alleg  { background: rgba(255,159,10,0.12); color: #ff9f0a; border: 1px solid rgba(255,159,10,0.2); }
+.sb-disp   { background: rgba(10,132,255,0.12); color: #0a84ff; border: 1px solid rgba(10,132,255,0.2); }
+.sb-spec   { background: rgba(152,152,157,0.12); color: #98989d; border: 1px solid rgba(152,152,157,0.2); }
+
+.standard-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+  letter-spacing: -0.01em;
+}
+
+.standard-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 40px 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-name {
+  font-size: 14px;
+  font-weight: 650;
+  color: var(--text-primary);
+}
+
+.footer-copy {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  line-height: 1.6;
+  max-width: 400px;
+}
+
+.footer-links {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.footer-link {
+  font-size: 13px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.footer-link:hover { color: var(--text-primary); }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-in {
+  animation: fadeUp 0.6s cubic-bezier(0.4,0,0.2,1) both;
+}
+
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.5s; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .bento-2, .bento-3, .bento-4 { grid-template-columns: repeat(2, 1fr); }
+  .bento-card.featured { grid-column: span 2; grid-row: span 1; }
+  .feature-card { grid-template-columns: 1fr; padding: 36px; }
+  .standards-grid { grid-template-columns: repeat(2, 1fr); }
+  .nav-links { display: none; }
+}
+
+@media (max-width: 580px) {
+  .bento-2, .bento-3, .bento-4 { grid-template-columns: 1fr; }
+  .bento-card.span-2, .bento-card.featured { grid-column: span 1; }
+  .standards-grid { grid-template-columns: 1fr; }
+  .feature-stats { grid-template-columns: repeat(2,1fr); }
+  hero { padding: 72px 20px 60px; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- BACKGROUND -->
+<div class="bg-mesh" aria-hidden="true">
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+  <div class="bg-orb orb-3"></div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <div class="nav-mark">RR</div>
+      <span class="nav-name">Ruling Class Report</span>
+    </a>
+    <div class="nav-links">
+      <a href="/congress" class="nav-link">Congress</a>
+      <a href="/trump-timeline.html" class="nav-link">Trump Timeline</a>
+      <a href="/obama-full-record.html" class="nav-link">Obama Record</a>
+      <a href="/deindustrialization-timeline.html" class="nav-link">Deindustrialization</a>
+      <a href="/wef-globalist-agenda.html" class="nav-link">Globalist Agenda</a>
+      <a href="/about-mission.html" class="nav-link">About</a>
+    </div>
+    <a href="/congress" class="nav-link primary">Open Tracker →</a>
+  </div>
+</nav>
+
+<!-- CONTENT -->
+<main class="content">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-eyebrow animate-in">
+      <div class="hero-eyebrow-dot"></div>
+      Independent · Nonpartisan · Sourced
+    </div>
+
+    <h1 class="animate-in delay-1">
+      They count on<br>you not knowing.<br><em>Know.</em>
+    </h1>
+
+    <p class="hero-sub animate-in delay-2">
+      A civic accountability archive covering the votes, decisions, 
+      deaths, deals, and power structures that shaped the last 
+      thirty years — documented, labeled, and sourced.
+    </p>
+
+    <div class="label-pills animate-in delay-3">
+      <div class="pill">
+        <div class="pill-dot green"></div>
+        Documented — verified by primary sources
+      </div>
+      <div class="pill">
+        <div class="pill-dot amber"></div>
+        Alleged — claimed, not proven
+      </div>
+      <div class="pill">
+        <div class="pill-dot blue"></div>
+        Disputed — credible disagreement
+      </div>
+      <div class="pill">
+        <div class="pill-dot gray"></div>
+        Speculative — in circulation, unverified
+      </div>
+    </div>
+
+    <div class="hero-ctas animate-in delay-4">
+      <a href="/congress" class="btn btn-primary">
+        Open Congress Tracker
+        <span class="btn-arrow">→</span>
+      </a>
+      <a href="/about-mission.html" class="btn btn-secondary">
+        Our Standard
+        <span class="btn-arrow">→</span>
+      </a>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- INVESTIGATIONS -->
+  <section class="section">
+    <div class="section-label">Investigations</div>
+    <div class="section-title">The documented record.</div>
+    <p class="section-desc">Every entry labeled. Every claim sourced. No mixing of categories.</p>
+
+    <div class="bento bento-3">
+
+      <a href="/trump-timeline.html" class="bento-card featured animate-in">
+        <div class="card-accent-bar bar-red"></div>
+        <span class="card-icon">📋</span>
+        <div class="card-tag">Full Investigation</div>
+        <div class="card-title">What They Did to Trump — and What It Cost</div>
+        <p class="card-desc">
+          A chronological record from the 2016 primary through 2026. 
+          The Steele Dossier, Crossfire Hurricane, Flynn, Mueller, 
+          two impeachments, the Manhattan prosecution, two assassination attempts. 
+          Every entry documented and sourced. Every label honest.
+        </p>
+        <div class="card-meta">
+          <div class="card-meta-dot"></div>
+          Live · 7 Phases Covered
+          <span class="card-link-arrow">↗</span>
+        </div>
+      </a>
+
+      <a href="/obama-full-record.html" class="bento-card animate-in delay-1">
+        <div class="card-accent-bar bar-gold"></div>
+        <span class="card-icon">🏛</span>
+        <div class="card-tag">Full Record</div>
+        <div class="card-title">The Obama Record</div>
+        <p class="card-desc">
+          Smith-Mundt repeal. IRS targeting. ACORN. Fast & Furious. 
+          NSA mass surveillance. $400M to Iran. Plus the full 
+          Alinsky influence network mapped four generations deep.
+        </p>
+        <div class="card-meta">
+          <div class="card-meta-dot"></div>
+          6 Phases · Alinsky Network
+          <span class="card-link-arrow">↗</span>
+        </div>
+      </a>
+
+      <a href="/deindustrialization-timeline.html" class="bento-card animate-in delay-2">
+        <div class="card-accent-bar bar-blue"></div>
+        <span class="card-icon">🏭</span>
+        <div class="card-tag">Economic History</div>
+        <div class="card-title">How They Dismantled American Industry</div>
+        <p class="card-desc">
+          7.5 million manufacturing jobs. 60,000+ factory closures. 
+          NAFTA, China WTO, Glass-Steagall, private equity. 
+          Who made the decisions — and who profited.
+        </p>
+        <div class="card-meta">
+          <div class="card-meta-dot"></div>
+          4 Eras · Bipartisan Record
+          <span class="card-link-arrow">↗</span>
+        </div>
+      </a>
+
+      <a href="/suspicious-deaths.html" class="bento-card animate-in delay-1">
+        <div class="card-accent-bar bar-gray"></div>
+        <span class="card-icon">🔍</span>
+        <div class="card-tag">Unanswered Questions</div>
+        <div class="card-title">Suspicious Deaths</div>
+        <p class="card-desc">
+          Vince Foster. Ron Brown. Seth Rich. Jeffrey Epstein. 
+          The Weiner laptop. What official investigations found, 
+          what remains genuinely open, and what is speculative — 
+          clearly labeled, honestly sourced.
+        </p>
+        <div class="card-meta">
+          <div class="card-meta-dot"></div>
+          5 Cases · 5 Labels
+          <span class="card-link-arrow">↗</span>
+        </div>
+      </a>
+
+      <a href="/wef-globalist-agenda.html" class="bento-card animate-in delay-2">
+        <div class="card-accent-bar bar-purple"></div>
+        <span class="card-icon">🌐</span>
+        <div class="card-tag">Global Power</div>
+        <div class="card-title">The Globalist Agenda</div>
+        <p class="card-desc">
+          WEF. The Young Global Leaders program. The Great Reset. 
+          CBDCs. UN Agenda 2030. Documented from their own 
+          publications, speeches, and membership records. 
+          No embellishment needed.
+        </p>
+        <div class="card-meta">
+          <div class="card-meta-dot"></div>
+          6 Sections · Primary Sources
+          <span class="card-link-arrow">↗</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- CONGRESS TRACKER FEATURE -->
+  <section class="section" style="padding-top:0;">
+    <div class="feature-card animate-in">
+      <div>
+        <div class="feature-label">Live Platform</div>
+        <div class="feature-title">Congressional Intelligence Tracker</div>
+        <p class="feature-desc">
+          536 members tracked. Live vote data from Congress.gov. 
+          Conservative loyalty scores updated in real time. 
+          AI-generated constituent message drafts. 
+          Media Scorecard, Supreme Court ratings, DOGE Report, 
+          Governors, and more.
+        </p>
+        <a href="/congress" class="btn btn-primary" style="background:#f5f5f7;color:#1d1d1f;">
+          Open Tracker <span class="btn-arrow">→</span>
+        </a>
+      </div>
+      <div class="feature-stats">
+        <div class="fstat">
+          <div class="fstat-val red">536</div>
+          <div class="fstat-label">Members Tracked</div>
+        </div>
+        <div class="fstat">
+          <div class="fstat-val">8</div>
+          <div class="fstat-label">Key Votes Scored</div>
+        </div>
+        <div class="fstat">
+          <div class="fstat-val gold">Live</div>
+          <div class="fstat-label">Congress.gov Data</div>
+        </div>
+        <div class="fstat">
+          <div class="fstat-val">11</div>
+          <div class="fstat-label">Platform Tabs</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMING SOON -->
+  <section class="section" style="padding-top:0;">
+    <div class="section-label">In Development</div>
+    <div class="section-title">What's coming.</div>
+    <p class="section-desc">The archive grows. Every tab is built to the same four-label standard.</p>
+
+    <div class="bento bento-4">
+      <div class="bento-card ghost">
+        <div class="card-accent-bar bar-gold"></div>
+        <span class="card-icon">💼</span>
+        <div class="card-title">Congressional Portfolio Watch</div>
+        <p class="card-desc">Trades vs. committee assignments vs. votes.</p>
+      </div>
+      <div class="bento-card ghost">
+        <div class="card-accent-bar bar-red"></div>
+        <span class="card-icon">🗳</span>
+        <div class="card-title">Voter Fraud Tracker</div>
+        <p class="card-desc">Documented cases by state, method, and year.</p>
+      </div>
+      <div class="bento-card ghost">
+        <div class="card-accent-bar bar-blue"></div>
+        <span class="card-icon">🛰</span>
+        <div class="card-title">Satellite & Space Watch</div>
+        <p class="card-desc">Foreign satellites, GPS vulnerability, who controls overhead.</p>
+      </div>
+      <div class="bento-card ghost">
+        <div class="card-accent-bar bar-purple"></div>
+        <span class="card-icon">⚡</span>
+        <div class="card-title">Infrastructure Vulnerability</div>
+        <p class="card-desc">Chinese grid equipment, port cranes, undersea cables.</p>
+      </div>
+      <div class="bento-card ghost">
+        <div class="card-accent-bar bar-gray"></div>
+        <span class="card-icon">⚔️</span>
+        <div class="card-title">Military Industrial Complex</div>
+        <p class="card-desc">Contracts, donations, the revolving door, cost overruns.</p>
+      </div>
+      <div class="bento-card ghost">
+        <div class="card-accent-bar bar-red"></div>
+        <span class="card-icon">👩‍⚖️</span>
+        <div class="card-title">Hillary Clinton Record</div>
+        <p class="card-desc">State Dept, Benghazi, Foundation, email server — sourced.</p>
+      </div>
+      <div class="bento-card ghost">
+        <div class="card-accent-bar bar-gold"></div>
+        <span class="card-icon">📈</span>
+        <div class="card-title">Supply Chain Watch</div>
+        <p class="card-desc">Rare earths, semiconductors, pharma — what we owe China.</p>
+      </div>
+      <div class="bento-card ghost">
+        <div class="card-accent-bar bar-green"></div>
+        <span class="card-icon">🗞</span>
+        <div class="card-title">News Feed</div>
+        <p class="card-desc">Ongoing developments, labeled and sourced as they happen.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDITORIAL STANDARD -->
+  <section class="section" style="padding-top:0;">
+    <div class="section-label">Our Standard</div>
+    <div class="section-title">Four labels. No exceptions.</div>
+    <p class="section-desc">Every claim on this platform carries one of four labels before you read a word of it.</p>
+
+    <div class="standards-grid">
+      <div class="standard-card animate-in">
+        <div class="standard-badge sb-doc">Documented</div>
+        <div class="standard-title">Verified by primary sources</div>
+        <p class="standard-desc">Court records, official findings, signed laws, congressional reports, verified documents. We cite the source. You can check it yourself.</p>
+      </div>
+      <div class="standard-card animate-in delay-1">
+        <div class="standard-badge sb-alleg">Alleged</div>
+        <div class="standard-title">Claimed, not conclusively proven</div>
+        <p class="standard-desc">A named person or organization made this claim on record. It has not been confirmed by independent evidence. We tell you who said it and why it matters.</p>
+      </div>
+      <div class="standard-card animate-in delay-2">
+        <div class="standard-badge sb-disp">Disputed</div>
+        <div class="standard-title">Credible arguments both ways</div>
+        <p class="standard-desc">Reasonable, informed people examining the same evidence reach different conclusions. We show both sides. We do not pick a winner on genuinely contested questions.</p>
+      </div>
+      <div class="standard-card animate-in delay-3">
+        <div class="standard-badge sb-spec">Speculative</div>
+        <div class="standard-title">In circulation, unverified</div>
+        <p class="standard-desc">This claim exists publicly. We present it with context, explain what would verify it, and update the label if evidence emerges. We never present speculation as fact.</p>
+      </div>
+    </div>
+
+    <div style="margin-top:24px;text-align:center;">
+      <a href="/about-mission.html" class="btn btn-secondary" style="display:inline-flex;">
+        Read the full editorial standard <span class="btn-arrow">→</span>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="nav-mark">RR</div>
+      <div>
+        <div class="footer-name">The Ruling Class Report</div>
+        <div style="font-size:11px;color:var(--text-tertiary);margin-top:2px;">No advertisers. No sponsors. No agenda but accuracy.</div>
+      </div>
+    </div>
+    <div class="footer-copy">
+      Every claim labeled. Every source cited. Corrections published publicly. 
+      Built by one person who thinks you deserve the whole truth.
+    </div>
+    <div class="footer-links">
+      <a href="/congress" class="footer-link">Congress Tracker</a>
+      <a href="/trump-timeline.html" class="footer-link">Trump Timeline</a>
+      <a href="/obama-full-record.html" class="footer-link">Obama Record</a>
+      <a href="/about-mission.html" class="footer-link">About</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Intersection observer for scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.animationPlayState = 'running';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.animate-in').forEach(el => {
+  el.style.animationPlayState = 'paused';
+  observer.observe(el);
+});
+
+// Active nav link
+const path = window.location.pathname;
+document.querySelectorAll('.nav-link').forEach(link => {
+  if (link.getAttribute('href') === path) {
+    link.classList.add('active');
+  }
+});
+</script>
+
+</body>
+</html>
