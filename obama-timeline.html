@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>:root { color-scheme: light only !important; }</style>
+<title>The Obama Record — Policy Changes & Consequences</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  background: #ffffff !important;
+  color: #111111 !important;
+  color-scheme: light only !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  html, body, div, p, h1, h2, h3, h4, span, td, th, li,
+  blockquote, cite, strong, em, section, header, footer, nav {
+    color: inherit !important;
+  }
+  html { background: #ffffff !important; color: #111111 !important; }
+  body { background: #ffffff !important; color: #111111 !important; }
+}
+
+body {
+  font-family: 'Source Serif 4', serif;
+  font-size: 15px;
+  line-height: 1.65;
+  background: #ffffff !important;
+  color: #111111 !important;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 48px 32px 80px;
+}
+
+.masthead-rule { border-top: 8px double #111111; margin-bottom: 0; }
+.masthead-rule2 { border-top: 2px solid #111111; margin-top: 4px; margin-bottom: 24px; }
+
+.masthead {
+  text-align: center;
+  padding: 20px 0 16px;
+  border-bottom: 1px solid #cccccc;
+  margin-bottom: 6px;
+}
+
+.publication {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #555555 !important;
+  margin-bottom: 10px;
+}
+
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(28px, 5vw, 52px);
+  font-weight: 900;
+  line-height: 1.05;
+  color: #111111 !important;
+  margin-bottom: 14px;
+  letter-spacing: -0.02em;
+}
+
+.deck {
+  font-family: 'Source Serif 4', serif;
+  font-style: italic;
+  font-size: 16px;
+  color: #333333 !important;
+  max-width: 620px;
+  margin: 0 auto 16px;
+  line-height: 1.5;
+}
+
+.meta-row {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  color: #777777 !important;
+  text-transform: uppercase;
+  margin-top: 10px;
+}
+
+.legend {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  padding: 14px 0;
+  border-top: 2px solid #111111;
+  border-bottom: 1px solid #dddddd;
+  margin-bottom: 28px;
+  align-items: center;
+}
+
+.legend-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: #555555 !important;
+  text-transform: uppercase;
+}
+
+.badge {
+  display: inline-block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+}
+
+.badge-doc  { background: #1a3a1a !important; color: #ffffff !important; }
+.badge-alleged { background: #7a3a00 !important; color: #ffffff !important; }
+.badge-disputed { background: #2a2a6a !important; color: #ffffff !important; }
+
+.legend-item { display: flex; align-items: center; gap: 8px; }
+.legend-desc {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  color: #666666 !important;
+}
+
+/* COST BANNER */
+.cost-banner {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: #444444 !important;
+  border: 2px solid #111111;
+  margin-bottom: 32px;
+}
+
+.cost-cell {
+  background: #111111 !important;
+  padding: 18px 20px;
+  text-align: center;
+}
+
+.cost-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  font-weight: 900;
+  color: #ff6633 !important;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.cost-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  color: #aaaaaa !important;
+  text-transform: uppercase;
+  line-height: 1.5;
+}
+
+/* FILTERS */
+.filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #dddddd;
+}
+
+.filter-btn {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border: 1px solid #cccccc;
+  background: #ffffff !important;
+  color: #444444 !important;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.filter-btn:hover, .filter-btn.active {
+  background: #111111 !important;
+  color: #ffffff !important;
+  border-color: #111111;
+}
+
+.filter-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  color: #888888 !important;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  align-self: center;
+}
+
+/* PHASE */
+.phase { margin-bottom: 8px; }
+
+.phase-header {
+  background: #111111 !important;
+  color: #ffffff !important;
+  padding: 10px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.phase-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff !important;
+}
+
+.phase-dates {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  color: #aaaaaa !important;
+  text-transform: uppercase;
+}
+
+.phase-toggle {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  color: #aaaaaa !important;
+}
+
+.phase-body {
+  border-left: 4px solid #111111;
+  border-right: 1px solid #dddddd;
+  border-bottom: 1px solid #dddddd;
+  margin-bottom: 24px;
+}
+
+/* ENTRIES */
+.entry {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.entry:last-child { border-bottom: none; }
+
+.entry-date {
+  padding: 16px 14px;
+  border-right: 1px solid #dddddd;
+  background: #f9f9f9 !important;
+}
+
+.date-month {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #888888 !important;
+  display: block;
+}
+
+.date-year {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #111111 !important;
+  display: block;
+  line-height: 1;
+  margin-top: 2px;
+}
+
+.entry-content { padding: 14px 16px; }
+
+.entry-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.entry-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #111111 !important;
+  line-height: 1.3;
+  flex: 1;
+}
+
+.entry-body {
+  font-size: 13px;
+  color: #222222 !important;
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.entry-source {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  color: #888888 !important;
+  letter-spacing: 0.05em;
+}
+
+.entry-cost {
+  display: inline-block;
+  margin-top: 6px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  color: #cc3300 !important;
+  text-transform: uppercase;
+  border-top: 1px solid #ffccbb;
+  padding-top: 4px;
+}
+
+.cat-tag {
+  display: inline-block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border: 1px solid #cccccc;
+  color: #555555 !important;
+  margin-right: 4px;
+}
+
+hr { border: none; border-top: 1px solid #dddddd; margin: 32px 0; }
+
+.footer {
+  margin-top: 48px;
+  padding-top: 16px;
+  border-top: 3px double #111111;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  color: #666666 !important;
+  line-height: 1.8;
+  letter-spacing: 0.05em;
+}
+
+.footer strong { color: #111111 !important; }
+
+@media (max-width: 560px) {
+  body { padding: 24px 16px 60px; }
+  .entry { grid-template-columns: 80px 1fr; }
+  .cost-banner { grid-template-columns: 1fr; }
+  .legend { gap: 12px; }
+}
+
+</style>
+</head>
+<body>
+
+<div class="masthead-rule"></div>
+<div class="masthead-rule2"></div>
+
+<div class="masthead">
+  <div class="publication">The Ruling Class Report · Special Investigation</div>
+  <h1>The Obama Record</h1>
+  <p class="deck">
+    A documented account of policy decisions, executive actions, and institutional 
+    changes made during the Obama administration — what was done, what it cost, 
+    and what it changed permanently.
+  </p>
+  <div class="meta-row">
+    Every entry labeled: Documented · Alleged · Disputed &nbsp;·&nbsp;
+    Sources cited &nbsp;·&nbsp; Updated May 2026
+  </div>
+</div>
+
+<div class="legend">
+  <span class="legend-label">Key:</span>
+  <div class="legend-item">
+    <span class="badge badge-doc">Documented</span>
+    <span class="legend-desc">Court record, official finding, signed law, verified primary source</span>
+  </div>
+  <div class="legend-item">
+    <span class="badge badge-alleged">Alleged</span>
+    <span class="legend-desc">Claimed by named parties, not adjudicated or conclusively proven</span>
+  </div>
+  <div class="legend-item">
+    <span class="badge badge-disputed">Disputed</span>
+    <span class="legend-desc">Competing credible accounts, evidence on both sides, no definitive resolution</span>
+  </div>
+</div>
+
+<div class="cost-banner">
+  <div class="cost-cell">
+    <div class="cost-number">8 Years</div>
+    <div class="cost-label">Duration of<br>administration</div>
+  </div>
+  <div class="cost-cell">
+    <div class="cost-number">$9.3T</div>
+    <div class="cost-label">National debt added<br>during two terms</div>
+  </div>
+  <div class="cost-cell">
+    <div class="cost-number">563+</div>
+    <div class="cost-label">Drone strikes<br>authorized</div>
+  </div>
+</div>
+
+<div class="filters">
+  <span class="filter-label">Filter:</span>
+  <button class="filter-btn active" onclick="filterEntries('all', event)">All</button>
+  <button class="filter-btn" onclick="filterEntries('media', event)">Media & Speech</button>
+  <button class="filter-btn" onclick="filterEntries('surveillance', event)">Surveillance</button>
+  <button class="filter-btn" onclick="filterEntries('foreign', event)">Foreign Policy</button>
+  <button class="filter-btn" onclick="filterEntries('economic', event)">Economic</button>
+  <button class="filter-btn" onclick="filterEntries('legal', event)">Legal & DOJ</button>
+  <button class="filter-btn" onclick="filterEntries('executive', event)">Executive Power</button>
+</div>
+
+
+<!-- PHASE 1: MEDIA & INFORMATION -->
+<div class="phase">
+  <div class="phase-header" onclick="togglePhase(this)">
+    <div>
+      <div class="phase-title">Media, Propaganda & the Press</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px;">
+      <div class="phase-dates">2012 — 2016</div>
+      <div class="phase-toggle">▼</div>
+    </div>
+  </div>
+  <div class="phase-body">
+
+    <div class="entry" data-cat="media executive">
+      <div class="entry-date">
+        <span class="date-month">Jul</span>
+        <span class="date-year">2012</span>
+      </div>
+      <div class="entry-content">
+        <div class="entry-header">
+          <span class="badge badge-doc">Documented</span>
+          <div class="entry-title">Smith-Mundt Modernization Act Signed — Government Propaganda Permitted Domestically</div>
+          <span class="cat-tag">Media</span>
+          <span class="cat-tag">Executive</span>
+        </div>
+        <p class="entry-body">
+          Obama signed the National Defense Authorization Act for FY2013, which included 
+          the Smith-Mundt Modernization Act of 2012. The original Smith-Mundt Act of 1948 
+          had prohibited the State Department and Broadcasting Board of Governors from 
+          directing government-produced propaganda at domestic American audiences — 
+          a protection put in place specifically to prevent the government from using 
+          Cold War information warfare tools on its own citizens. The 2012 amendment 
+          repealed that prohibition. Government-produced media content, including material 
+          originally intended for foreign audiences, could now legally be directed at 
+          Americans. The change received almost no mainstream media coverage at the time.
+        </p>
+        <div class="entry-source">Sources: Smith-Mundt Modernization Act of 2012 (Section 1078 of NDAA FY2013) · Public Law 112-239 · Original Smith-Mundt Act, 22 U.S.C. §1461</div>
+        <div class="entry-cost">Cost: Permanent removal of 64-year prohibition on domestic government propaganda · Legal framework for government-directed domestic information operations now in place</div>
+      </div>
+    </div>
+
+    <div class="entry" data-cat="media surveillance legal">
+      <div class="entry-date">
+        <span class="date-month">2013</span>
+        <span class="date-year">–2016</span>
+      </div>
+      <div class="entry-content">
+        <div class="entry-header">
+          <span class="badge badge-doc">Documented</span>
+          <div class="entry-title">DOJ Secretly Subpoenas AP Phone Records — 20 Reporters Surveilled</div>
+          <span class="cat-tag">Media</span>
+          <span class="cat-tag">Surveillance</span>
+          <span class="cat-tag">Legal</span>
+        </div>
+        <p class="entry-body">
+          In 2013 the DOJ secretly obtained two months of phone records from over 
+          20 Associated Press reporters and editors — one of the largest known 
+          government seizures of media records. The DOJ also named Fox News reporter 
+          James Rosen as a criminal co-conspirator in a leak investigation, which 
+          required a judge to sign off on surveilling a journalist. The Obama 
+          administration prosecuted more leak cases under the Espionage Act than 
+          all previous administrations combined — eight cases total vs. three in 
+          all prior history.
+        </p>
+        <div class="entry-source">Sources: AP statement on subpoena (May 2013) · DOJ Rosen affidavit · Committee to Protect Journalists report "The Obama Administration and the Press" (2013)</div>
+        <div class="entry-cost">Cost: Chilling effect on press freedom · CPJ called Obama administration "most aggressive" against press in modern history</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- PHASE 2: SURVEILLANCE -->
+<div class="phase">
+  <div class="phase-header" onclick="togglePhase(this)">
+    <div>
+      <div class="phase-title">Mass Surveillance & Civil Liberties</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px;">
+      <div class="phase-dates">2009 — 2016</div>
+      <div class="phase-toggle">▼</div>
+    </div>
+  </div>
+  <div class="phase-body">
+
+    <div class="entry" data-cat="surveillance legal">
+      <div class="entry-date">
+        <span class="date-month">Jun</span>
+        <span class="date-year">2013</span>
+      </div>
+      <div class="entry-content">
+        <div class="entry-header">
+          <span class="badge badge-doc">Documented</span>
+          <div class="entry-title">NSA Mass Surveillance of American Citizens Revealed — Snowden Disclosures</div>
+          <span class="cat-tag">Surveillance</span>
+          <span class="cat-tag">Legal</span>
+        </div>
+        <p class="entry-body">
+          NSA contractor Edward Snowden disclosed classified documents revealing the 
+          NSA's PRISM program — bulk collection of internet communications from major 
+          U.S. tech companies — and Section 215 bulk phone metadata collection covering 
+          virtually all Americans. Director of National Intelligence James Clapper had 
+          testified to Congress in March 2013 that the NSA did "not wittingly" collect 
+          data on millions of Americans — a statement later acknowledged to be false. 
+          A federal appeals court later ruled the phone metadata program illegal. 
+          The Obama administration had expanded these programs inherited from Bush.
+        </p>
+        <div class="entry-source">Sources: Guardian/Washington Post PRISM reporting (June 2013) · Second Circuit ruling ACLU v. Clapper (2015) · USA FREEDOM Act (2015) · Clapper Senate testimony retraction</div>
+        <div class="entry-cost">Cost: Mass surveillance of all Americans without individual warrants · DNI Clapper lied to Congress, never prosecuted · Programs partially curtailed by USA FREEDOM Act</div>
+      </div>
+    </div>
+
+    <div class="entry" data-cat="surveillance legal">
+      <div class="entry-date">
+        <span class="date-month">2011</span>
+        <span class="date-year">–2016</span>
+      </div>
+      <div class="entry-content">
+        <div class="entry-header">
+          <span class="badge badge-doc">Documented</span>
+          <div class="entry-title">NSA "About" Queries Violated Rules — Obama DOJ Acknowledged in 2017</div>
+          <span class="cat-tag">Surveillance</span>
+          <span class="cat-tag">Legal</span>
+        </div>
+        <p class="entry-body">
+          Declassified FISA Court opinions released in 2017 revealed that the NSA had 
+          conducted "about" queries — searches collecting communications that merely 
+          mentioned a target, not just communications to or from a target — in violation 
+          of FISA Court-approved procedures. The violations affected an unknown number 
+          of Americans. The FISA Court called the violations "a very serious Fourth 
+          Amendment issue." The NSA eventually terminated the collection method in 2017.
+        </p>
+        <div class="entry-source">Sources: FISA Court opinion (declassified Oct 2017) · NSA announcement terminating "about" collection · Director Coats statement April 2017</div>
+        <div class="entry-cost">Cost: Unconstitutional collection acknowledged · No individuals prosecuted for the violations</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- PHASE 3: DOJ & LEGAL -->
+<div class="phase">
+  <div class="phase-header" onclick="togglePhase(this)">
+    <div>
+      <div class="phase-title">DOJ, IRS & Institutional Weaponization</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px;">
+      <div class="phase-dates">2010 — 2016</div>
+      <div class="phase-toggle">▼</div>
+    </div>
+  </div>
+  <div class="phase-body">
+
+    <div class="entry" data-cat="legal executive">
+      <div class="entry-date">
+        <span class="date-month">2010</span>
+        <span class="date-year">–2013</span>
+      </div>
+      <div class="entry-content">
+        <div class="entry-header">
+          <span class="badge badge-doc">Documented</span>
+          <div class="entry-title">IRS Targets Conservative and Tea Party Organizations for Heightened Scrutiny</div>
+          <span class="cat-tag">Legal</span>
+          <span class="cat-tag">Executive</span>
+        </div>
+        <p class="entry-body">
+          The IRS subjected conservative and Tea Party organizations applying for 
+          tax-exempt status to extraordinary delays and invasive questioning — 
+          requesting donor lists, social media passwords, and details of members' 
+          personal beliefs and prayers. The DOJ Inspector General confirmed the 
+          targeting. IRS official Lois Lerner invoked the Fifth Amendment before 
+          Congress and was held in contempt. The DOJ ultimately declined to prosecute. 
+          The IRS apologized and the agency paid $3.5 million to settle lawsuits 
+          with Tea Party groups. No Obama administration official was prosecuted.
+        </p>
+        <div class="entry-source">Sources: Treasury IG Report TIGTA 2013-10-053 · Lerner contempt citation · DOJ settlement · Senate Finance Committee report</div>
+        <div class="entry-cost">Cost: Conservative groups denied tax-exempt status during 2012 election cycle · $3.5M settlement · No criminal accountability</div>
+      </div>
+    </div>
+
+    <div class="entry" data-cat="legal executive">
+      <div class="entry-date">
+        <span class="date-month">2009</span>
+        <span class="date-year">–2011</span>
+      </div>
+      <div class="entry-content">
+        <div class="entry-header">
+          <span class="badge badge-doc">Documented</span>
+          <div class="entry-title">Operation Fast and Furious — ATF Walked Guns to Mexican Cartels</div>
+          <span class="cat-tag">Legal</span>
+          <span class="cat-tag">Executive</span>
+        </div>
+        <p class="entry-body">
+          The Bureau of Alcohol, Tobacco, Firearms and Explosives (ATF), operating 
+          under the Justice Department, ran a gun-walking operation called Fast and 
+          Furious that allowed over 2,000 firearms to be purchased by straw buyers 
+          and trafficked to Mexican drug cartels. The stated intent was to trace 
+          the weapons to cartel leadership. The weapons were lost. At least two 
+          were found at the scene of the murder of U.S. Border Patrol Agent Brian 
+          Terry in December 2010. AG Eric Holder was held in contempt of Congress 
+          for refusing to turn over documents — the first sitting cabinet member 
+          held in contempt. Obama invoked executive privilege to shield the documents.
+        </p>
+        <div class="entry-source">Sources: DOJ IG Report on Fast and Furious (Sept 2012) · Holder contempt citation · House Oversight Committee report · Brian Terry Foundation</div>
+        <div class="entry-cost">Cost: Border Patrol Agent Brian Terry killed · 2,000+ weapons lost to cartels · AG Holder held in contempt · Executive privilege invoked to block investigation</div>
+      </div>
+    </div>
+
+    <div class="entry" data-cat="legal economic">
+      <div class="entry-date">
+        <span class="date-month">2013</span>
+        <span class="date-year">–2016</span>
+      </div>
+      <div class="entry-content">
+        <div class="entry-header">
+          <span class="badge badge-doc">Documented</span>
+          <div class="entry-title">Operation Choke Point — DOJ Pressures Banks to Deny Service to Legal Businesses</div>
+          <span class="cat-tag">Legal</span>
+          <span class="cat-tag">Economic</span>
+        </div>
+        <p class="entry-body">
+          The DOJ under AG Holder launched Operation Choke Point, which pressured 
+          banks and payment processors to terminate relationships with legal businesses 
+          the administration considered undesirable — including gun dealers, ammunition 
+          sellers, payday lenders, and other legal industries. Banks were threatened 
+          with federal scrutiny if they continued serving these customers. The FDIC 
+          issued guidance listing these industries as "high risk." A House Oversight 
+          Committee investigation found the program was designed to target legal 
+          businesses without legislative authority. The program was officially ended 
+          in 2017 under the Trump administration.
+        </p>
+        <div class="entry-source">Sources: House Oversight Committee report on Operation Choke Point (May 2014) · FDIC guidance documents · DOJ termination letter (Aug 2017) · GAO report</div>
+        <div class="entry-cost">Cost: Legal businesses denied banking services without due process · Gun dealers disproportionately targeted · No legislative authority ever established</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- PHASE 4: FOREIGN POLICY -->
+<div class="phase">
+  <div class="phase-header" onclick="togglePhase(this)">
+    <div>
+      <div class="phase-title">Foreign Policy & National Security</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px;">
+      <div class="phase-dates">2009 — 2016</div>
+      <div class="phase-toggle">▼</div>
+    </div>
+  </div>
+  <div class="phase-body">
+
+    <div class="entry" data-cat="foreign executive">
+      <div class="entry-date">
+        <span class="date-month">2009</span>
+        <span class="date-year">–2016</span>
+      </div>
+      <div class="entry-content">
+        <div class="entry-header">
+          <span class="badge badge-doc">Documented</span>
+          <div class="entry-title">Drone Strike Program — 563+ Strikes, Civilian Casualties Documented</div>
+          <span class="cat-tag">Foreign</span>
+          <span class="cat-tag">Executive</span>
+        </div>
+        <p class="entry-body">
+          The Obama administration conducted 563 drone strikes in non-battlefield 
+          countries — Pakistan, Yemen, Somalia, Libya — compared to 57 under Bush. 
+          The administration's own estimates acknowledged between 64 and 116 civilian 
+          deaths from 473 strikes in those countries between 2009–2015. Independent 
+          monitoring groups estimated civilian casualties significantly higher — 
+          the Bureau of Investigative Journalism documented between 380 and 801 
+          civilian deaths in the same period. The program operated under secret 
+          legal memos. An American citizen, Anwar al-Awlaki, was killed by drone 
+          strike without trial in 2011. His 16-year-old American-born son was 
+          killed in a separate strike two weeks later.
+        </p>
+        <div class="entry-source">Sources: Office of the Director of National Intelligence release (July 2016) · Bureau of Investigative Journalism database · ACLU v. DOJ (al-Awlaki memo) · Executive Order 13732</div>
+        <div class="entry-cost">Cost: American citizens killed without trial · Civilian casualties disputed but documented · Secret legal framework for presidential kill list established as precedent</div>
+      </div>
+    </div>
+
+    <div class="entry" data-cat="foreign executive">
+      <div class="entry-date">
+        <span class="date-month">Jan</span>
+        <span class="date-year">2016</span>
+      </div>
+      <div class="entry-content">
+        <div class="entry-header">
+          <span class="badge badge-doc">Documented</span>
+          <div class="entry-title">$400 Million Cash Payment to Iran — Timed to Hostage Release</div>
+          <span class="cat-tag">Foreign</span>
+          <span class="cat-tag">Executive</span>
+        </div>
+        <p class="entry-body">
+          The Obama administration transferred $400 million in foreign currency 
+          on wooden pallets via unmarked cargo plane to Iran on January 17, 2016 — 
+          the same day four American hostages were released. The administration 
+          initially denied the payment was a ransom, citing it as settlement of 
+          a 1979 arms deal dispute. The Wall Street Journal reported that U.S. 
+          officials had used the cash as leverage, telling Iran the funds would 
+          not be transferred until the Americans were released. The State Department 
+          later acknowledged the payment was contingent on the hostage release. 
+          Total payments in the settlement reached $1.7 billion.
+        </p>
+        <div class="entry-source">Sources: State Department acknowledgment (Aug 2016) · Wall Street Journal reporting · Treasury Department statements · Congressional Research Service</div>
+        <div class="entry-cost">Cost: $1.7 billion total · Established precedent of cash payments concurrent with hostage releases · Administration initially misled public about the connection</div>
+      </div>
+    </div>
+
+    <div class="entry" data-cat="foreign executive">
+      <div class="entry-date">
+        <span class="date-month">Sep</span>
+        <span class="date-year">2012</span>
+      </div>
+      <div class="entry-content">
+        <div class="entry-header">
+          <span class="badge badge-doc">Documented</span>
+          <div class="entry-title">Benghazi — Ambassador Killed, Administration Misattributed Attack to Video</div>
+          <span class="cat-tag">Foreign</span>
+        </div>
+        <p class="entry-body">
+          On September 11, 2012, the U.S. consulate in Benghazi, Libya was attacked. 
+          Ambassador Chris Stevens and three other Americans were killed. Within days, 
+          UN Ambassador Susan Rice appeared on five Sunday news programs attributing 
+          the attack to a spontaneous reaction to an internet video — a characterization 
+          the administration repeated for days. Internal emails released later showed 
+          the CIA's own initial assessment had identified it as a terrorist attack. 
+          Hillary Clinton emailed her daughter the night of the attack describing it 
+          as carried out by "an al-Qaeda-like group." The State Department's own 
+          Accountability Review Board found systemic security failures. No one was 
+          held accountable within the State Department.
+        </p>
+        <div class="entry-source">Sources: State Dept Accountability Review Board report (Dec 2012) · Clinton email to Chelsea (released 2015) · CIA talking points revision chain · Senate Intelligence Committee report (Jan 2014)</div>
+        <div class="entry-cost">Cost: Four Americans killed · Public misled about cause for weeks · No disciplinary action for security failures</div>
+      </div>
+    </div>
+
+    <div class="entry" data-cat="foreign executive">
+      <div class="entry-date">
+        <span class="date-month">2015</span>
+        <span class="date-year"></span>
+      </div>
+      <div class="entry-content">
+        <div class="entry-header">
+          <span class="badge badge-doc">Documented</span>
+          <div class="entry-title">Iran Nuclear Deal (JCPOA) — Bypassed Senate Treaty Process</div>
+          <span class="cat-tag">Foreign</span>
+          <span class="cat-tag">Executive</span>
+        </div>
+        <p class="entry-body">
+          The Obama administration negotiated the Joint Comprehensive Plan of Action 
+          with Iran and implemented it as an executive agreement rather than a treaty, 
+          deliberately bypassing the requirement for Senate ratification by two-thirds 
+          vote. The Iran Nuclear Agreement Review Act passed by Congress required 
+          congressional review but not approval. The deal provided Iran $100 billion+ 
+          in sanctions relief and lifted arms embargoes. Critics argued it left Iran's 
+          nuclear infrastructure intact and sunset key restrictions. The deal was 
+          not submitted as a treaty and had no binding legal force on successor administrations.
+        </p>
+        <div class="entry-source">Sources: JCPOA text (July 2015) · Iran Nuclear Agreement Review Act · Senate Foreign Relations Committee hearings · Congressional Research Service analysis of treaty vs. executive agreement</div>
+        <div class="entry-cost">Cost: $100B+ in sanctions relief to Iran · Bypassed constitutional treaty process · No binding obligation on successor administrations — Trump withdrew in 2018</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- PHASE 5: ECONOMIC & DOMESTIC -->
+<div class="phase">
+  <div class="phase-header" onclick="togglePhase(this)">
+    <div>
+      <div class="phase-title">Economic Policy & Domestic Actions</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px;">
+      <div class="phase-dates">2009 — 2016</div>
+      <div class="phase-toggle">▼</div>
+    </div>
+  </div>
+  <div class="phase-body">
+
+    <div class="entry" data-cat="economic executive">
+      <div class="entry-date">
+        <span class="date-month">2009</span>
+        <span class="date-year"></span>
+      </div>
+      <div class="entry-content">
+        <div class="entry-header">
+          <span class="badge badge-doc">Documented</span>
+          <div class="entry-title">$535 Million Solyndra Loan Guarantee — Company Bankrupt Within Two Years</div>
+          <span class="cat-tag">Economic</span>
+          <span class="cat-tag">Executive</span>
+        </div>
+        <p class="entry-body">
+          The Obama administration approved a $535 million loan guarantee to solar 
+          panel manufacturer Solyndra in September 2009 — restructuring the loan 
+          terms in early 2011 to subordinate the government's claim behind private 
+          investors, contrary to federal law. Solyndra filed for bankruptcy in 
+          September 2011, costing taxpayers the full guaranteed amount. Internal 
+          emails showed White House officials had been warned of Solyndra's financial 
+          problems before approval. Solyndra's primary investor, George Kaiser, 
+          was a major Obama campaign bundler who had visited the White House 
+          16 times.
+        </p>
+        <div class="entry-source">Sources: DOE Inspector General report · House Energy and Commerce Committee investigation · Solyndra bankruptcy filings · White House visitor logs</div>
+        <div class="entry-cost">Cost: $535 million taxpayer loss · DOE subordinated taxpayer claim illegally · Criminal investigation opened, no charges filed</div>
+      </div>
+    </div>
+
+    <div class="entry" data-cat="economic executive">
+      <div class="entry-date">
+        <span class="date-month">2009</span>
+        <span class="date-year">–2014</span>
+      </div>
+      <div class="entry-content">
+        <div class="entry-header">
+          <span class="badge badge-doc">Documented</span>
+          <div class="entry-title">"If You Like Your Plan, You Can Keep Your Plan" — PolitiFact Lie of the Year</div>
+          <span class="cat-tag">Economic</span>
+          <span class="cat-tag">Executive</span>
+        </div>
+        <p class="entry-body">
+          President Obama repeatedly stated — at least 37 times in various forms — 
+          that under the Affordable Care Act, "if you like your health care plan, 
+          you can keep it." After the ACA took effect, millions of Americans received 
+          cancellation notices from their insurers because their plans did not meet 
+          new ACA requirements. PolitiFact named this statement its "Lie of the Year" 
+          for 2013. The administration acknowledged the reality did not match the 
+          promise and attempted a one-year administrative fix allowing some plans 
+          to continue, which insurers largely could not implement in time.
+        </p>
+        <div class="entry-source">Sources: PolitiFact Lie of the Year (2013) · HHS cancellation data · Obama statement archive · NBC News "millions of cancellations" reporting (Oct 2013)</div>
+        <div class="entry-cost">Cost: Millions of Americans lost health plans they were told they could keep · Named Lie of the Year by fact-checkers · Trust in ACA rollout severely damaged</div>
+      </div>
+    </div>
+
+    <div class="entry" data-cat="executive legal">
+      <div class="entry-date">
+        <span class="date-month">2012</span>
+        <span class="date-year">–2014</span>
+      </div>
+      <div class="entry-content">
+        <div class="entry-header">
+          <span class="badge badge-doc">Documented</span>
+          <div class="entry-title">DACA and DAPA — Executive Immigration Actions Bypassing Congress</div>
+          <span class="cat-tag">Executive</span>
+          <span class="cat-tag">Legal</span>
+        </div>
+        <p class="entry-body">
+          Obama implemented Deferred Action for Childhood Arrivals (DACA) by executive 
+          memorandum in June 2012 after Congress failed to pass the DREAM Act. In 2014 
+          he expanded it and added Deferred Action for Parents of Americans (DAPA), 
+          which would have protected approximately 4 million undocumented immigrants 
+          from deportation. Obama had previously stated at least 22 times that he 
+          lacked the legal authority to take such action unilaterally. A federal court 
+          blocked DAPA; the Supreme Court split 4-4 leaving the block in place. 
+          Obama himself had said in 2011: "I'm not the emperor of the United States. 
+          My job is to execute laws that are passed."
+        </p>
+        <div class="entry-source">Sources: DACA executive memorandum (June 15, 2012) · Obama video archive of prior statements · Texas v. United States (5th Circuit, 2015) · SCOTUS 4-4 split (2016)</div>
+        <div class="entry-cost">Cost: Circumvented legislative process Obama himself had said he lacked authority to do · Created legal uncertainty lasting years · DAPA permanently blocked</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- PHASE 6: EXECUTIVE POWER -->
+<div class="phase">
+  <div class="phase-header" onclick="togglePhase(this)">
+    <div>
+      <div class="phase-title">Executive Power & Institutional Changes</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px;">
+      <div class="phase-dates">2009 — 2016</div>
+      <div class="phase-toggle">▼</div>
+    </div>
+  </div>
+  <div class="phase-body">
+
+    <div class="entry" data-cat="executive legal">
+      <div class="entry-date">
+        <span class="date-month">2010</span>
+        <span class="date-year">–2016</span>
+      </div>
+      <div class="entry-content">
+        <div class="entry-header">
+          <span class="badge badge-doc">Documented</span>
+          <div class="entry-title">Record Use of Recess Appointments Blocked by Courts</div>
+          <span class="cat-tag">Executive</span>
+          <span class="cat-tag">Legal</span>
+        </div>
+        <p class="entry-body">
+          Obama made recess appointments to the National Labor Relations Board and 
+          the Consumer Financial Protection Bureau while the Senate held pro forma 
+          sessions — sessions specifically designed to prevent recess appointments. 
+          The Supreme Court ruled unanimously in NLRB v. Noel Canning (2014) that 
+          the appointments were unconstitutional. It was a 9-0 ruling against the 
+          administration's expansive interpretation of executive appointment power.
+        </p>
+        <div class="entry-source">Sources: NLRB v. Noel Canning, 573 U.S. 513 (2014) · Supreme Court opinion (unanimous) · Senate pro forma session records</div>
+        <div class="entry-cost">Cost: Unconstitutional appointments invalidated 9-0 by Supreme Court · NLRB decisions made during that period thrown into question</div>
+      </div>
+    </div>
+
+    <div class="entry" data-cat="executive foreign">
+      <div class="entry-date">
+        <span class="date-month">Dec</span>
+        <span class="date-year">2016</span>
+      </div>
+      <div class="entry-content">
+        <div class="entry-header">
+          <span class="badge badge-doc">Documented</span>
+          <div class="entry-title">Outgoing Administration Expands NSA Data Sharing — Days Before Trump Inauguration</div>
+          <span class="cat-tag">Executive</span>
+          <span class="cat-tag">Surveillance</span>
+        </div>
+        <p class="entry-body">
+          On January 3, 2017 — 17 days before Trump's inauguration — the Obama 
+          administration finalized rules allowing the NSA to share raw signals 
+          intelligence with 16 other intelligence agencies before applying privacy 
+          protections. Previously the NSA had to filter and minimize data before 
+          sharing. The new rules meant a wider pool of government analysts could 
+          access raw intercepts — including communications of Americans — before 
+          identities were masked. Critics noted the timing made it easier for 
+          information about Trump transition officials to flow across agencies.
+        </p>
+        <div class="entry-source">Sources: Executive Order 12333 amendment, published Federal Register Jan 3, 2017 · New York Times reporting (Jan 12, 2017) · ODNI procedural changes</div>
+        <div class="entry-cost">Cost: Expanded raw intelligence sharing implemented days before transition · Increased number of officials with access to unmasked American communications</div>
+      </div>
+    </div>
+
+    <div class="entry" data-cat="executive foreign">
+      <div class="entry-date">
+        <span class="date-month">Dec</span>
+        <span class="date-year">2016</span>
+      </div>
+      <div class="entry-content">
+        <div class="entry-header">
+          <span class="badge badge-doc">Documented</span>
+          <div class="entry-title">U.S. Abstains on UN Resolution Condemning Israeli Settlements — Breaking 40-Year Policy</div>
+          <span class="cat-tag">Foreign</span>
+        </div>
+        <p class="entry-body">
+          In December 2016 — after losing the election and during the transition — 
+          the Obama administration broke with 40 years of U.S. policy by allowing 
+          UN Security Council Resolution 2334 to pass, which declared Israeli 
+          settlements in the West Bank illegal under international law. The U.S. 
+          abstained rather than vetoing, as all previous administrations had done 
+          on similar resolutions. The move was made after the election, during 
+          the lame duck period. Israel accused the Obama administration of secretly 
+          coordinating the resolution — a claim the administration denied.
+        </p>
+        <div class="entry-source">Sources: UN Security Council vote record (Dec 23, 2016) · State Department explanation · Israeli government statement · Washington Post reporting on alleged coordination</div>
+        <div class="entry-cost">Cost: 40-year U.S. policy reversed in final weeks of administration · Diplomatic damage to U.S.-Israel relationship · Made during lame duck period after electoral defeat</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<hr>
+
+<div class="footer">
+  <strong>Editorial Standard:</strong> Every entry on this timeline is labeled DOCUMENTED, ALLEGED, or DISPUTED. 
+  DOCUMENTED entries are supported by court records, official findings, signed laws, or verified primary sources. 
+  ALLEGED entries are claimed by named parties but not conclusively adjudicated. DISPUTED entries involve competing 
+  credible accounts with no definitive resolution. No entry mixes categories. Sources are cited for every claim.<br><br>
+  This timeline covers matters of public record and is not a comprehensive account of the Obama administration. 
+  It focuses specifically on actions that affected American civil liberties, institutional integrity, and public trust. 
+  Corrections and additional sourcing welcome at therulingclassreport.com<br><br>
+  <strong>The Ruling Class Report</strong> · Accountability Through Public Record · therulingclassreport.com
+</div>
+
+<script>
+function togglePhase(header) {
+  const body = header.nextElementSibling;
+  const toggle = header.querySelector('.phase-toggle');
+  if (body.style.display === 'none') {
+    body.style.display = 'block';
+    toggle.textContent = '▼';
+  } else {
+    body.style.display = 'none';
+    toggle.textContent = '▶';
+  }
+}
+
+function filterEntries(cat, event) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  document.querySelectorAll('.entry').forEach(entry => {
+    if (cat === 'all') {
+      entry.style.display = 'grid';
+    } else {
+      const cats = entry.dataset.cat || '';
+      entry.style.display = cats.includes(cat) ? 'grid' : 'none';
+    }
+  });
+}
+</script>
+
+</body>
+</html>

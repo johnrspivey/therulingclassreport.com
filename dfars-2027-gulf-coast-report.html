@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  /* Force light mode absolutely everywhere */
+  :root { color-scheme: light only !important; }
+  @media (prefers-color-scheme: dark) {
+    html, body, * { color-scheme: light only !important; }
+  }
+</style>
+<title>DFARS 2027 Compliance Brief — Gulf Coast Defense Corridor</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    background: #ffffff !important;
+    color: #111111 !important;
+    color-scheme: light only !important;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    html, body, div, p, h1, h2, h3, span, td, th, li, blockquote, cite, strong, em {
+      background-color: inherit !important;
+      color: inherit !important;
+    }
+    html { background: #ffffff !important; color: #111111 !important; }
+    body { background: #ffffff !important; color: #111111 !important; }
+  }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 1.65;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 56px 40px 80px;
+    background: #ffffff !important;
+    color: #111111 !important;
+  }
+
+  /* ── TOP RULE ── */
+  .top-rule {
+    border-top: 6px solid #111111;
+    margin-bottom: 0;
+  }
+
+  .sub-rule {
+    border-top: 1px solid #111111;
+    margin-bottom: 0;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #111111;
+    margin-bottom: 40px;
+  }
+
+  .brand {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #111111 !important;
+  }
+
+  .issue-meta {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: #555555 !important;
+    letter-spacing: 0.08em;
+    text-align: right;
+  }
+
+  /* ── KICKER ── */
+  .kicker {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #cc3300 !important;
+    margin-bottom: 12px;
+  }
+
+  /* ── HEADLINE ── */
+  h1 {
+    font-family: 'Libre Baskerville', serif;
+    font-size: clamp(34px, 6vw, 58px);
+    font-weight: 700;
+    line-height: 1.05;
+    color: #111111 !important;
+    letter-spacing: -0.01em;
+    margin-bottom: 20px;
+  }
+
+  h1 .accent { color: #cc3300 !important; }
+
+  /* ── DECK ── */
+  .deck {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #222222 !important;
+    font-style: italic;
+    max-width: 640px;
+    margin-bottom: 20px;
+    border-left: 3px solid #cc3300;
+    padding-left: 16px;
+  }
+
+  .byline {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: #555555 !important;
+    text-transform: uppercase;
+    padding: 16px 0;
+    border-top: 1px solid #dddddd;
+    border-bottom: 3px double #111111;
+    margin-bottom: 36px;
+  }
+
+  /* ── ALERT BOX ── */
+  .alert-box {
+    background: #111111 !important;
+    padding: 22px 26px;
+    margin-bottom: 44px;
+    border-left: 5px solid #cc3300;
+  }
+
+  .alert-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #cc3300 !important;
+    margin-bottom: 10px;
+  }
+
+  .alert-box p {
+    font-size: 15px !important;
+    line-height: 1.65 !important;
+    color: #ffffff !important;
+    font-weight: 400 !important;
+  }
+
+  .alert-box strong {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+  }
+
+  .alert-box em {
+    color: #ffcc88 !important;
+    font-style: italic;
+  }
+
+  /* ── SECTION HEADERS ── */
+  .section { margin-bottom: 48px; }
+
+  h2 {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #555555 !important;
+    margin-bottom: 4px;
+  }
+
+  h2 .section-num {
+    color: #cc3300 !important;
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 600;
+    margin-right: 10px;
+  }
+
+  .section-title {
+    font-family: 'Libre Baskerville', serif;
+    font-size: clamp(22px, 4vw, 30px);
+    font-weight: 700;
+    color: #111111 !important;
+    line-height: 1.15;
+    margin-bottom: 8px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #111111;
+  }
+
+  h3 {
+    font-family: 'Libre Baskerville', serif;
+    font-weight: 700;
+    font-size: 15px;
+    color: #111111 !important;
+    margin: 24px 0 8px;
+  }
+
+  p {
+    font-size: 15px;
+    color: #111111 !important;
+    margin-bottom: 14px;
+  }
+
+  /* ── STATS ── */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border: 2px solid #111111;
+    margin: 28px 0;
+  }
+
+  .stat-cell {
+    background: #ffffff !important;
+    padding: 20px 16px;
+    text-align: center;
+    border-right: 1px solid #dddddd;
+  }
+
+  .stat-cell:last-child { border-right: none; }
+
+  .stat-number {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 42px;
+    font-weight: 700;
+    color: #cc3300 !important;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    color: #444444 !important;
+    text-transform: uppercase;
+    line-height: 1.5;
+  }
+
+  /* ── PULL QUOTE ── */
+  .pull-quote {
+    border-top: 3px solid #111111;
+    border-bottom: 1px solid #dddddd;
+    padding: 20px 0;
+    margin: 28px 0;
+  }
+
+  .pull-quote blockquote {
+    font-family: 'Libre Baskerville', serif;
+    font-style: italic;
+    font-size: 19px;
+    line-height: 1.45;
+    color: #111111 !important;
+    margin-bottom: 10px;
+  }
+
+  .pull-quote cite {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    color: #555555 !important;
+    text-transform: uppercase;
+    font-style: normal;
+  }
+
+  /* ── TABLES ── */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0 28px;
+    font-size: 13px;
+  }
+
+  .data-table th {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #ffffff !important;
+    background: #111111 !important;
+    text-align: left;
+    padding: 9px 12px;
+  }
+
+  .data-table td {
+    padding: 11px 12px;
+    border-bottom: 1px solid #dddddd;
+    color: #111111 !important;
+    vertical-align: top;
+    line-height: 1.4;
+  }
+
+  .data-table tr:nth-child(even) td {
+    background: #f9f9f9 !important;
+  }
+
+  .data-table .co-name {
+    font-weight: 600;
+    color: #111111 !important;
+  }
+
+  .risk-high {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: #cc3300 !important;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .risk-med {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: #996600 !important;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  /* ── SUPPLIER CARDS ── */
+  .supplier-card {
+    border: 1px solid #cccccc;
+    border-left: 4px solid #111111;
+    margin-bottom: 14px;
+    padding: 18px 20px;
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 20px;
+    align-items: start;
+    background: #ffffff !important;
+  }
+
+  .supplier-name {
+    font-family: 'Libre Baskerville', serif;
+    font-weight: 700;
+    font-size: 14px;
+    color: #111111 !important;
+    margin-bottom: 3px;
+  }
+
+  .supplier-ticker {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: #cc3300 !important;
+    letter-spacing: 0.12em;
+    margin-bottom: 8px;
+  }
+
+  .supplier-tag {
+    display: inline-block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: #111111 !important;
+    color: #ffffff !important;
+    padding: 2px 6px;
+    margin: 2px 2px 0 0;
+  }
+
+  .supplier-tag.avail {
+    background: #1a5c2e !important;
+    color: #ffffff !important;
+  }
+
+  .supplier-tag.scaling {
+    background: #884400 !important;
+    color: #ffffff !important;
+  }
+
+  .supplier-detail {
+    font-size: 13px;
+    color: #222222 !important;
+    line-height: 1.55;
+  }
+
+  /* ── ACTION LIST ── */
+  .action-list {
+    list-style: none;
+    margin: 16px 0;
+    border-top: 2px solid #111111;
+  }
+
+  .action-list li {
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 14px;
+    padding: 16px 0;
+    border-bottom: 1px solid #dddddd;
+    align-items: start;
+    color: #111111 !important;
+    font-size: 14px;
+  }
+
+  .action-num {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: #cc3300 !important;
+    line-height: 1;
+    padding-top: 2px;
+  }
+
+  .action-list li strong {
+    color: #111111 !important;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  /* ── FOOTNOTE ── */
+  .footnote {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: #777777 !important;
+    letter-spacing: 0.06em;
+    line-height: 1.6;
+    margin-top: 8px;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    margin-top: 60px;
+    padding-top: 16px;
+    border-top: 3px double #111111;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .footer-brand {
+    font-family: 'Libre Baskerville', serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: #111111 !important;
+    margin-bottom: 4px;
+  }
+
+  .footer-sub {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: #555555 !important;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .footer-legal {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: #666666 !important;
+    letter-spacing: 0.05em;
+    line-height: 1.7;
+    text-align: right;
+    max-width: 360px;
+  }
+
+  hr { border: none; border-top: 1px solid #dddddd; margin: 36px 0; }
+
+  @media (max-width: 580px) {
+    body { padding: 32px 20px 60px; }
+    .stat-row { grid-template-columns: 1fr; }
+    .stat-cell { border-right: none; border-bottom: 1px solid #dddddd; }
+    .supplier-card { grid-template-columns: 1fr; }
+    .footer { flex-direction: column; }
+    .footer-legal { text-align: left; }
+  }
+
+  @media print {
+    body { padding: 0; }
+    .alert-box { border: 2px solid #000; }
+  }
+
+</style>
+</head>
+<body>
+
+<div class="top-rule"></div>
+
+<!-- MASTHEAD -->
+<div class="masthead">
+  <div class="brand">Gulf Coast Critical Materials Intelligence</div>
+  <div class="issue-meta">Vol. 1 · Issue 1 · May 2026</div>
+</div>
+
+<!-- HEADLINE BLOCK -->
+<div class="kicker">⬛ Special Compliance Brief</div>
+<h1>DFARS <span class="accent">2027</span><br>The Clock Is Running</h1>
+
+<p class="deck">
+  On January 1, 2027, every defense contractor in America faces a hard deadline: 
+  zero Chinese-origin rare earth magnets in any covered weapons system. 
+  For Gulf Coast contractors near Eglin, Hurlburt, Tyndall, and Duke Field — 
+  the window to qualify domestic suppliers is closing faster than most realize.
+</p>
+
+<div class="byline">
+  Gulf Coast Critical Materials &nbsp;·&nbsp; Research Brief &nbsp;·&nbsp; For Defense Procurement &amp; Supply Chain Teams
+</div>
+
+<!-- ALERT -->
+<div class="alert-box">
+  <div class="alert-label">⚠ Compliance Deadline</div>
+  <p>
+    <strong>DFARS 252.225-7052</strong> takes full effect <strong>January 1, 2027.</strong>
+    Under 10 U.S.C. §4872, covered magnets are prohibited if <em>any stage</em> of 
+    production — mining, refining, separation, melting, or fabrication — occurred in 
+    China, Russia, Iran, or North Korea. The previous workaround of melting Chinese 
+    oxides in a third country <strong>no longer applies.</strong> Contracts without 
+    compliant supply chains face termination risk.
+  </p>
+</div>
+
+
+<!-- SECTION 01 -->
+<div class="section">
+  <h2><span class="section-num">01</span> Why This Matters Here</h2>
+  <div class="section-title">Why This Hits Hard in the Gulf Coast</div>
+
+  <p>
+    The Eglin–Hurlburt–Tyndall corridor hosts some of the most advanced weapons testing, 
+    special operations support, and aerospace systems work in the country. The platforms 
+    operating out of these installations — F-35s, AC-130s, advanced munitions systems — 
+    are precisely the weapons programs DFARS 252.225-7052 is designed to protect.
+  </p>
+  <p>
+    That means the prime contractors and subcontractors serving these bases are directly 
+    in the compliance crosshairs. Many mid-tier suppliers have not yet audited their 
+    magnet supply chains. Some don't know they need to.
+  </p>
+
+  <div class="stat-row">
+    <div class="stat-cell">
+      <div class="stat-number">90%</div>
+      <div class="stat-label">Global rare earth<br>refining controlled<br>by China</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-number">236</div>
+      <div class="stat-label">Days remaining<br>to Jan 1, 2027<br>deadline</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-number">0</div>
+      <div class="stat-label">U.S. heavy rare earth<br>separation plants at<br>commercial scale today</div>
+    </div>
+  </div>
+
+  <div class="pull-quote">
+    <blockquote>
+      "The U.S. can no longer afford to rely on overseas, single points of 
+      failure for critical components."
+    </blockquote>
+    <cite>— Laura Taylor-Kale, Asst. Secretary of Defense for Industrial Base Policy</cite>
+  </div>
+</div>
+
+
+<!-- SECTION 02 -->
+<div class="section">
+  <h2><span class="section-num">02</span> Scope of the Rule</h2>
+  <div class="section-title">What the Rule Actually Covers</div>
+
+  <p>
+    Contractors often underestimate the scope. DFARS 252.225-7052 covers four material 
+    categories — not just the finished magnet, but every upstream input:
+  </p>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Covered Material</th>
+        <th>Common Defense Application</th>
+        <th>Exposure</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="co-name">Neodymium-Iron-Boron (NdFeB) Magnets</span></td>
+        <td>Missile guidance, actuators, EW systems, motors</td>
+        <td><span class="risk-high">● HIGH</span></td>
+      </tr>
+      <tr>
+        <td><span class="co-name">Samarium-Cobalt (SmCo) Magnets</span></td>
+        <td>High-temp aerospace, radar, avionics</td>
+        <td><span class="risk-high">● HIGH</span></td>
+      </tr>
+      <tr>
+        <td><span class="co-name">Tantalum Metals &amp; Alloys</span></td>
+        <td>Capacitors, munitions components</td>
+        <td><span class="risk-med">● MEDIUM</span></td>
+      </tr>
+      <tr>
+        <td><span class="co-name">Tungsten Heavy Alloys &amp; Powder</span></td>
+        <td>Penetrators, armor, counterweights</td>
+        <td><span class="risk-med">● MEDIUM</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>The "Third Country" Loophole Is Gone</h3>
+  <p>
+    Prior to the 2024 final rule, a contractor could source Chinese rare earth oxides, 
+    ship them to Vietnam or Japan for magnet production, and claim compliance. The updated 
+    DFARS now traces origin all the way back to the mine. If Chinese ore or processing 
+    touched the material at any point, it fails.
+  </p>
+
+  <h3>The COTS Exception Is Narrow</h3>
+  <p>
+    Commercial off-the-shelf items are exempt only if restricted material comprises 
+    less than 50 percent of the item by weight — a bar most magnet-containing 
+    assemblies cannot clear.
+  </p>
+</div>
+
+
+<!-- SECTION 03 -->
+<div class="section">
+  <h2><span class="section-num">03</span> Regional Exposure</h2>
+  <div class="section-title">Gulf Coast Contractors: Who's Exposed</div>
+
+  <p>
+    The following prime contractors operate significantly in the Eglin–Hurlburt–Tyndall 
+    corridor and work on platforms or systems containing DFARS-covered materials.
+  </p>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Company</th>
+        <th>Gulf Coast Presence</th>
+        <th>Likely Exposure</th>
+        <th>Urgency</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="co-name">Crane Aerospace &amp; Electronics</span></td>
+        <td>Fort Walton Beach — avionics, landing systems</td>
+        <td>NdFeB in actuators &amp; motors</td>
+        <td><span class="risk-high">● HIGH</span></td>
+      </tr>
+      <tr>
+        <td><span class="co-name">Kratos Defense</span></td>
+        <td>Fort Walton Beach — unmanned systems</td>
+        <td>Magnets in propulsion &amp; guidance</td>
+        <td><span class="risk-high">● HIGH</span></td>
+      </tr>
+      <tr>
+        <td><span class="co-name">L3Harris Technologies</span></td>
+        <td>Eglin support — EW, communications</td>
+        <td>SmCo in high-temp electronics</td>
+        <td><span class="risk-high">● HIGH</span></td>
+      </tr>
+      <tr>
+        <td><span class="co-name">Torch Technologies</span></td>
+        <td>Niceville/Eglin — test &amp; eval support</td>
+        <td>Component-level; audit needed</td>
+        <td><span class="risk-med">● MEDIUM</span></td>
+      </tr>
+      <tr>
+        <td><span class="co-name">DCS Corp</span></td>
+        <td>Eglin — engineering support</td>
+        <td>Subcomponent level exposure</td>
+        <td><span class="risk-med">● MEDIUM</span></td>
+      </tr>
+      <tr>
+        <td><span class="co-name">HX5, LLC</span></td>
+        <td>Fort Walton Beach — base ops &amp; technical</td>
+        <td>Lower exposure; monitor</td>
+        <td><span class="risk-med">● MEDIUM</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p class="footnote">
+    Exposure ratings are assessments based on publicly available contract and program information. 
+    Individual programs may vary. Contractors should conduct formal supply chain mapping 
+    against DFARS 252.225-7052.
+  </p>
+</div>
+
+
+<!-- SECTION 04 -->
+<div class="section">
+  <h2><span class="section-num">04</span> Domestic Supply Options</h2>
+  <div class="section-title">Qualified Domestic Suppliers: Who Can Deliver</div>
+
+  <p>
+    The domestic rare earth supply chain is building fast — but unevenly. 
+    These are the credible non-Chinese sources available to defense contractors 
+    now or within the compliance window.
+  </p>
+
+  <div class="supplier-card">
+    <div>
+      <div class="supplier-name">USA Rare Earth</div>
+      <div class="supplier-ticker">NASDAQ: USAR</div>
+      <span class="supplier-tag avail">Magnets</span>
+      <span class="supplier-tag avail">Oxides</span>
+      <span class="supplier-tag scaling">Scaling Now</span>
+    </div>
+    <div class="supplier-detail">
+      First U.S. company executing a mine-to-magnet strategy on domestic soil. 
+      Stillwater, OK magnet facility targeting commercial production in 2026. 
+      Round Top, TX deposit is the richest known heavy REE source in the country. 
+      Secured $1.6B in U.S. government funding. Actively seeking defense offtake agreements.
+    </div>
+  </div>
+
+  <div class="supplier-card">
+    <div>
+      <div class="supplier-name">MP Materials</div>
+      <div class="supplier-ticker">NYSE: MP</div>
+      <span class="supplier-tag avail">Light REE</span>
+      <span class="supplier-tag avail">DoD Backed</span>
+    </div>
+    <div class="supplier-detail">
+      Operates Mountain Pass, CA — the only large-scale active U.S. rare earth mine. 
+      DoD equity partner with a price floor agreement. NdPr magnet plant in Fort Worth, TX 
+      ramping toward 1,000 MT/year. Best established for light rare earth supply.
+    </div>
+  </div>
+
+  <div class="supplier-card">
+    <div>
+      <div class="supplier-name">ReElement Technologies</div>
+      <div class="supplier-ticker">AREC</div>
+      <span class="supplier-tag avail">Separation</span>
+      <span class="supplier-tag scaling">Recycling</span>
+    </div>
+    <div class="supplier-detail">
+      Indiana-based refining operation focused on magnet-grade rare earth separation 
+      and recovery from e-waste and industrial byproducts. Relevant for contractors 
+      seeking diversified, recycled-origin supply to complement primary sources.
+    </div>
+  </div>
+
+  <div class="supplier-card">
+    <div>
+      <div class="supplier-name">Lynas Rare Earths</div>
+      <div class="supplier-ticker">ASX: LYC</div>
+      <span class="supplier-tag avail">Separation</span>
+      <span class="supplier-tag avail">Ally Nation</span>
+    </div>
+    <div class="supplier-detail">
+      Largest non-Chinese rare earth producer globally. Australian origin qualifies 
+      under DFARS allied nation provisions. U.S. separation facility under construction 
+      in Texas with DoD support. Available now for light REE oxides.
+    </div>
+  </div>
+
+  <h3>The Heavy REE Gap</h3>
+  <p>
+    Dysprosium and terbium — required for high-performance defense magnets in extreme heat — 
+    remain almost entirely Chinese-sourced at commercial scale. The USGS 2026 assessment 
+    confirms 100% import reliance for these elements with no domestic commercial-scale 
+    separation before 2028. Contractors relying on heavy REE magnets should engage DoD 
+    waiver processes now rather than waiting for the deadline.
+  </p>
+</div>
+
+
+<!-- SECTION 05 -->
+<div class="section">
+  <h2><span class="section-num">05</span> Recommended Actions</h2>
+  <div class="section-title">What Procurement Teams Should Do Now</div>
+
+  <ul class="action-list">
+    <li>
+      <div class="action-num">1</div>
+      <div>
+        <strong>Map your magnet supply chain to the mine.</strong>
+        Identify every NdFeB and SmCo magnet in your covered programs. Trace each to its 
+        manufacturer, then request country-of-origin documentation for ore, processing, 
+        and production. Most suppliers won't have it ready.
+      </div>
+    </li>
+    <li>
+      <div class="action-num">2</div>
+      <div>
+        <strong>Request DFARS compliance certifications from every magnet supplier.</strong>
+        Be specific: you need 252.225-7052 compliance confirmation, not a "Made in USA" 
+        claim. The location of final assembly is not sufficient.
+      </div>
+    </li>
+    <li>
+      <div class="action-num">3</div>
+      <div>
+        <strong>Open conversations with at least two domestic qualified suppliers.</strong>
+        USA Rare Earth and MP Materials both have defense BD teams. Lynas has a U.S. office. 
+        Lead times for qualification and first delivery can run 6–12 months — 
+        there is no time to wait until Q4 2026.
+      </div>
+    </li>
+    <li>
+      <div class="action-num">4</div>
+      <div>
+        <strong>Identify programs that may require waivers.</strong>
+        Heavy REE magnets have no commercial domestic source before 2028. Programs 
+        relying on dysprosium or terbium content should begin DoD waiver documentation 
+        now. Early applicants have better odds.
+      </div>
+    </li>
+    <li>
+      <div class="action-num">5</div>
+      <div>
+        <strong>Engage the Eglin Small Business Office.</strong>
+        (850) 882-2843 · 205 West D Ave, Suite 449, Eglin AFB, FL 32542. Their mandate 
+        includes connecting primes with compliant supply chain partners. They can 
+        facilitate introductions that would otherwise take months to build.
+      </div>
+    </li>
+  </ul>
+</div>
+
+<hr>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div>
+    <div class="footer-brand">Gulf Coast Critical Materials</div>
+    <div class="footer-sub">Northwest Florida · Defense Corridor Intelligence</div>
+  </div>
+  <div class="footer-legal">
+    Produced using AI-assisted research and synthesis. For informational purposes only. 
+    Does not constitute legal or procurement advice. Contractors should consult counsel 
+    for formal DFARS compliance determinations.<br><br>
+    Sources: DFARS 252.225-7052 (May 2024 final rule) · 10 U.S.C. §4872 · 
+    USGS Critical Minerals 2026 · Rare Earth Exchanges · CSIS · DoD public statements.
+  </div>
+</div>
+
+</body>
+</html>
