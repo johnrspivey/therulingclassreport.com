@@ -1,402 +1,273 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Obama Record | The Ruling Class Report</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --parchment:   #f5edd6;
-      --parchment2:  #ede0bf;
-      --ink:         #1a1208;
-      --ink-mid:     #3d2b1f;
-      --ink-light:   #6b5340;
-      --gold:        #b8860b;
-      --gold-bright: #d4a843;
-      --gold-light:  #e8c97a;
-      --red:         #8b1a1a;
-      --red-light:   #c0392b;
-      --border:      #c9a86c;
-      --border-light:#e0cfa0;
-      --dark:        #0a0805;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>:root { color-scheme: light only !important; }</style>
+<title>The Obama Record — The Ruling Class Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;600&family=Cinzel:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { background: #ffffff !important; color: #111111 !important; color-scheme: light only !important; }
+@media (prefers-color-scheme: dark) {
+  html { background: #ffffff !important; color: #111111 !important; }
+  body { background: #ffffff !important; color: #111111 !important; }
+  * { color: inherit !important; background-color: inherit !important; }
+}
 
-    body {
-      background: var(--parchment);
-      color: var(--ink);
-      font-family: 'Lora', Georgia, serif;
-      line-height: 1.8;
-    }
+body {
+  font-family: 'Source Serif 4', serif;
+  font-size: 15px;
+  line-height: 1.7;
+  background: #ffffff !important;
+  color: #111111 !important;
+  padding-top: 56px;
+}
 
-    /* NAV */
-    .rcr-nav {
-      background: rgba(245,237,214,0.92);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 2px solid var(--gold);
-      padding: 0 20px;
-      position: sticky;
-      top: 0;
-      z-index: 999;
-    }
-    .rcr-nav-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      height: 50px;
-      overflow-x: auto;
-      gap: 0;
-    }
-    .rcr-nav-inner::-webkit-scrollbar { display: none; }
-    .rcr-home {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-      padding-right: 18px;
-      border-right: 1px solid var(--border-light);
-      margin-right: 14px;
-      flex-shrink: 0;
-    }
-    .rcr-seal {
-      width: 32px; height: 32px;
-      border: 2px solid var(--gold);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'Cinzel', serif;
-      font-size: 11px; font-weight: 700;
-      color: var(--gold);
-      flex-shrink: 0;
-    }
-    .rcr-site-name {
-      font-family: 'Cinzel', serif;
-      font-size: 10px; font-weight: 600;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--ink-mid);
-      white-space: nowrap;
-    }
-    .rcr-nav-link {
-      display: flex; align-items: center;
-      height: 50px; padding: 0 12px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px; letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--ink-light);
-      text-decoration: none;
-      border-bottom: 2px solid transparent;
-      transition: all 0.15s;
-      white-space: nowrap; flex-shrink: 0;
-    }
-    .rcr-nav-link:hover,
-    .rcr-nav-link.active { color: var(--gold); border-bottom-color: var(--gold); }
+.page-wrap {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 48px 28px 80px;
+}
 
-    /* HERO */
-    .hero {
-      background: linear-gradient(180deg, #0a0805 0%, #1a1005 60%, #2a1a08 100%);
-      color: var(--parchment);
-      padding: 90px 24px 70px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23b8860b' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-      pointer-events: none;
-    }
-    .hero-eyebrow {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: var(--gold-light);
-      opacity: 0.7;
-      margin-bottom: 20px;
-      position: relative;
-      z-index: 1;
-    }
-    .hero h1 {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(2.4rem, 7vw, 5rem);
-      font-weight: 900;
-      color: var(--parchment);
-      margin-bottom: 8px;
-      line-height: 1.1;
-      position: relative;
-      z-index: 1;
-    }
-    .hero h1 span { color: var(--gold-bright); }
-    .hero-rule {
-      width: 100px; height: 1px;
-      background: var(--gold);
-      margin: 18px auto 22px;
-      position: relative; z-index: 1;
-    }
-    .hero-sub {
-      font-family: 'Playfair Display', serif;
-      font-style: italic;
-      font-size: clamp(1rem, 2.5vw, 1.35rem);
-      color: var(--gold-light);
-      max-width: 680px;
-      margin: 0 auto 36px;
-      opacity: 0.9;
-      line-height: 1.7;
-      position: relative; z-index: 1;
-    }
-    .hero-stats {
-      display: flex;
-      justify-content: center;
-      gap: 40px;
-      flex-wrap: wrap;
-      position: relative; z-index: 1;
-    }
-    .hstat {
-      text-align: center;
-    }
-    .hstat-num {
-      font-family: 'Cinzel', serif;
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: var(--gold-bright);
-      display: block;
-      line-height: 1;
-    }
-    .hstat-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--gold-light);
-      opacity: 0.6;
-      margin-top: 6px;
-      display: block;
-    }
+/* MASTHEAD */
+.masthead {
+  border-bottom: 3px double #111;
+  padding-bottom: 20px;
+  margin-bottom: 32px;
+  text-align: center;
+}
+.masthead-tag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #666;
+  margin-bottom: 16px;
+}
+.masthead h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  font-weight: 900;
+  line-height: 1.05;
+  color: #111;
+  margin-bottom: 12px;
+}
+.masthead h1 .accent { color: #c8973a; }
+.masthead .subtitle {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 12px;
+}
+.masthead .dek {
+  font-family: 'Source Serif 4', serif;
+  font-style: italic;
+  font-size: 1.05rem;
+  color: #444;
+  max-width: 680px;
+  margin: 0 auto 16px;
+  line-height: 1.7;
+}
+.masthead-meta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #999;
+}
+.masthead-rule {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 20px 0 0;
+}
 
-    /* CONTENT */
-    .content-wrap {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 60px 24px 80px;
-    }
+/* STATS BAR */
+.stats-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: #111;
+  color: #fff;
+  margin-bottom: 32px;
+}
+.stat-item {
+  padding: 20px 16px;
+  text-align: center;
+  border-right: 1px solid #333;
+}
+.stat-item:last-child { border-right: none; }
+.stat-val {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 900;
+  color: #c8973a;
+  display: block;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.stat-lbl {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #999;
+}
 
-    .back-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--gold);
-      text-decoration: none;
-      margin-bottom: 44px;
-      transition: gap 0.2s;
-    }
-    .back-link:hover { gap: 12px; }
+/* LABEL KEY */
+.label-key {
+  background: #f8f8f8;
+  border-left: 4px solid #111;
+  padding: 16px 20px;
+  margin-bottom: 40px;
+}
+.label-key-title {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #666;
+  margin-bottom: 12px;
+}
+.label-row { display: flex; gap: 20px; flex-wrap: wrap; }
+.lbl {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border: 1px solid;
+  white-space: nowrap;
+}
+.lbl-doc   { color: #1a6b3c; border-color: #1a6b3c; background: rgba(26,107,60,0.06); }
+.lbl-disp  { color: #1a3f8b; border-color: #1a3f8b; background: rgba(26,63,139,0.06); }
+.lbl-alleg { color: #8b4800; border-color: #8b4800; background: rgba(139,72,0,0.06); }
 
-    .lede {
-      font-size: 1.15rem;
-      color: var(--ink-mid);
-      border-left: 4px solid var(--gold);
-      padding: 4px 0 4px 24px;
-      margin-bottom: 52px;
-      line-height: 1.9;
-      font-style: italic;
-    }
+/* CHAPTER */
+.chapter {
+  margin-bottom: 52px;
+  border-top: 2px solid #111;
+  padding-top: 28px;
+}
+.chapter-eyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #999;
+  margin-bottom: 10px;
+}
+.chapter h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 900;
+  color: #111;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+.chapter h2 .accent { color: #c0392b; }
 
-    /* LABEL SYSTEM */
-    .label-key {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-      padding: 20px 24px;
-      background: var(--parchment2);
-      border: 1px solid var(--border-light);
-      margin-bottom: 52px;
-    }
-    .label-key-title {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--ink-light);
-      width: 100%;
-      margin-bottom: 8px;
-    }
-    .label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 4px 10px;
-      border: 1px solid;
-      white-space: nowrap;
-    }
-    .l-doc   { color: #2a7a48; border-color: rgba(42,122,72,0.4); background: rgba(42,122,72,0.05); }
-    .l-disp  { color: #1e5ac8; border-color: rgba(30,90,200,0.4); background: rgba(30,90,200,0.05); }
-    .l-alleg { color: #9a5800; border-color: rgba(154,88,0,0.4); background: rgba(154,88,0,0.05); }
+.entry {
+  margin-bottom: 24px;
+  padding: 18px 20px;
+  background: #f9f9f9;
+  border-left: 3px solid #ddd;
+}
+.entry-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+.entry-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #111;
+  flex: 1;
+  min-width: 200px;
+}
+.entry p {
+  font-size: 0.95rem;
+  color: #333;
+  line-height: 1.8;
+  margin: 0;
+}
 
-    /* CHAPTER */
-    .chapter {
-      margin-bottom: 64px;
-      border: 1px solid var(--border-light);
-      overflow: hidden;
-    }
-    .chapter-header {
-      background: linear-gradient(135deg, #1a1005, #0a0805);
-      padding: 22px 28px;
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-    .chapter-num {
-      font-family: 'Cinzel', serif;
-      font-size: 2rem;
-      font-weight: 900;
-      color: var(--gold);
-      opacity: 0.25;
-      line-height: 1;
-      flex-shrink: 0;
-      min-width: 48px;
-    }
-    .chapter-title-block {}
-    .chapter-cat {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--gold-light);
-      opacity: 0.6;
-      margin-bottom: 5px;
-    }
-    .chapter-title {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(1rem, 2.5vw, 1.4rem);
-      font-weight: 700;
-      color: var(--parchment);
-      line-height: 1.3;
-    }
-    .chapter-body {
-      padding: 28px;
-      background: var(--parchment);
-    }
-    .chapter-body p {
-      font-size: 0.98rem;
-      color: var(--ink-mid);
-      margin-bottom: 18px;
-      line-height: 1.85;
-    }
-    .chapter-body p:last-child { margin-bottom: 0; }
+.pullquote {
+  border-left: 4px solid #111;
+  padding: 16px 24px;
+  margin: 28px 0;
+  background: #f4f4f4;
+}
+.pullquote p {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 1.1rem;
+  color: #222;
+  margin: 0 0 8px;
+  line-height: 1.6;
+}
+.pullquote cite {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: #666;
+}
 
-    .entry {
-      margin-bottom: 20px;
-      padding: 18px 20px;
-      background: var(--parchment2);
-      border-left: 3px solid var(--border);
-    }
-    .entry-head {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      margin-bottom: 10px;
-    }
-    .entry-title {
-      font-family: 'Playfair Display', serif;
-      font-weight: 700;
-      font-size: 1rem;
-      color: var(--ink);
-      flex: 1;
-    }
-    .entry p {
-      font-size: 0.92rem;
-      color: var(--ink-mid);
-      line-height: 1.8;
-      margin: 0;
-    }
+.chapter-sources {
+  margin-top: 16px;
+  padding: 12px 16px;
+  background: #f4f4f4;
+  border-top: 1px solid #ddd;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: #666;
+  line-height: 1.7;
+}
+.chapter-sources strong { color: #111; }
 
-    .pullquote {
-      background: linear-gradient(135deg, #1a1005, #0a0805);
-      padding: 28px 32px;
-      margin: 32px 0;
-      border-left: 4px solid var(--gold);
-    }
-    .pullquote p {
-      font-family: 'Playfair Display', serif;
-      font-style: italic;
-      font-size: 1.15rem;
-      color: var(--parchment);
-      margin: 0 0 10px;
-      line-height: 1.7;
-    }
-    .pullquote cite {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--gold-light);
-      opacity: 0.7;
-    }
+/* VERDICT */
+.verdict {
+  background: #111;
+  color: #fff;
+  padding: 36px 32px;
+  margin: 48px 0;
+}
+.verdict::before {
+  content: 'THE RECORD';
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  color: #c8973a;
+  display: block;
+  margin-bottom: 12px;
+}
+.verdict h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: #c8973a;
+  margin-bottom: 14px;
+}
+.verdict p {
+  font-size: 0.95rem;
+  color: #ccc;
+  line-height: 1.85;
+  margin-bottom: 12px;
+}
+.verdict p:last-child { margin: 0; }
 
-    .chapter-sources {
-      padding: 14px 28px;
-      background: var(--parchment2);
-      border-top: 1px solid var(--border-light);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      color: var(--ink-light);
-      line-height: 1.7;
-    }
-    .chapter-sources strong { color: var(--gold); }
-
-    .verdict {
-      background: linear-gradient(135deg, #1a1005, #0a0805);
-      border: 1px solid var(--gold);
-      padding: 40px 36px;
-      margin: 52px 0;
-      color: var(--parchment);
-    }
-    .verdict::before {
-      content: 'THE RECORD';
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
-      letter-spacing: 0.3em;
-      color: var(--gold-light);
-      opacity: 0.6;
-      display: block;
-      margin-bottom: 14px;
-    }
-    .verdict h3 {
-      font-family: 'Cinzel', serif;
-      font-size: 1.3rem;
-      color: var(--gold-bright);
-      margin-bottom: 16px;
-    }
-    .verdict p {
-      font-size: 1rem;
-      color: var(--parchment2);
-      line-height: 1.85;
-      margin-bottom: 14px;
-    }
-    .verdict p:last-child { margin-bottom: 0; }
-
-    @media (max-width: 600px) {
-      .hero { padding: 70px 20px 52px; }
-      .content-wrap { padding: 40px 20px 60px; }
-      .chapter-body, .chapter-sources { padding: 20px; }
-      .verdict { padding: 28px 24px; }
-      .hero-stats { gap: 24px; }
-    }
-  </style>
+@media (max-width: 600px) {
+  .stats-bar { grid-template-columns: repeat(2, 1fr); }
+  .stat-item:nth-child(2) { border-right: none; }
+}
+</style>
 </head>
 <body>
+
 <nav style="position:fixed;top:0;left:0;right:0;z-index:100;height:56px;background:rgba(20,14,8,0.98);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(200,151,58,0.2);display:flex;align-items:center;padding:0 24px;overflow-x:auto;">
   <a href="/" style="display:flex;align-items:center;gap:10px;text-decoration:none;padding-right:18px;border-right:1px solid rgba(200,151,58,0.15);margin-right:4px;flex-shrink:0;">
     <div style="width:32px;height:32px;border:1.5px solid #c8973a;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-size:10px;font-weight:700;color:#c8973a;flex-shrink:0;">RR</div>
@@ -411,273 +282,192 @@
 </nav>
 <div style="height:56px;"></div>
 
-<section class="hero">
-  <div class="hero-eyebrow">Full Record · 2009 — 2017 · Exhibit 1.02</div>
-  <h1>The <span>Obama</span> Record</h1>
-  <div class="hero-rule"></div>
-  <p class="hero-sub">Eight years. Documented. Sourced. Every claim labeled with precision — what is established fact, what is disputed, and what remains alleged.</p>
-  <div class="hero-stats">
-    <div class="hstat">
-      <span class="hstat-num">8</span>
-      <span class="hstat-label">Years in Office</span>
+<div class="page-wrap">
+
+  <div class="masthead">
+    <div class="masthead-tag">The Ruling Class Report · Special Investigation</div>
+    <h1>The <span class="accent">Obama</span> Record</h1>
+    <div class="subtitle">Full Investigation · 2009 — 2017</div>
+    <p class="dek">
+      A documented account of policy decisions, controversies, unanswered questions, 
+      and institutional changes from the Obama years — with every claim clearly labeled 
+      so you know exactly what kind of evidence exists for each one.
+    </p>
+    <div class="masthead-meta">Every Claim Labeled · Sources Cited · Updated May 2026</div>
+    <hr class="masthead-rule">
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat-item">
+      <span class="stat-val">8</span>
+      <span class="stat-lbl">Years in Office</span>
     </div>
-    <div class="hstat">
-      <span class="hstat-num">14</span>
-      <span class="hstat-label">Documented Actions</span>
+    <div class="stat-item">
+      <span class="stat-val">14</span>
+      <span class="stat-lbl">Documented Actions</span>
     </div>
-    <div class="hstat">
-      <span class="hstat-num">0</span>
-      <span class="hstat-label">Criminal Charges</span>
+    <div class="stat-item">
+      <span class="stat-val">0</span>
+      <span class="stat-lbl">Criminal Charges</span>
     </div>
-    <div class="hstat">
-      <span class="hstat-num">∞</span>
-      <span class="hstat-label">Unanswered Questions</span>
+    <div class="stat-item">
+      <span class="stat-val">∞</span>
+      <span class="stat-lbl">Unanswered Questions</span>
     </div>
   </div>
-</section>
-
-<div class="content-wrap">
-  <a href="/museum.html" class="back-link">← Return to Museum</a>
-
-  <p class="lede">
-    The Obama administration was presented to the American public as the most transparent in history. 
-    What the documented record shows is something different — a systematic expansion of executive surveillance, 
-    the weaponization of federal agencies against political opponents, and the construction of an intelligence 
-    apparatus that would outlast his presidency and be turned against his successor.
-  </p>
 
   <div class="label-key">
-    <div class="label-key-title">Claim Standards Used in This Exhibit</div>
-    <span class="label l-doc">Documented — established by official record, court finding, or congressional investigation</span>
-    <span class="label l-disp">Disputed — contested by credible parties with competing evidence</span>
-    <span class="label l-alleg">Alleged — claimed but not formally established</span>
+    <div class="label-key-title">Claim Standards Used in This Investigation</div>
+    <div class="label-row">
+      <span class="lbl lbl-doc">Documented — established by official record</span>
+      <span class="lbl lbl-disp">Disputed — contested by credible parties</span>
+      <span class="lbl lbl-alleg">Alleged — claimed but not formally established</span>
+    </div>
   </div>
 
-  <!-- CHAPTER 1: SURVEILLANCE STATE -->
+  <!-- CHAPTER 1 -->
   <div class="chapter">
-    <div class="chapter-header">
-      <div class="chapter-num">01</div>
-      <div class="chapter-title-block">
-        <div class="chapter-cat">Domestic Surveillance · NSA · FISA</div>
-        <div class="chapter-title">The Surveillance State — Built and Expanded</div>
+    <div class="chapter-eyebrow">Chapter 01 · Domestic Surveillance · NSA · FISA</div>
+    <h2>The <span class="accent">Surveillance</span> State — Built and Expanded</h2>
+
+    <div class="entry">
+      <div class="entry-head">
+        <div class="entry-title">NSA Mass Collection of Americans' Phone Records</div>
+        <span class="lbl lbl-doc">Documented</span>
       </div>
+      <p>The NSA's bulk collection of telephone metadata on American citizens was revealed by Edward Snowden in 2013. The program operated under Section 215 of the PATRIOT Act. A federal appeals court ruled in 2015 that the program was illegal. Director of National Intelligence James Clapper told Congress under oath in 2013 that no such collection was occurring. He was not charged with perjury.</p>
     </div>
-    <div class="chapter-body">
-      <div class="entry">
-        <div class="entry-head">
-          <div class="entry-title">NSA Mass Collection of Americans' Phone Records</div>
-          <span class="label l-doc">Documented</span>
-        </div>
-        <p>The NSA's bulk collection of telephone metadata on American citizens — every call, duration, and number — was revealed by Edward Snowden in 2013. The program operated under Section 215 of the PATRIOT Act. A federal appeals court ruled in 2015 that the program was illegal. Director of National Intelligence James Clapper had told Congress under oath in 2013 that no such collection was occurring. He was not charged with perjury.</p>
+
+    <div class="entry">
+      <div class="entry-head">
+        <div class="entry-title">Smith-Mundt Modernization Act — Domestic Propaganda Authorized</div>
+        <span class="lbl lbl-doc">Documented</span>
       </div>
-      <div class="entry">
-        <div class="entry-head">
-          <div class="entry-title">Smith-Mundt Modernization Act — Domestic Propaganda Authorized</div>
-          <span class="label l-doc">Documented</span>
-        </div>
-        <p>In 2012, the Obama administration signed the Smith-Mundt Modernization Act into law as part of the National Defense Authorization Act. The original Smith-Mundt Act of 1948 prohibited the U.S. government from directing propaganda at American citizens. The 2012 amendment lifted that prohibition, allowing State Department and BBG materials produced for foreign audiences to be disseminated domestically. The practical effect was to remove a legal barrier to government-produced media targeting American citizens.</p>
-      </div>
-      <div class="entry">
-        <div class="entry-head">
-          <div class="entry-title">Unmasking of American Citizens in Intelligence Reports</div>
-          <span class="label l-doc">Documented</span>
-        </div>
-        <p>Declassified documents show that Obama administration officials — including UN Ambassador Samantha Power, National Security Advisor Susan Rice, and CIA Director John Brennan — submitted hundreds of unmasking requests for American citizens in the final year of the Obama administration. Power alone submitted nearly 300 requests. Rice admitted to unmasking in a PBS interview before later denying it. Unmasking itself is legal; the volume and political context drew congressional scrutiny.</p>
-      </div>
+      <p>In 2012, the Obama administration signed the Smith-Mundt Modernization Act into law as part of the NDAA. The original Smith-Mundt Act of 1948 prohibited the U.S. government from directing propaganda at American citizens. The 2012 amendment lifted that prohibition, allowing State Department materials produced for foreign audiences to be disseminated domestically.</p>
     </div>
+
+    <div class="entry">
+      <div class="entry-head">
+        <div class="entry-title">Unmasking of American Citizens in Intelligence Reports</div>
+        <span class="lbl lbl-doc">Documented</span>
+      </div>
+      <p>Declassified documents show that Obama administration officials — including UN Ambassador Samantha Power, National Security Advisor Susan Rice, and CIA Director John Brennan — submitted hundreds of unmasking requests for American citizens in the final year of the Obama administration. Power alone submitted nearly 300 requests.</p>
+    </div>
+
     <div class="chapter-sources">
       <strong>Sources:</strong> FISA Court opinions (2011, 2015) · Clapper Senate testimony, March 2013 · 
-      Smith-Mundt Modernization Act, NDAA 2013, Sec. 1078 · 
-      DNI declassified unmasking records (2020) · Rice PBS interview, April 2017
+      Smith-Mundt Modernization Act, NDAA 2013, Sec. 1078 · DNI declassified unmasking records (2020)
     </div>
   </div>
 
-  <!-- CHAPTER 2: WEAPONIZED AGENCIES -->
+  <!-- CHAPTER 2 -->
   <div class="chapter">
-    <div class="chapter-header">
-      <div class="chapter-num">02</div>
-      <div class="chapter-title-block">
-        <div class="chapter-cat">IRS · DOJ · Federal Agencies</div>
-        <div class="chapter-title">Weaponization of Federal Agencies</div>
+    <div class="chapter-eyebrow">Chapter 02 · IRS · DOJ · Federal Agencies</div>
+    <h2>Weaponization of <span class="accent">Federal Agencies</span></h2>
+
+    <div class="entry">
+      <div class="entry-head">
+        <div class="entry-title">IRS Targeting of Conservative and Tea Party Organizations</div>
+        <span class="lbl lbl-doc">Documented</span>
       </div>
+      <p>The IRS subjected Tea Party, patriot, and conservative nonprofit applicants to extraordinary scrutiny and delays during the Obama administration. The Treasury Inspector General confirmed the targeting in a 2013 audit. Lois Lerner, head of the IRS Exempt Organizations division, invoked the Fifth Amendment before Congress. The DOJ declined to prosecute. The IRS eventually settled with conservative groups and issued a formal apology.</p>
     </div>
-    <div class="chapter-body">
-      <div class="entry">
-        <div class="entry-head">
-          <div class="entry-title">IRS Targeting of Conservative and Tea Party Organizations</div>
-          <span class="label l-doc">Documented</span>
-        </div>
-        <p>The IRS subjected Tea Party, patriot, and conservative nonprofit applicants to extraordinary scrutiny and delays during the Obama administration — demanding donor lists, social media content, and detailed descriptions of member activities that were not required of comparable progressive organizations. The Treasury Inspector General confirmed the targeting in a 2013 audit. Lois Lerner, head of the IRS Exempt Organizations division, invoked the Fifth Amendment before Congress. The DOJ declined to prosecute. The IRS eventually settled with conservative groups and issued a formal apology.</p>
+
+    <div class="entry">
+      <div class="entry-head">
+        <div class="entry-title">Operation Fast and Furious</div>
+        <span class="lbl lbl-doc">Documented</span>
       </div>
-      <div class="entry">
-        <div class="entry-head">
-          <div class="entry-title">Operation Fast and Furious</div>
-          <span class="label l-doc">Documented</span>
-        </div>
-        <p>The Bureau of Alcohol, Tobacco, Firearms and Explosives allowed approximately 2,000 firearms to be sold to straw purchasers with known connections to Mexican drug cartels — with the intent of tracking the weapons to cartel leaders. The weapons were lost. Two of them were recovered at the scene where Border Patrol Agent Brian Terry was murdered in December 2010. Attorney General Eric Holder became the first sitting Cabinet member held in contempt of Congress after refusing to turn over documents. President Obama asserted executive privilege over the subpoenaed materials.</p>
-      </div>
-      <div class="entry">
-        <div class="entry-head">
-          <div class="entry-title">DOJ Surveillance of AP Reporters and James Rosen</div>
-          <span class="label l-doc">Documented</span>
-        </div>
-        <p>The Obama DOJ secretly obtained two months of phone records from Associated Press reporters and editors in 2012 — more than 20 separate phone lines. Separately, the DOJ named Fox News reporter James Rosen as a criminal co-conspirator in a leak investigation to obtain a warrant for his emails. The AP called it a "massive and unprecedented intrusion." The Committee to Protect Journalists called the Obama administration the most aggressive in U.S. history in prosecuting leakers and surveilling journalists.</p>
-      </div>
+      <p>The Bureau of Alcohol, Tobacco, Firearms and Explosives allowed approximately 2,000 firearms to be sold to straw purchasers with known connections to Mexican drug cartels. The weapons were lost. Two were recovered at the scene where Border Patrol Agent Brian Terry was murdered in December 2010. Attorney General Eric Holder became the first sitting Cabinet member held in contempt of Congress after refusing to turn over documents.</p>
     </div>
+
+    <div class="entry">
+      <div class="entry-head">
+        <div class="entry-title">DOJ Surveillance of AP Reporters and James Rosen</div>
+        <span class="lbl lbl-doc">Documented</span>
+      </div>
+      <p>The Obama DOJ secretly obtained two months of phone records from Associated Press reporters and editors in 2012 — more than 20 separate phone lines. Separately, the DOJ named Fox News reporter James Rosen as a criminal co-conspirator in a leak investigation to obtain a warrant for his emails. The Committee to Protect Journalists called the Obama administration the most aggressive in U.S. history in surveilling journalists.</p>
+    </div>
+
     <div class="chapter-sources">
-      <strong>Sources:</strong> Treasury IG Report — IRS Targeting (2013) · 
-      House Oversight Committee — Fast and Furious Report (2012) · 
-      Eric Holder contempt citation — Congressional Record (2012) · 
-      AP statement on DOJ subpoena (2013) · 
-      Committee to Protect Journalists — The Obama Administration and the Press (2013)
+      <strong>Sources:</strong> Treasury IG Report — IRS Targeting (2013) · House Oversight Committee — Fast and Furious Report (2012) · 
+      Eric Holder contempt citation — Congressional Record (2012) · Committee to Protect Journalists (2013)
     </div>
   </div>
 
-  <!-- CHAPTER 3: FOREIGN POLICY -->
+  <!-- CHAPTER 3 -->
   <div class="chapter">
-    <div class="chapter-header">
-      <div class="chapter-num">03</div>
-      <div class="chapter-title-block">
-        <div class="chapter-cat">Iran · Libya · Foreign Policy</div>
-        <div class="chapter-title">Foreign Policy — What Was Hidden</div>
-      </div>
-    </div>
-    <div class="chapter-body">
-      <div class="entry">
-        <div class="entry-head">
-          <div class="entry-title">$400 Million Cash Payment to Iran</div>
-          <span class="label l-doc">Documented</span>
-        </div>
-        <p>In January 2016, the Obama administration transferred $400 million in cash — loaded onto wooden pallets, flown to Tehran on an unmarked cargo plane — to Iran simultaneously with the release of American prisoners. The administration initially denied the payment was ransom. State Department spokesman John Kirby later acknowledged that the cash was used as "leverage" to ensure the prisoners' release. The $400 million was the first installment of a $1.7 billion settlement of a decades-old arms deal dispute. Critics noted the payment emboldened Iranian hardliners and provided hard currency that could fund proxy forces.</p>
-      </div>
-      <div class="entry">
-        <div class="entry-head">
-          <div class="entry-title">Benghazi — The Security Failures and the Cover Story</div>
-          <span class="label l-doc">Documented</span>
-        </div>
-        <p>On September 11, 2012, Islamic militants attacked the U.S. diplomatic compound and CIA annex in Benghazi, Libya, killing Ambassador Chris Stevens and three other Americans. Multiple requests for additional security prior to the attack had been denied. In the immediate aftermath, the Obama administration — including UN Ambassador Susan Rice on five Sunday news programs — attributed the attack to a spontaneous reaction to an internet video, a characterization contradicted by intelligence available at the time. Emails later revealed that Secretary Clinton told her daughter and the Egyptian prime minister it was a planned terrorist attack on the same night she publicly promoted the video narrative. The Select Committee on Benghazi concluded the administration had misled the public.</p>
-      </div>
+    <div class="chapter-eyebrow">Chapter 03 · Iran · Libya · Foreign Policy</div>
+    <h2>Foreign Policy — <span class="accent">What Was Hidden</span></h2>
 
-      <div class="pullquote">
-        <p>"We know that the attack in Libya had nothing to do with the film. It was a planned attack — not a protest."</p>
-        <cite>— Hillary Clinton, in an email to the Egyptian Prime Minister, September 11, 2012 — the same night she publicly attributed the attack to a video</cite>
+    <div class="entry">
+      <div class="entry-head">
+        <div class="entry-title">$400 Million Cash Payment to Iran</div>
+        <span class="lbl lbl-doc">Documented</span>
       </div>
-
-      <div class="entry">
-        <div class="entry-head">
-          <div class="entry-title">Syrian Red Line — Declared and Abandoned</div>
-          <span class="label l-doc">Documented</span>
-        </div>
-        <p>In August 2012 President Obama stated publicly that the use of chemical weapons by the Assad regime would cross a "red line" triggering U.S. action. In August 2013, Assad used sarin gas against civilians in Ghouta, killing over 1,400 people. Obama did not act militarily. The administration later claimed the red line had been set by "the world," not Obama personally. The credibility cost — in the Middle East, with European allies, and in the Pacific — was documented by multiple former senior officials in subsequent memoirs and testimony.</p>
-      </div>
+      <p>In January 2016, the Obama administration transferred $400 million in cash — loaded onto wooden pallets, flown to Tehran on an unmarked cargo plane — to Iran simultaneously with the release of American prisoners. The administration initially denied the payment was ransom. State Department spokesman John Kirby later acknowledged the cash was used as "leverage" to ensure the prisoners' release.</p>
     </div>
+
+    <div class="entry">
+      <div class="entry-head">
+        <div class="entry-title">Benghazi — The Security Failures and the Cover Story</div>
+        <span class="lbl lbl-doc">Documented</span>
+      </div>
+      <p>On September 11, 2012, Islamic militants attacked the U.S. diplomatic compound in Benghazi, killing Ambassador Chris Stevens and three other Americans. In the immediate aftermath, the Obama administration — including UN Ambassador Susan Rice on five Sunday news programs — attributed the attack to a spontaneous reaction to an internet video, a characterization contradicted by intelligence available at the time.</p>
+    </div>
+
+    <div class="pullquote">
+      <p>"We know that the attack in Libya had nothing to do with the film. It was a planned attack — not a protest."</p>
+      <cite>— Hillary Clinton, email to the Egyptian Prime Minister, September 11, 2012 — the same night she publicly attributed the attack to a video</cite>
+    </div>
+
     <div class="chapter-sources">
-      <strong>Sources:</strong> Wall Street Journal — $400M Iran payment reporting (Aug. 2016) · 
-      State Dept. briefing, John Kirby (Aug. 18, 2016) · 
-      Clinton email to Egyptian PM — released by House Select Committee · 
-      House Select Committee on Benghazi Final Report (2016) · 
-      Obama "red line" statement — White House press conference, Aug. 20, 2012
+      <strong>Sources:</strong> Wall Street Journal — $400M Iran payment (Aug. 2016) · State Dept. briefing, John Kirby (Aug. 18, 2016) · 
+      Clinton email to Egyptian PM — House Select Committee · House Select Committee on Benghazi Final Report (2016)
     </div>
   </div>
 
-  <!-- CHAPTER 4: CROSSFIRE HURRICANE -->
+  <!-- CHAPTER 4 -->
   <div class="chapter">
-    <div class="chapter-header">
-      <div class="chapter-num">04</div>
-      <div class="chapter-title-block">
-        <div class="chapter-cat">Crossfire Hurricane · 2016 Election · Intelligence Apparatus</div>
-        <div class="chapter-title">The Intelligence Operation Against a Political Opponent</div>
-      </div>
-    </div>
-    <div class="chapter-body">
-      <p>
-        In the final months of the Obama administration, the apparatus of U.S. intelligence and law enforcement was directed at the campaign of the opposition presidential candidate. What follows is what the formal record — congressional investigations, inspector general reports, and the Durham Special Counsel — established.
-      </p>
-      <div class="entry">
-        <div class="entry-head">
-          <div class="entry-title">Crossfire Hurricane — Opened Without Verified Predicate</div>
-          <span class="label l-doc">Documented</span>
-        </div>
-        <p>The FBI opened Crossfire Hurricane — a counterintelligence investigation into the Trump campaign — in July 2016. The DOJ Inspector General found the investigation was opened on a "Preliminary Investigation" basis, meaning a lower evidentiary threshold. The Durham Special Counsel Report (2023) found that the FBI had applied a different standard to the Trump investigation than it had to the concurrent Clinton email investigation, and that the predicate for opening was thin by historical FBI standards.</p>
-      </div>
-      <div class="entry">
-        <div class="entry-head">
-          <div class="entry-title">Obama Briefed on Clinton's Russia Collusion Plan</div>
-          <span class="label l-doc">Documented</span>
-        </div>
-        <p>Declassified CIA Director John Brennan handwritten notes from July 2016 show that Brennan briefed President Obama on intelligence indicating that Hillary Clinton had approved a campaign plan to manufacture a Trump-Russia collusion narrative to distract from her email server scandal. Brennan referred the matter to the FBI. Obama was briefed. No action was taken to stop the investigation that followed.</p>
-      </div>
-      <div class="entry">
-        <div class="entry-head">
-          <div class="entry-title">January 5, 2017 Oval Office Meeting</div>
-          <span class="label l-doc">Documented</span>
-        </div>
-        <p>Two weeks before Trump's inauguration, President Obama convened a meeting in the Oval Office with Vice President Biden, FBI Director Comey, Deputy AG Sally Yates, CIA Director Brennan, and DNI Clapper — specifically to discuss the Flynn-Kislyak calls and the ongoing Russia investigation. Susan Rice sent herself an email on Inauguration Day documenting that Obama had instructed the group to proceed "by the book." The meeting was later scrutinized as the point at which the incoming administration's National Security Advisor was targeted for removal.</p>
-      </div>
-    </div>
-    <div class="chapter-sources">
-      <strong>Sources:</strong> DOJ IG Report — Crossfire Hurricane (2019) · 
-      Durham Special Counsel Report (2023) · 
-      Brennan handwritten notes — DNI declassification (Oct. 2020) · 
-      Susan Rice email — declassified by Senate Judiciary Committee (2020)
-    </div>
-  </div>
+    <div class="chapter-eyebrow">Chapter 04 · Crossfire Hurricane · 2016 Election</div>
+    <h2>The Intelligence Operation Against a <span class="accent">Political Opponent</span></h2>
 
-  <!-- CHAPTER 5: ALINSKY / IDEOLOGICAL -->
-  <div class="chapter">
-    <div class="chapter-header">
-      <div class="chapter-num">05</div>
-      <div class="chapter-title-block">
-        <div class="chapter-cat">Ideology · Community Organizing · Influence Networks</div>
-        <div class="chapter-title">The Alinsky Foundation — Four Generations Deep</div>
+    <div class="entry">
+      <div class="entry-head">
+        <div class="entry-title">Crossfire Hurricane — Opened Without Verified Predicate</div>
+        <span class="lbl lbl-doc">Documented</span>
       </div>
+      <p>The FBI opened Crossfire Hurricane — a counterintelligence investigation into the Trump campaign — in July 2016. The DOJ Inspector General found the investigation was opened on a thin basis by historical FBI standards. The Durham Special Counsel Report (2023) found that the FBI applied a different standard to the Trump investigation than to the concurrent Clinton email investigation.</p>
     </div>
-    <div class="chapter-body">
-      <p>
-        Saul Alinsky's <em>Rules for Radicals</em> (1971) is a tactical manual for community organizing built around the principle that the end justifies the means — that moral standards are tools to be wielded against opponents, not principles to be followed. Obama's political formation ran directly through the Alinsky tradition.
-      </p>
-      <div class="entry">
-        <div class="entry-head">
-          <div class="entry-title">Obama's Direct Training in Alinsky Methods</div>
-          <span class="label l-doc">Documented</span>
-        </div>
-        <p>Barack Obama worked as a community organizer in Chicago from 1985 to 1988 for the Developing Communities Project — an organization directly descended from Alinsky's Industrial Areas Foundation. He later taught workshops on Alinsky organizing methods. In a 1995 interview, Obama described his organizing work and the Alinsky framework approvingly. His political career was launched from the Hyde Park home of Bill Ayers and Bernardine Dohrn, both former Weather Underground members who had themselves been influenced by the radical left tradition Alinsky helped shape.</p>
+
+    <div class="entry">
+      <div class="entry-head">
+        <div class="entry-title">Obama Briefed on Clinton's Russia Collusion Plan</div>
+        <span class="lbl lbl-doc">Documented</span>
       </div>
-      <div class="entry">
-        <div class="entry-head">
-          <div class="entry-title">Hillary Clinton's Academic Connection</div>
-          <span class="label l-doc">Documented</span>
-        </div>
-        <p>Hillary Clinton wrote her 1969 senior thesis at Wellesley College on Saul Alinsky's organizing methods — a thesis the Clinton White House later suppressed access to during her husband's presidency. Clinton had corresponded with Alinsky personally and been offered a position with his organization after graduation, which she declined to attend Yale Law School. The thesis was titled "There Is Only the Fight: An Analysis of the Alinsky Model."</p>
-      </div>
+      <p>Declassified CIA Director John Brennan handwritten notes from July 2016 show that Brennan briefed President Obama on intelligence indicating that Hillary Clinton had approved a campaign plan to manufacture a Trump-Russia collusion narrative to distract from her email server scandal. Brennan referred the matter to the FBI. Obama was briefed. No action was taken to stop the investigation that followed.</p>
     </div>
+
+    <div class="entry">
+      <div class="entry-head">
+        <div class="entry-title">January 5, 2017 Oval Office Meeting</div>
+        <span class="lbl lbl-doc">Documented</span>
+      </div>
+      <p>Two weeks before Trump's inauguration, President Obama convened a meeting in the Oval Office with Vice President Biden, FBI Director Comey, Deputy AG Sally Yates, CIA Director Brennan, and DNI Clapper — specifically to discuss the Flynn-Kislyak calls and the ongoing Russia investigation. Susan Rice sent herself an email on Inauguration Day documenting that Obama had instructed the group to proceed "by the book."</p>
+    </div>
+
     <div class="chapter-sources">
-      <strong>Sources:</strong> Obama community organizing records — Chicago Tribune reporting (2008) · 
-      Obama 1995 interview — Illinois Issues · 
-      Clinton Wellesley thesis — released 2001 · 
-      Alinsky, Saul — Rules for Radicals (1971)
+      <strong>Sources:</strong> DOJ IG Report — Crossfire Hurricane (2019) · Durham Special Counsel Report (2023) · 
+      Brennan handwritten notes — DNI declassification (Oct. 2020) · Susan Rice email — Senate Judiciary Committee (2020)
     </div>
   </div>
 
   <div class="verdict">
     <h3>The Pattern Across Eight Years</h3>
-    <p>
-      What the Obama record shows, assembled in one place, is not a collection of isolated controversies. 
-      It is a pattern. The expansion of surveillance powers. The use of federal agencies against political opponents. 
-      The construction of a narrative apparatus backed by a modernized legal authority to direct it domestically. 
-      And in the final months — the direct application of that apparatus against the incoming administration of the opposing party.
-    </p>
-    <p>
-      None of the principal actors faced criminal charges. Several became cable news contributors. 
-      The institutions they shaped remain in place.
-    </p>
-    <p>
-      This exhibit will continue to be updated as additional documents are declassified and congressional 
-      investigations publish findings. Every addition will carry a source citation and a claim label. 
-      Nothing here is presented as more certain than the record supports.
-    </p>
+    <p>What the Obama record shows, assembled in one place, is not a collection of isolated controversies. It is a pattern: the expansion of surveillance powers, the use of federal agencies against political opponents, and in the final months — the direct application of that apparatus against the incoming administration of the opposing party.</p>
+    <p>None of the principal actors faced criminal charges. Several became cable news contributors. The institutions they shaped remain in place.</p>
   </div>
-</div>
 
+</div>
 </body>
 </html>
