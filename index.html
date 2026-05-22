@@ -6,76 +6,13 @@
     <title>The Ruling Class Report</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;700&family=EB+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --nav: #1a140f;
-            --accent: #b89f6e;
-            --text: #2c2118;
-            --paper: #f8f4ed;
-        }
-        body { 
-            font-family: 'EB Garamond', serif; 
-            background: var(--paper); 
-            color: var(--text); 
-            margin: 0; 
-            line-height: 1.9; 
-        }
-        .nav { 
-            background: var(--nav); 
-            color: var(--accent); 
-            padding: 1.4rem 4rem; 
-            position: sticky; 
-            top: 0; 
-            z-index: 100; 
-            text-align: center; 
-            border-bottom: 1px solid #d4b88a; 
-            font-family: 'Cinzel', serif;
-            letter-spacing: 1px;
-        }
-        .nav a { 
-            color: var(--accent); 
-            margin: 0 1.8rem; 
-            text-decoration: none; 
-            font-weight: 500;
-        }
-        .hero { 
-            background: linear-gradient(rgba(26,20,15,0.92), rgba(26,20,15,0.88)), url('https://picsum.photos/id/1015/2000/1100') center/cover; 
-            color: #e8d9c2; 
-            padding: 11rem 2rem 8rem; 
-            text-align: center; 
-        }
-        h1 { 
-            font-family: 'Cinzel', serif; 
-            font-size: 4.1rem; 
-            letter-spacing: 4px; 
-            text-transform: uppercase; 
-            margin: 0 0 1rem; 
-        }
-        .tagline { 
-            font-size: 1.65rem; 
-            font-style: italic; 
-            opacity: 0.9; 
-            margin-bottom: 3rem; 
-        }
-        .container { 
-            max-width: 1050px; 
-            margin: 0 auto; 
-            padding: 4.5rem 2rem; 
-        }
-        .card { 
-            background: white; 
-            border: 1px solid #d4b88a; 
-            padding: 3.2rem; 
-            margin: 3rem 0; 
-            box-shadow: 0 12px 40px rgba(44,33,24,0.1); 
-        }
-        .button { 
-            color: var(--accent); 
-            border: 1px solid var(--accent); 
-            padding: 1.3rem 3.5rem; 
-            text-decoration: none; 
-            font-size: 1.1rem; 
-            letter-spacing: 1.5px; 
-        }
+        body { font-family: 'EB Garamond', serif; background: #f8f5f0; color: #2c2118; margin: 0; line-height: 1.9; }
+        .nav { background: #1a140f; color: #d4b88a; padding: 1.3rem 3rem; position: sticky; top: 0; z-index: 100; text-align: center; border-bottom: 1px solid #d4b88a; }
+        .nav a { color: #d4b88a; margin: 0 1.6rem; text-decoration: none; font-weight: 500; }
+        .hero { background: linear-gradient(rgba(28,20,15,0.92), rgba(28,20,15,0.88)), url('https://picsum.photos/id/1015/2000/1100') center/cover; color: #e8d9c2; padding: 10rem 2rem 7rem; text-align: center; }
+        h1 { font-family: 'Cinzel', serif; font-size: 4rem; letter-spacing: 3px; text-transform: uppercase; margin: 0; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 4rem 2rem; }
+        .card { background: white; border: 1px solid #d4b88a; padding: 3rem; margin: 2.5rem 0; }
     </style>
 </head>
 <body>
@@ -90,19 +27,15 @@
 
     <div class="hero">
         <h1>The Ruling Class Report</h1>
-        <p class="tagline">A Private Archive of American Power • Established 2026</p>
-        <a href="museum.html" class="button">Enter the Collection</a>
+        <p style="font-size:1.6rem; margin:1.5rem 0 3rem;">A Private Archive of American Institutional Power</p>
+        <a href="museum.html" style="color:#d4b88a; border:1px solid #d4b88a; padding:1.4rem 3.5rem; text-decoration:none; display:inline-block;">Enter the Collection</a>
     </div>
 
     <div class="container">
         <div class="card">
-            <h2 style="font-family:Cinzel; letter-spacing:2px; color:#2c2118;">Current Holdings</h2>
-            <ul style="font-size:1.22rem; line-height:2.2;">
-                <li><strong><a href="crowley-county.html">Crowley County Water Rights Investigation</a></strong></li>
-                <li><strong><a href="obama-full-record.html">The Obama Record</a></strong></li>
-                <li><strong><a href="the-mirror.html">The Mirror — Accusation vs Record</a></strong></li>
-                <li><strong><a href="the-architects.html">The Architects</a></strong></li>
-            </ul>
+            <h2>Featured Investigation</h2>
+            <p><strong><a href="crowley-county.html">Crowley County, Colorado</a></strong><br>
+            How water rights were stripped from rural families and transferred to urban interests — a textbook case of local ruling class mechanics.</p>
         </div>
     </div>
 </body>
