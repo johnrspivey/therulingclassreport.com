@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flyover America | The Ruling Class Report</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;900&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+
+    :root {
+      --ink:        #0a0805;
+      --parchment:  #f0ebe0;
+      --gold:       #c8973a;
+      --gold-dim:   #8a6420;
+      --gold-pale:  rgba(200,151,58,0.1);
+      --red:        #8b1a1a;
+      --border:     rgba(200,151,58,0.2);
+      --dust:       #c4a882;
+    }
+
+    body {
+      background: var(--ink);
+      color: var(--parchment);
+      font-family: 'Lora', Georgia, serif;
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      z-index: 1000; pointer-events: none;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px;
+    }
+
+    /* CURTAIN */
+    .curtain {
+      position: fixed; inset: 0; z-index: 999;
+      background: var(--ink);
+      animation: curtain 1.2s cubic-bezier(0.76,0,0.24,1) 0.1s both;
+      pointer-events: none;
+    }
+    @keyframes curtain {
+      from { transform: scaleY(1); transform-origin: top; }
+      to   { transform: scaleY(0); transform-origin: top; }
+    }
+
+    /* NAV */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100; height: 56px;
+      background: rgba(10,8,5,0.9);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 1200px; margin: 0 auto;
+      padding: 0 32px; height: 100%;
+      display: flex; align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 12px;
+      text-decoration: none;
+    }
+    .nav-seal {
+      width: 34px; height: 34px;
+      border: 1.5px solid var(--gold); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cinzel', serif;
+      font-size: 11px; font-weight: 700; color: var(--gold);
+    }
+    .nav-name {
+      font-family: 'Cinzel', serif;
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.2em; color: var(--parchment);
+    }
+    .nav-links { display: flex; }
+    .nav-link {
+      padding: 0 16px; height: 56px;
+      display: flex; align-items: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(240,235,224,0.45);
+      text-decoration: none;
+      border-left: 1px solid rgba(200,151,58,0.1);
+      transition: all 0.2s;
+    }
+    .nav-link:hover { color: var(--parchment); background: var(--gold-pale); }
+    .nav-link.active { color: var(--gold); }
+    @media (max-width: 900px) { .nav-links { display: none; } }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 120px 32px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* horizon line effect */
+    .hero::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(200,151,58,0.3), transparent);
+    }
+
+    /* wide open sky radial */
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -200px; left: 50%;
+      transform: translateX(-50%);
+      width: 1200px; height: 600px;
+      background: radial-gradient(ellipse, rgba(200,151,58,0.06) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; letter-spacing: 0.45em;
+      text-transform: uppercase; color: var(--gold-dim);
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeup 0.8s ease 1.2s forwards;
+      position: relative; z-index: 1;
+    }
+
+    .hero-series {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(0.7rem, 1.5vw, 0.9rem);
+      font-weight: 600;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeup 0.8s ease 1.25s forwards;
+      position: relative; z-index: 1;
+    }
+
+    .hero h1 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(3.5rem, 10vw, 8rem);
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--parchment);
+      line-height: 0.95;
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fadeup 0.8s ease 1.3s forwards;
+      position: relative; z-index: 1;
+    }
+
+    .hero h1 span {
+      display: block;
+      font-size: 0.38em;
+      letter-spacing: 0.45em;
+      color: var(--dust);
+      margin-top: 12px;
+      font-weight: 400;
+    }
+
+    .ornament {
+      display: flex; align-items: center; gap: 16px;
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: fadeup 0.8s ease 1.4s forwards;
+      position: relative; z-index: 1;
+    }
+    .orn-line { width: 80px; height: 1px; background: linear-gradient(to right, transparent, var(--gold)); }
+    .orn-line.r { background: linear-gradient(to left, transparent, var(--gold)); }
+    .orn-dot { width: 5px; height: 5px; background: var(--gold); transform: rotate(45deg); }
+
+    .hero-desc {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: rgba(240,235,224,0.72);
+      max-width: 620px;
+      line-height: 1.9;
+      margin-bottom: 52px;
+      opacity: 0;
+      animation: fadeup 0.8s ease 1.5s forwards;
+      position: relative; z-index: 1;
+    }
+
+    .hero-mission {
+      max-width: 560px;
+      padding: 24px 32px;
+      border: 1px solid rgba(200,151,58,0.2);
+      border-left: 3px solid var(--gold);
+      text-align: left;
+      opacity: 0;
+      animation: fadeup 0.8s ease 1.6s forwards;
+      position: relative; z-index: 1;
+    }
+    .hero-mission p {
+      font-style: italic;
+      font-size: 1rem;
+      color: rgba(240,235,224,0.65);
+      line-height: 1.85;
+    }
+
+    /* ENTRIES */
+    .entries-wrap {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 80px 32px 100px;
+    }
+
+    .entries-hdr {
+      display: flex; align-items: center; gap: 24px;
+      margin-bottom: 56px;
+    }
+    .entries-hdr-line { flex: 1; height: 1px; background: rgba(200,151,58,0.15); }
+    .entries-hdr-text {
+      font-family: 'Cinzel', serif;
+      font-size: 9px; letter-spacing: 0.35em;
+      text-transform: uppercase; color: var(--gold-dim);
+      white-space: nowrap;
+    }
+
+    .entry-card {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 0;
+      border: 1px solid rgba(200,151,58,0.1);
+      text-decoration: none;
+      color: var(--parchment);
+      margin-bottom: 2px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .entry-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-dim));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    .entry-card:hover {
+      border-color: rgba(200,151,58,0.3);
+      transform: translateX(4px);
+    }
+    .entry-card:hover::before { transform: scaleX(1); }
+
+    .entry-num-col {
+      background: rgba(200,151,58,0.04);
+      border-right: 1px solid rgba(200,151,58,0.1);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 32px 16px;
+    }
+    .entry-num {
+      font-family: 'Cinzel', serif;
+      font-size: 1.6rem; font-weight: 700;
+      color: var(--gold);
+      opacity: 0.4;
+      line-height: 1;
+    }
+    .entry-num-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 7px; letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      margin-top: 6px;
+      opacity: 0.6;
+    }
+
+    .entry-body { padding: 32px 36px; }
+
+    .entry-meta {
+      display: flex; align-items: center; gap: 16px;
+      margin-bottom: 12px; flex-wrap: wrap;
+    }
+    .entry-location {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--gold-dim);
+    }
+    .entry-status {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8px; letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 3px 8px; border: 1px solid;
+    }
+    .status-live { color: #4a9e6a; border-color: rgba(74,158,106,0.35); }
+    .status-next { color: var(--gold-dim); border-color: rgba(200,151,58,0.25); opacity: 0.6; }
+
+    .entry-title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.1rem, 2vw, 1.5rem);
+      font-weight: 500; letter-spacing: 0.02em;
+      color: var(--parchment);
+      margin-bottom: 12px; line-height: 1.25;
+    }
+    .entry-desc {
+      font-size: 0.98rem;
+      color: rgba(240,235,224,0.72);
+      line-height: 1.8;
+      max-width: 640px;
+    }
+    .entry-arrow {
+      position: absolute; right: 28px; bottom: 28px;
+      font-size: 20px; color: var(--gold-dim);
+      transition: transform 0.2s;
+    }
+    .entry-card:hover .entry-arrow { transform: translate(3px,-3px); }
+
+    /* COMING SOON ENTRIES */
+    .entry-card.ghost {
+      opacity: 0.35;
+      pointer-events: none;
+    }
+    .entry-card.ghost::before { display: none; }
+
+    /* SUBMIT SECTION */
+    .submit-section {
+      border-top: 1px solid var(--border);
+      padding: 80px 32px;
+      text-align: center;
+    }
+    .submit-inner { max-width: 600px; margin: 0 auto; }
+    .submit-rule {
+      width: 1px; height: 48px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      margin: 0 auto 32px;
+    }
+    .submit-inner h2 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(1.2rem, 2.5vw, 1.7rem);
+      font-weight: 400; letter-spacing: 0.06em;
+      color: var(--parchment);
+      margin-bottom: 20px; line-height: 1.35;
+    }
+    .submit-inner p {
+      font-size: 1rem;
+      color: rgba(240,235,224,0.6);
+      line-height: 1.9; margin-bottom: 32px;
+    }
+    .submit-sig {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px; letter-spacing: 0.25em;
+      text-transform: uppercase; color: var(--gold-dim);
+    }
+
+    footer {
+      padding: 32px;
+      border-top: 1px solid var(--border);
+    }
+    .footer-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center;
+      justify-content: space-between;
+      gap: 24px; flex-wrap: wrap;
+    }
+    .footer-brand {
+      font-family: 'Cinzel', serif;
+      font-size: 12px; letter-spacing: 0.2em; color: var(--parchment);
+    }
+    .footer-copy {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px; color: rgba(240,235,224,0.25);
+      line-height: 1.7; text-align: center;
+    }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-link {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px; letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(240,235,224,0.3);
+      text-decoration: none; transition: color 0.15s;
+    }
+    .footer-link:hover { color: var(--gold); }
+
+    .reveal {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.on { opacity: 1; transform: translateY(0); }
+
+    @keyframes fadeup {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .entry-card { grid-template-columns: 60px 1fr; }
+      .entry-body { padding: 24px 20px; }
+      .entry-num { font-size: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="curtain"></div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <div class="nav-seal">RR</div>
+      <span class="nav-name">The Ruling Class Report</span>
+    </a>
+    <div class="nav-links">
+      <a href="/" class="nav-link">Home</a>
+      <a href="/museum.html" class="nav-link">Museum</a>
+      <a href="/congress.html" class="nav-link">Congress</a>
+      <a href="/trump-timeline.html" class="nav-link">Timeline</a>
+      <a href="/flyover-america.html" class="nav-link active">Flyover America</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-eyebrow">An Ongoing Exposé · The Ruling Class Report</div>
+  <div class="hero-series">Series</div>
+  <h1>Flyover America
+    <span>The Places They Don't Talk About</span>
+  </h1>
+  <div class="ornament">
+    <div class="orn-line"></div>
+    <div class="orn-dot"></div>
+    <div class="orn-line r"></div>
+  </div>
+  <p class="hero-desc">
+    Between the coasts there are towns, counties, and communities that built this country — 
+    and were systematically stripped of the resources, industries, and futures that made them viable. 
+    Nobody covered it. Nobody was held accountable. We will.
+  </p>
+  <div class="hero-mission">
+    <p>
+      Flyover America is a permanent, ongoing series documenting the communities in interior America 
+      that have been exploited, abandoned, or destroyed by decisions made far away by people 
+      who will never live with the consequences. Each entry is fully sourced. Each one names names.
+    </p>
+  </div>
+</section>
+
+<div class="entries-wrap">
+
+  <div class="entries-hdr reveal">
+    <div class="entries-hdr-line"></div>
+    <div class="entries-hdr-text">The Entries — Ongoing</div>
+    <div class="entries-hdr-line"></div>
+  </div>
+
+  <!-- ENTRY 001: CROWLEY COUNTY -->
+  <a href="/crowley-county.html" class="entry-card reveal">
+    <div class="entry-num-col">
+      <div class="entry-num">001</div>
+      <div class="entry-num-label">Entry</div>
+    </div>
+    <div class="entry-body">
+      <div class="entry-meta">
+        <span class="entry-location">Crowley County, Colorado</span>
+        <span class="entry-status status-live">Live</span>
+      </div>
+      <div class="entry-title">The Water Theft — How Urban Power Drained a Community Dry</div>
+      <p class="entry-desc">
+        In the 1970s, water developers paid struggling Colorado farmers $300–$400 per acre for their 
+        water rights and sold them to Denver, Colorado Springs, and Aurora. Over 50,000 irrigated acres 
+        went to dust. The communities that remained turned to prisons to survive. 
+        Those same water rights now sell for $25,000 apiece. Nobody went to jail.
+      </p>
+    </div>
+    <span class="entry-arrow">↗</span>
+  </a>
+
+  <!-- ENTRY 002: COMING SOON -->
+  <div class="entry-card ghost reveal">
+    <div class="entry-num-col">
+      <div class="entry-num">002</div>
+      <div class="entry-num-label">Entry</div>
+    </div>
+    <div class="entry-body">
+      <div class="entry-meta">
+        <span class="entry-location">Appalachia</span>
+        <span class="entry-status status-next">In Development</span>
+      </div>
+      <div class="entry-title">The Coal Extraction Compact — What Was Taken and What Was Left</div>
+      <p class="entry-desc">
+        A century of coal extraction funded the industrial economy of the eastern United States. 
+        The communities that mined it were left with black lung, poisoned water, and collapsed economies. 
+        The companies that profited are still operating.
+      </p>
+    </div>
+  </div>
+
+  <!-- ENTRY 003: COMING SOON -->
+  <div class="entry-card ghost reveal">
+    <div class="entry-num-col">
+      <div class="entry-num">003</div>
+      <div class="entry-num-label">Entry</div>
+    </div>
+    <div class="entry-body">
+      <div class="entry-meta">
+        <span class="entry-location">The Rust Belt</span>
+        <span class="entry-status status-next">In Development</span>
+      </div>
+      <div class="entry-title">NAFTA's Ground Zero — The Towns That Died on a Spreadsheet</div>
+      <p class="entry-desc">
+        When economists modeled the effects of NAFTA, the job losses were a line item. 
+        In Youngstown, Flint, and a hundred towns nobody remembers, they were everything. 
+        A documented account of who made the decision and what it cost.
+      </p>
+    </div>
+  </div>
+
+  <!-- ENTRY 004: COMING SOON -->
+  <div class="entry-card ghost reveal">
+    <div class="entry-num-col">
+      <div class="entry-num">004</div>
+      <div class="entry-num-label">Entry</div>
+    </div>
+    <div class="entry-body">
+      <div class="entry-meta">
+        <span class="entry-location">Rural America</span>
+        <span class="entry-status status-next">In Development</span>
+      </div>
+      <div class="entry-title">The Opioid Distribution Map — Pill Mills, DEA Data, and Who Approved It</div>
+      <p class="entry-desc">
+        The DEA tracked every pill. The distributors knew the volumes were impossible. 
+        The communities that were flooded had no idea what was coming. 
+        A county-by-county account of the supply chain and the people who ran it.
+      </p>
+    </div>
+  </div>
+
+  <!-- ENTRY 005: COMING SOON -->
+  <div class="entry-card ghost reveal">
+    <div class="entry-num-col">
+      <div class="entry-num">005</div>
+      <div class="entry-num-label">Entry</div>
+    </div>
+    <div class="entry-body">
+      <div class="entry-meta">
+        <span class="entry-location">The Great Plains</span>
+        <span class="entry-status status-next">In Development</span>
+      </div>
+      <div class="entry-title">The Consolidation — How Corporate Agriculture Ended the Family Farm</div>
+      <p class="entry-desc">
+        From 1970 to today, the number of farms in America dropped by half while the average size doubled. 
+        The policy decisions that made it happen were deliberate. The communities that died as a result were collateral.
+      </p>
+    </div>
+  </div>
+
+</div>
+
+<div class="submit-section reveal">
+  <div class="submit-inner">
+    <div class="submit-rule"></div>
+    <h2>Know a Town That Deserves to Be Here?</h2>
+    <p>
+      Flyover America grows one documented entry at a time. If you know of a community — 
+      a county, a town, a region — that has been systematically exploited or abandoned 
+      and you have leads on the documentation, we want to hear about it.
+    </p>
+    <p>
+      Every entry on this series is sourced from official records, investigative reporting, 
+      and primary documents. Tips are welcome. Speculation is not published.
+    </p>
+    <div class="submit-sig">The Ruling Class Report · Northwest Florida · Est. 2026</div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">The Ruling Class Report</div>
+    <div class="footer-copy">No advertisers. No sponsors. No agenda but accuracy.<br>Every claim labeled. Every source cited.</div>
+    <div class="footer-links">
+      <a href="/" class="footer-link">Home</a>
+      <a href="/museum.html" class="footer-link">Museum</a>
+      <a href="/congress.html" class="footer-link">Congress</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('on'), i * 80);
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.06 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+
+</body>
+</html>
