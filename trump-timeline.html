@@ -26,7 +26,6 @@ html, body {
 }
 
 body {
-  padding-top: 56px;
   font-family: 'Source Serif 4', serif;
   font-size: 15px;
   line-height: 1.65;
@@ -269,8 +268,7 @@ h1 {
   color: #cc3300 !important;
   text-transform: uppercase;
   border-top: 1px solid #ffccbb;
-  padding-top: 4px;
-}
+  }
 
 /* ── COST COUNTER ── */
 .cost-banner {
@@ -364,7 +362,6 @@ h1 {
 /* ── FOOTER ── */
 .footer {
   margin-top: 48px;
-  padding-top: 16px;
   border-top: 3px double #111111;
   font-family: 'IBM Plex Mono', monospace;
   font-size: 9px;
@@ -388,11 +385,38 @@ hr { border: none; border-top: 1px solid #dddddd; margin: 32px 0; }
 }
 
 </style>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 </head>
 <body>
+<nav style="position:fixed;top:0;left:0;right:0;z-index:100;height:56px;background:rgba(10,8,5,0.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(200,151,58,0.2);display:flex;align-items:center;padding:0 24px;overflow-x:auto;">
+  <a href="/" style="display:flex;align-items:center;gap:10px;text-decoration:none;padding-right:18px;border-right:1px solid rgba(200,151,58,0.15);margin-right:4px;flex-shrink:0;">
+    <div style="width:32px;height:32px;border:1.5px solid #c8973a;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-size:10px;font-weight:700;color:#c8973a;flex-shrink:0;">RR</div>
+    <span style="font-family:'Cinzel',serif;font-size:10px;font-weight:600;letter-spacing:0.18em;color:#f0ebe0;white-space:nowrap;">The Ruling Class Report</span>
+  </a>
+  <a href="/museum.html" style="padding:0 12px;height:56px;display:flex;align-items:center;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(240,235,224,0.45);text-decoration:none;white-space:nowrap;flex-shrink:0;border-left:1px solid rgba(200,151,58,0.08);">Museum</a>
+  <a href="/congress.html" style="padding:0 12px;height:56px;display:flex;align-items:center;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(240,235,224,0.45);text-decoration:none;white-space:nowrap;flex-shrink:0;border-left:1px solid rgba(200,151,58,0.08);">Congress</a>
+  <a href="/trump-timeline.html" style="padding:0 12px;height:56px;display:flex;align-items:center;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(240,235,224,0.45);text-decoration:none;white-space:nowrap;flex-shrink:0;border-left:1px solid rgba(200,151,58,0.08);">Timeline</a>
+  <a href="/flyover-america.html" style="padding:0 12px;height:56px;display:flex;align-items:center;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(240,235,224,0.45);text-decoration:none;white-space:nowrap;flex-shrink:0;border-left:1px solid rgba(200,151,58,0.08);">Flyover</a>
+  <a href="/the-mirror.html" style="padding:0 12px;height:56px;display:flex;align-items:center;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(240,235,224,0.45);text-decoration:none;white-space:nowrap;flex-shrink:0;border-left:1px solid rgba(200,151,58,0.08);">Mirror</a>
+  <a href="/about-mission.html" style="padding:0 12px;height:56px;display:flex;align-items:center;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(240,235,224,0.45);text-decoration:none;white-space:nowrap;flex-shrink:0;border-left:1px solid rgba(200,151,58,0.08);">Standard</a>
+</nav>
+<div style="height:56px;"></div>
 <!-- ═══════════════════════════════════════════════
      THE RULING CLASS REPORT — PLATFORM NAV BAR
-     Add this right after <body> tag in every new HTML file
+     Add this right after <body>
+<nav style="position:fixed;top:0;left:0;right:0;z-index:100;height:56px;background:rgba(10,8,5,0.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(200,151,58,0.2);display:flex;align-items:center;padding:0 24px;overflow-x:auto;">
+  <a href="/" style="display:flex;align-items:center;gap:10px;text-decoration:none;padding-right:18px;border-right:1px solid rgba(200,151,58,0.15);margin-right:4px;flex-shrink:0;">
+    <div style="width:32px;height:32px;border:1.5px solid #c8973a;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-size:10px;font-weight:700;color:#c8973a;flex-shrink:0;">RR</div>
+    <span style="font-family:'Cinzel',serif;font-size:10px;font-weight:600;letter-spacing:0.18em;color:#f0ebe0;white-space:nowrap;">The Ruling Class Report</span>
+  </a>
+  <a href="/museum.html" style="padding:0 12px;height:56px;display:flex;align-items:center;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(240,235,224,0.45);text-decoration:none;white-space:nowrap;flex-shrink:0;border-left:1px solid rgba(200,151,58,0.08);">Museum</a>
+  <a href="/congress.html" style="padding:0 12px;height:56px;display:flex;align-items:center;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(240,235,224,0.45);text-decoration:none;white-space:nowrap;flex-shrink:0;border-left:1px solid rgba(200,151,58,0.08);">Congress</a>
+  <a href="/trump-timeline.html" style="padding:0 12px;height:56px;display:flex;align-items:center;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(240,235,224,0.45);text-decoration:none;white-space:nowrap;flex-shrink:0;border-left:1px solid rgba(200,151,58,0.08);">Timeline</a>
+  <a href="/flyover-america.html" style="padding:0 12px;height:56px;display:flex;align-items:center;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(240,235,224,0.45);text-decoration:none;white-space:nowrap;flex-shrink:0;border-left:1px solid rgba(200,151,58,0.08);">Flyover</a>
+  <a href="/the-mirror.html" style="padding:0 12px;height:56px;display:flex;align-items:center;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(240,235,224,0.45);text-decoration:none;white-space:nowrap;flex-shrink:0;border-left:1px solid rgba(200,151,58,0.08);">Mirror</a>
+  <a href="/about-mission.html" style="padding:0 12px;height:56px;display:flex;align-items:center;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(240,235,224,0.45);text-decoration:none;white-space:nowrap;flex-shrink:0;border-left:1px solid rgba(200,151,58,0.08);">Standard</a>
+</nav>
+<div style="height:56px;"></div> tag in every new HTML file
      ═══════════════════════════════════════════════ -->
 <style>
   .rcr-nav {
@@ -490,25 +514,6 @@ hr { border: none; border-top: 1px solid #dddddd; margin: 32px 0; }
     font-weight: 600;
   }
 </style>
-<nav class="rcr-nav">
-  <div class="rcr-nav-inner">
-    <a href="/" class="rcr-home">
-      <div class="rcr-seal">RR</div>
-      <span class="rcr-wordmark">Ruling Class Report</span>
-    </a>
-    <div class="rcr-links">
-      <a href="/" class="rcr-nav-link home-link">⌂ Home</a>
-      <a href="/museum.html" class="rcr-nav-link museum">🏛 The Museum</a>
-      <a href="/congress" class="rcr-nav-link">Congress</a>
-      <a href="/trump-timeline.html" class="rcr-nav-link">Trump Timeline</a>
-      <a href="/obama-full-record.html" class="rcr-nav-link">Obama Record</a>
-      <a href="/deindustrialization-timeline.html" class="rcr-nav-link">Deindustrialization</a>
-      <a href="/suspicious-deaths.html" class="rcr-nav-link">Suspicious Deaths</a>
-      <a href="/wef-globalist-agenda.html" class="rcr-nav-link">Globalist Agenda</a>
-      <a href="/about-mission.html" class="rcr-nav-link">About</a>
-    </div>
-  </div>
-</nav>
 <!-- ═══════════════════════════════════════════════ -->
 
 
