@@ -1,6 +1,3 @@
-The museum · HTML
-Copy
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,7 +31,6 @@ body {
   overflow-x: hidden;
 }
  
-/* grain */
 body::before {
   content: '';
   position: fixed;
@@ -46,7 +42,6 @@ body::before {
   background-size: 200px;
 }
  
-/* NAV */
 .nav {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -114,7 +109,6 @@ body::before {
 }
 .nav-link.dark:hover { background: #1a1a1a; color: #f0ebe0; }
  
-/* HERO */
 .hero {
   min-height: 100vh;
   display: flex;
@@ -197,7 +191,6 @@ body::before {
 .btn-secondary { background: transparent; color: #0a0a0a; border: 1px solid rgba(200,151,58,0.4); }
 .btn-secondary:hover { background: rgba(200,151,58,0.08); border-color: #c8973a; transform: translateY(-2px); }
  
-/* SECTIONS */
 .section {
   max-width: 1300px;
   margin: 0 auto;
@@ -231,13 +224,11 @@ body::before {
   white-space: nowrap;
 }
  
-/* GALLERY */
 .gallery { display: grid; gap: 2px; }
 .g3 { grid-template-columns: repeat(3, 1fr); }
 .g2 { grid-template-columns: repeat(2, 1fr); }
 .g4 { grid-template-columns: repeat(4, 1fr); }
  
-/* ── EXHIBIT CARDS ── */
 .exhibit {
   position: relative;
   background: #fdfaf3;
@@ -269,7 +260,6 @@ body::before {
 }
 .exhibit:hover::before { transform: scaleX(1); }
  
-/* FEATURED DARK CARD */
 .exhibit.featured {
   grid-column: span 2;
   min-height: 360px;
@@ -282,7 +272,6 @@ body::before {
   box-shadow: 0 16px 80px rgba(0,0,0,0.3);
 }
  
-/* GHOST */
 .exhibit.ghost {
   opacity: 0.4;
   pointer-events: none;
@@ -290,7 +279,6 @@ body::before {
 }
 .exhibit.ghost::before { display: none; }
  
-/* EXHIBIT CONTENT - LIGHT CARDS */
 .ex-num {
   font-family: 'JetBrains Mono', monospace;
   font-size: 9px;
@@ -353,31 +341,16 @@ body::before {
 }
 .exhibit:hover .ex-arrow { transform: translate(3px,-3px); }
  
-/* FEATURED DARK CARD OVERRIDES - ALL TEXT BRIGHT */
-.exhibit.featured .ex-num {
-  color: #c8973a;
-  font-size: 10px;
-}
-.exhibit.featured .ex-cat {
-  color: rgba(255,255,255,0.75);
-  font-size: 10px;
-}
-.exhibit.featured .ex-title {
-  font-size: clamp(22px, 3vw, 34px);
-  color: #ffffff;
-}
-.exhibit.featured .ex-desc {
-  font-size: 15px;
-  color: rgba(255,255,255,0.88);
-  line-height: 1.75;
-}
+.exhibit.featured .ex-num  { color: #c8973a; font-size: 10px; }
+.exhibit.featured .ex-cat  { color: rgba(255,255,255,0.75); font-size: 10px; }
+.exhibit.featured .ex-title { font-size: clamp(22px, 3vw, 34px); color: #ffffff; }
+.exhibit.featured .ex-desc  { font-size: 15px; color: rgba(255,255,255,0.88); line-height: 1.75; }
 .exhibit.featured .pip-doc   { color: #5ddc8a; border-color: rgba(93,220,138,0.5); }
 .exhibit.featured .pip-disp  { color: #7ab0ff; border-color: rgba(122,176,255,0.5); }
 .exhibit.featured .pip-alleg { color: #ffb84a; border-color: rgba(255,184,74,0.5); }
 .exhibit.featured .pip-spec  { color: #cccccc; border-color: rgba(204,204,204,0.4); }
 .exhibit.featured .ex-arrow  { color: #c8973a; }
  
-/* DIVIDER */
 .divider {
   display: flex;
   align-items: center;
@@ -396,7 +369,6 @@ body::before {
   white-space: nowrap;
 }
  
-/* DECLARATION */
 .declaration {
   max-width: 760px;
   margin: 0 auto;
@@ -433,7 +405,6 @@ body::before {
   color: #8a6420;
 }
  
-/* FOOTER */
 footer {
   border-top: 1px solid rgba(200,151,58,0.2);
   padding: 36px 32px;
@@ -447,12 +418,7 @@ footer {
   gap: 24px;
   flex-wrap: wrap;
 }
-.footer-brand {
-  font-family: 'Cinzel', serif;
-  font-size: 12px;
-  letter-spacing: 0.2em;
-  color: #0a0a0a;
-}
+.footer-brand { font-family: 'Cinzel', serif; font-size: 12px; letter-spacing: 0.2em; color: #0a0a0a; }
 .footer-copy {
   font-family: 'JetBrains Mono', monospace;
   font-size: 9px;
@@ -473,7 +439,6 @@ footer {
 }
 .footer-link:hover { color: #8a6420; }
  
-/* ANIMATIONS */
 @keyframes up {
   from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -485,7 +450,6 @@ footer {
 }
 .reveal.on { opacity: 1; transform: translateY(0); }
  
-/* CURTAIN */
 .curtain {
   position: fixed;
   inset: 0;
@@ -499,7 +463,6 @@ footer {
   to   { transform: scaleY(0); transform-origin: top; }
 }
  
-/* RESPONSIVE */
 @media (max-width: 900px) {
   .g3, .g4 { grid-template-columns: repeat(2,1fr); }
   .exhibit.featured { grid-column: span 2; }
@@ -509,14 +472,12 @@ footer {
   .g3, .g4, .g2 { grid-template-columns: 1fr; }
   .exhibit.featured { grid-column: span 1; }
 }
- 
 </style>
 </head>
 <body>
  
 <div class="curtain"></div>
  
-<!-- NAV -->
 <nav class="nav">
   <div class="nav-inner">
     <a href="/" class="nav-logo">
@@ -532,7 +493,6 @@ footer {
   </div>
 </nav>
  
-<!-- HERO -->
 <section class="hero">
   <div class="eyebrow">Established 2026 · Northwest Florida</div>
   <h1 class="hero-title">The Museum</h1>
@@ -609,7 +569,7 @@ footer {
  
   </div>
 </section>
- 
+
 <!-- GALLERY II -->
 <section class="section" style="padding-top:0;">
   <div class="sec-hdr reveal">
@@ -649,7 +609,7 @@ footer {
  
   </div>
 </section>
- 
+
 <!-- GALLERY III -->
 <div class="divider reveal">
   <div class="div-line"></div>
@@ -694,7 +654,7 @@ footer {
  
   </div>
 </section>
- 
+
 <!-- GALLERY IV -->
 <div class="divider reveal">
   <div class="div-line"></div>
@@ -738,39 +698,129 @@ footer {
  
   </div>
 </section>
- 
-<!-- GALLERY V -->
+
+<!-- GALLERY V · THE RECORD -->
 <div class="divider reveal">
   <div class="div-line"></div>
-  <div class="div-text">Gallery V · The Machine</div>
+  <div class="div-text">Gallery V · The Coup Apparatus</div>
+  <div class="div-line"></div>
+</div>
+
+<section class="section" style="padding-top:0;">
+  <div class="gallery g3">
+
+    <a href="/the-mirror.html" class="exhibit featured reveal">
+      <div class="ex-num">Exhibit 5.01</div>
+      <div class="ex-cat">Investigation · Accusation vs. Record · 2016 — 2024</div>
+      <div class="ex-title">The Mirror</div>
+      <p class="ex-desc">Russia collusion. Election interference. Obstruction. Insurrection. Four accusations, four mirrors. Side-by-side: what was charged — and what the documented record shows about the people who made the charge. Primary sources only.</p>
+      <div class="ex-footer">
+        <div class="ex-pips">
+          <span class="pip pip-doc">Documented</span>
+          <span class="pip pip-disp">Disputed</span>
+        </div>
+        <span class="ex-arrow">↗</span>
+      </div>
+    </a>
+
+    <a href="/the-architects.html" class="exhibit reveal">
+      <div class="ex-num">Exhibit 5.02</div>
+      <div class="ex-cat">Investigation · Seven Figures · IG Reports & Court Records</div>
+      <div class="ex-title">The Architects</div>
+      <p class="ex-desc">Brennan. Clapper. Comey. McCabe. Strzok. Clinesmith. Clinton. The officials who designed and executed the multi-year pressure campaign. Documented findings only — no speculation, no commentary.</p>
+      <div class="ex-footer">
+        <div class="ex-pips">
+          <span class="pip pip-doc">Documented</span>
+        </div>
+        <span class="ex-arrow">↗</span>
+      </div>
+    </a>
+
+    <div class="exhibit ghost reveal">
+      <div class="ex-num">Exhibit 5.03</div>
+      <div class="ex-cat">Coming Soon</div>
+      <div class="ex-title">The 2016 Predicate</div>
+      <p class="ex-desc">The Clinton email server investigation as the anchor exhibit. Two sets of rules. One documented record.</p>
+      <div class="ex-footer"><span class="pip pip-spec">In Development</span></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- GALLERY VI · AMERICAN COMMUNITIES BETRAYED -->
+<div class="divider reveal">
+  <div class="div-line"></div>
+  <div class="div-text">Gallery VI · American Communities Betrayed</div>
+  <div class="div-line"></div>
+</div>
+
+<section class="section" style="padding-top:0;">
+  <div class="gallery g3">
+
+    <a href="/crowley-county.html" class="exhibit featured reveal">
+      <div class="ex-num">Exhibit 6.01</div>
+      <div class="ex-cat">Investigation · Crowley County, Colorado · 1970s — Present</div>
+      <div class="ex-title">The Crowley County Water Theft</div>
+      <p class="ex-desc">How urban political power stripped 50,000 acres of productive Colorado farmland of its water rights — and left the community to survive on dust and prisons. A documented case study in how the ruling class operates at the state level.</p>
+      <div class="ex-footer">
+        <div class="ex-pips">
+          <span class="pip pip-doc">Documented</span>
+        </div>
+        <span class="ex-arrow">↗</span>
+      </div>
+    </a>
+
+    <div class="exhibit ghost reveal">
+      <div class="ex-num">Exhibit 6.02</div>
+      <div class="ex-cat">Coming Soon</div>
+      <div class="ex-title">Rural Resource Extraction</div>
+      <p class="ex-desc">The Crowley County pattern repeated. How eminent domain, water law, and federal land policy have hollowed out rural America for a century.</p>
+      <div class="ex-footer"><span class="pip pip-spec">In Development</span></div>
+    </div>
+
+    <div class="exhibit ghost reveal">
+      <div class="ex-num">Exhibit 6.03</div>
+      <div class="ex-cat">Coming Soon</div>
+      <div class="ex-title">The Opioid Distribution Network</div>
+      <p class="ex-desc">DEA data. Pill mill maps. The distribution chain from manufacturer to community. Who approved it. Who profited. Who died.</p>
+      <div class="ex-footer"><span class="pip pip-spec">In Development</span></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- GALLERY VII · THE MACHINE (formerly V) -->
+<div class="divider reveal">
+  <div class="div-line"></div>
+  <div class="div-text">Gallery VII · The Machine</div>
   <div class="div-line"></div>
 </div>
  
 <section class="section" style="padding-top:0;">
   <div class="gallery g4">
     <div class="exhibit ghost reveal">
-      <div class="ex-num">Exhibit 5.01</div>
+      <div class="ex-num">Exhibit 7.01</div>
       <div class="ex-cat">Coming Soon</div>
       <div class="ex-title">Military Industrial Complex</div>
       <p class="ex-desc">Donations, contracts, revolving door, cost overruns.</p>
       <div class="ex-footer"><span class="pip pip-spec">In Development</span></div>
     </div>
     <div class="exhibit ghost reveal">
-      <div class="ex-num">Exhibit 5.02</div>
+      <div class="ex-num">Exhibit 7.02</div>
       <div class="ex-cat">Coming Soon</div>
       <div class="ex-title">Supply Chain Watch</div>
       <p class="ex-desc">Rare earths, semiconductors, pharma — Chinese dependency.</p>
       <div class="ex-footer"><span class="pip pip-spec">In Development</span></div>
     </div>
     <div class="exhibit ghost reveal">
-      <div class="ex-num">Exhibit 5.03</div>
+      <div class="ex-num">Exhibit 7.03</div>
       <div class="ex-cat">Coming Soon</div>
       <div class="ex-title">Technology & Data Exposure</div>
       <p class="ex-desc">Foreign apps, Chinese AI investment, university research funding.</p>
       <div class="ex-footer"><span class="pip pip-spec">In Development</span></div>
     </div>
     <div class="exhibit ghost reveal">
-      <div class="ex-num">Exhibit 5.04</div>
+      <div class="ex-num">Exhibit 7.04</div>
       <div class="ex-cat">Coming Soon</div>
       <div class="ex-title">The Media Record</div>
       <p class="ex-desc">What they covered, what they buried, and what it cost you.</p>
@@ -779,7 +829,6 @@ footer {
   </div>
 </section>
  
-<!-- DECLARATION -->
 <div class="declaration reveal">
   <div class="decl-rule"></div>
   <h2 class="decl-title">Why This Exists</h2>
@@ -794,7 +843,6 @@ footer {
   <div class="decl-sig">The Ruling Class Report · Northwest Florida · Est. 2026</div>
 </div>
  
-<!-- FOOTER -->
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">The Ruling Class Report</div>
