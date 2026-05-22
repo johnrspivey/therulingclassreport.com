@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Architects | The Ruling Class Report</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --parchment:   #f5edd6;
+      --parchment2:  #ede0bf;
+      --ink:         #1a1208;
+      --ink-mid:     #3d2b1f;
+      --ink-light:   #6b5340;
+      --gold:        #b8860b;
+      --gold-bright: #d4a843;
+      --gold-light:  #e8c97a;
+      --red:         #8b1a1a;
+      --border:      #c9a86c;
+      --border-light:#e0cfa0;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--parchment);
+      color: var(--ink);
+      font-family: 'Lora', Georgia, serif;
+      line-height: 1.8;
+    }
+
+    .rcr-nav {
+      background: rgba(245,237,214,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 2px solid var(--gold);
+      padding: 0 20px;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+    .rcr-nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      height: 50px;
+      overflow-x: auto;
+      gap: 0;
+    }
+    .rcr-nav-inner::-webkit-scrollbar { display: none; }
+    .rcr-home {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      padding-right: 18px;
+      border-right: 1px solid var(--border-light);
+      margin-right: 14px;
+      flex-shrink: 0;
+    }
+    .rcr-seal {
+      width: 32px; height: 32px;
+      border: 2px solid var(--gold);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cinzel', serif;
+      font-size: 11px; font-weight: 700;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+    .rcr-site-name {
+      font-family: 'Cinzel', serif;
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-mid);
+      white-space: nowrap;
+    }
+    .rcr-nav-link {
+      display: flex; align-items: center;
+      height: 50px; padding: 0 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px; letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: all 0.15s;
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .rcr-nav-link:hover,
+    .rcr-nav-link.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+    .hero {
+      background: linear-gradient(180deg, #0f0a05 0%, #1a0e08 100%);
+      color: var(--parchment);
+      padding: 80px 24px 64px;
+      text-align: center;
+    }
+    .hero-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      opacity: 0.7;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(2.2rem, 6vw, 4rem);
+      font-weight: 900;
+      color: var(--parchment);
+      margin-bottom: 12px;
+    }
+    .hero-rule {
+      width: 100px; height: 1px;
+      background: var(--gold);
+      margin: 16px auto 20px;
+    }
+    .hero-sub {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      color: var(--gold-light);
+      max-width: 640px;
+      margin: 0 auto;
+      opacity: 0.85;
+      line-height: 1.7;
+    }
+
+    .content-wrap {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 60px 24px 80px;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      margin-bottom: 44px;
+      transition: gap 0.2s;
+    }
+    .back-link:hover { gap: 12px; }
+
+    .intro {
+      font-size: 1.05rem;
+      color: var(--ink-mid);
+      border-left: 4px solid var(--gold);
+      padding-left: 24px;
+      margin-bottom: 56px;
+      line-height: 1.9;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 32px;
+      margin-bottom: 60px;
+    }
+    @media (max-width: 520px) {
+      .card-grid { grid-template-columns: 1fr; }
+    }
+
+    .person-card {
+      border: 1px solid var(--border-light);
+      overflow: hidden;
+    }
+    .card-top {
+      background: linear-gradient(135deg, #1a0e08, #0f0a05);
+      padding: 24px;
+    }
+    .card-role {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      opacity: 0.65;
+      margin-bottom: 8px;
+    }
+    .card-name {
+      font-family: 'Cinzel', serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--parchment);
+      margin-bottom: 4px;
+    }
+    .card-dates {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--gold-light);
+      opacity: 0.5;
+    }
+    .card-body {
+      padding: 24px;
+      background: var(--parchment);
+    }
+    .card-body p {
+      font-size: 0.95rem;
+      color: var(--ink-mid);
+      margin-bottom: 16px;
+      line-height: 1.85;
+    }
+    .card-finding {
+      background: var(--parchment2);
+      border-left: 3px solid var(--red);
+      padding: 14px 16px;
+      margin: 16px 0;
+    }
+    .card-finding-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 6px;
+    }
+    .card-finding p {
+      font-size: 0.9rem;
+      color: var(--ink-mid);
+      margin: 0;
+    }
+    .card-sources {
+      padding: 14px 24px;
+      background: var(--parchment2);
+      border-top: 1px solid var(--border-light);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--ink-light);
+      line-height: 1.6;
+    }
+    .card-sources strong {
+      color: var(--gold);
+    }
+
+    .section-title {
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red);
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-light);
+      margin-bottom: 32px;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="rcr-nav">
+  <div class="rcr-nav-inner">
+    <a href="/" class="rcr-home">
+      <div class="rcr-seal">RR</div>
+      <span class="rcr-site-name">The Ruling Class Report</span>
+    </a>
+    <a href="/museum.html" class="rcr-nav-link active">Museum</a>
+    <a href="/congress.html" class="rcr-nav-link">Congress</a>
+    <a href="/trump-timeline.html" class="rcr-nav-link">Timeline</a>
+    <a href="/save-america-act.html" class="rcr-nav-link">SAVE Act</a>
+    <a href="/doge.html" class="rcr-nav-link">DOGE</a>
+    <a href="/scotus.html" class="rcr-nav-link">SCOTUS</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-eyebrow">Investigation · The Coup Apparatus · Documented Conduct</div>
+  <h1>The Architects</h1>
+  <div class="hero-rule"></div>
+  <p class="hero-sub">
+    The officials who built, authorized, and sustained the political intelligence operation 
+    against a sitting president — documented from congressional testimony, 
+    inspector general reports, and court records.
+  </p>
+</section>
+
+<div class="content-wrap">
+  <a href="/museum.html" class="back-link">← Return to Museum</a>
+
+  <p class="intro">
+    What follows is not speculation about motives. It is a documented account of what specific 
+    officials did — in their official capacity, with the resources of the United States government — 
+    and what the formal record shows about those actions. Every finding cited below comes from 
+    a federal inspector general, a congressional investigation, a court filing, or a declassified 
+    intelligence document.
+  </p>
+
+  <div class="section-title">The Intelligence Layer</div>
+  <div class="card-grid">
+
+    <div class="person-card">
+      <div class="card-top">
+        <div class="card-role">CIA Director</div>
+        <div class="card-name">John Brennan</div>
+        <div class="card-dates">2013 – 2017 · Obama Administration</div>
+      </div>
+      <div class="card-body">
+        <p>
+          Brennan was the central figure in the intelligence community's assessment of Russian 
+          election interference and one of the most aggressive public voices promoting the 
+          collusion narrative after leaving office. He stated publicly on multiple occasions 
+          that he had seen evidence of Trump-Russia collusion.
+        </p>
+        <div class="card-finding">
+          <div class="card-finding-label">Documented Finding</div>
+          <p>
+            Brennan's own handwritten notes, declassified by DNI Ratcliffe in 2020, show he 
+            briefed President Obama in July 2016 about intelligence suggesting Clinton had 
+            approved a plan to manufacture the Russia collusion narrative as a distraction 
+            from her email server scandal. Brennan then referred the matter to the FBI — 
+            which opened Crossfire Hurricane. Mueller found no collusion. The Durham Report 
+            found the investigation lacked a verified predicate.
+          </p>
+        </div>
+        <p>
+          Brennan's security clearance was revoked by President Trump in 2018. He has never 
+          been charged. He continues to appear regularly as an intelligence analyst on cable news.
+        </p>
+      </div>
+      <div class="card-sources">
+        <strong>Sources:</strong> Brennan handwritten notes — DNI declassification, Oct. 2020 · 
+        Durham Special Counsel Report (2023) · Mueller Report (2019)
+      </div>
+    </div>
+
+    <div class="person-card">
+      <div class="card-top">
+        <div class="card-role">Director of National Intelligence</div>
+        <div class="card-name">James Clapper</div>
+        <div class="card-dates">2010 – 2017 · Obama Administration</div>
+      </div>
+      <div class="card-body">
+        <p>
+          Clapper co-signed the January 2017 Intelligence Community Assessment attributing 
+          election interference to Russia and expressing "high confidence" in its conclusions. 
+          He became a prominent media voice promoting the collusion narrative through 2019.
+        </p>
+        <div class="card-finding">
+          <div class="card-finding-label">Documented Finding</div>
+          <p>
+            Clapper testified to Congress in March 2017 that he had seen no evidence of 
+            collusion between the Trump campaign and Russia — directly contradicting his 
+            cable news statements. He was also referred to DOJ by congressional investigators 
+            for allegedly misleading Congress in 2013 about NSA bulk collection of Americans' 
+            phone records. He was never charged for either matter.
+          </p>
+        </div>
+      </div>
+      <div class="card-sources">
+        <strong>Sources:</strong> Senate Judiciary Committee referral (2013) · 
+        Clapper Congressional testimony, March 2017 · Senate Intelligence Committee report (2020)
+      </div>
+    </div>
+
+  </div>
+
+  <div class="section-title">The FBI Layer</div>
+  <div class="card-grid">
+
+    <div class="person-card">
+      <div class="card-top">
+        <div class="card-role">FBI Director</div>
+        <div class="card-name">James Comey</div>
+        <div class="card-dates">2013 – 2017</div>
+      </div>
+      <div class="card-body">
+        <p>
+          Comey oversaw both the Clinton email server investigation — which he concluded 
+          without a criminal referral — and the Crossfire Hurricane investigation into the 
+          Trump campaign. He was fired by President Trump in May 2017.
+        </p>
+        <div class="card-finding">
+          <div class="card-finding-label">Documented Findings</div>
+          <p>
+            The DOJ Inspector General found that Comey violated FBI policy by leaking 
+            classified memos to a Columbia University professor to trigger appointment of 
+            a special counsel. The IG found he set a "dangerous example" for FBI employees. 
+            Separately, the IG found that the Clinton investigation deviated from standard 
+            procedures in ways that benefited the subject. Comey was never charged.
+          </p>
+        </div>
+      </div>
+      <div class="card-sources">
+        <strong>Sources:</strong> DOJ IG Report — Comey Memos (2019) · 
+        DOJ IG Report — Clinton Email Investigation (2018)
+      </div>
+    </div>
+
+    <div class="person-card">
+      <div class="card-top">
+        <div class="card-role">FBI Deputy Director</div>
+        <div class="card-name">Andrew McCabe</div>
+        <div class="card-dates">2016 – 2018</div>
+      </div>
+      <div class="card-body">
+        <p>
+          McCabe was the number two official at the FBI during the critical period of both 
+          the Clinton investigation and the opening of Crossfire Hurricane. He was fired 
+          two days before he would have been eligible for his full pension.
+        </p>
+        <div class="card-finding">
+          <div class="card-finding-label">Documented Finding</div>
+          <p>
+            The DOJ Inspector General found that McCabe lied to federal investigators on 
+            four separate occasions — including lying to Comey himself — about leaking 
+            information to the Wall Street Journal. He was referred for criminal prosecution. 
+            DOJ declined to charge him in 2020. He now works as a CNN analyst.
+          </p>
+        </div>
+      </div>
+      <div class="card-sources">
+        <strong>Sources:</strong> DOJ IG Report — McCabe (2018) · 
+        DOJ declination letter (2020) · OPR referral documentation
+      </div>
+    </div>
+
+    <div class="person-card">
+      <div class="card-top">
+        <div class="card-role">FBI Counterintelligence / Special Counsel Team</div>
+        <div class="card-name">Peter Strzok</div>
+        <div class="card-dates">Lead Agent, Crossfire Hurricane / Mueller Investigation</div>
+      </div>
+      <div class="card-body">
+        <p>
+          Strzok was the lead FBI agent on Crossfire Hurricane and was subsequently assigned 
+          to the Mueller special counsel team. He was removed from Mueller's team after 
+          the DOJ Inspector General discovered his text messages with FBI lawyer Lisa Page.
+        </p>
+        <div class="card-finding">
+          <div class="card-finding-label">Documented Finding</div>
+          <p>
+            Text messages between Strzok and Page, reviewed by the DOJ IG, documented 
+            explicit anti-Trump sentiment and a reference to an "insurance policy" against 
+            a Trump presidency — sent while Strzok was lead agent on the investigation 
+            targeting Trump's campaign. In one message, when Page asked if Trump could 
+            actually win, Strzok replied: "No. No he won't. We'll stop it." 
+            Strzok was fired from the FBI in 2018.
+          </p>
+        </div>
+      </div>
+      <div class="card-sources">
+        <strong>Sources:</strong> Strzok-Page text messages — Congressional release (2017) · 
+        DOJ IG Report (2018) · Strzok FBI termination letter (2018)
+      </div>
+    </div>
+
+    <div class="person-card">
+      <div class="card-top">
+        <div class="card-role">FBI Attorney</div>
+        <div class="card-name">Kevin Clinesmith</div>
+        <div class="card-dates">Crossfire Hurricane Investigation</div>
+      </div>
+      <div class="card-body">
+        <p>
+          Clinesmith was the FBI attorney responsible for processing FISA warrant renewals 
+          for surveillance of Carter Page, a Trump campaign associate. His conduct was the 
+          clearest documented act of evidence falsification in the entire Crossfire Hurricane saga.
+        </p>
+        <div class="card-finding">
+          <div class="card-finding-label">Documented Finding — Criminal Conviction</div>
+          <p>
+            Clinesmith altered an email from the CIA — changing language indicating that 
+            Carter Page was a CIA source to language suggesting he was not — and submitted 
+            the altered document to the FISA Court to obtain a surveillance warrant. 
+            He pleaded guilty to making a false statement. He received probation and 
+            community service. His law license was temporarily suspended and later reinstated.
+          </p>
+        </div>
+      </div>
+      <div class="card-sources">
+        <strong>Sources:</strong> U.S. v. Clinesmith, guilty plea, D.C. District Court (2020) · 
+        Durham Special Counsel Report (2023) · DOJ IG FISA Report (2019)
+      </div>
+    </div>
+
+  </div>
+
+  <div class="section-title">The Political Layer</div>
+  <div class="card-grid">
+
+    <div class="person-card">
+      <div class="card-top">
+        <div class="card-role">Secretary of State / Presidential Candidate</div>
+        <div class="card-name">Hillary Clinton</div>
+        <div class="card-dates">2009–2013 / 2016 Campaign</div>
+      </div>
+      <div class="card-body">
+        <p>
+          Clinton operated a private email server during her tenure as Secretary of State, 
+          transmitting classified information through an unsecured system. When the FBI 
+          investigation was opened, her team destroyed evidence under congressional subpoena.
+        </p>
+        <div class="card-finding">
+          <div class="card-finding-label">Documented Findings</div>
+          <p>
+            The FBI found 110 emails containing classified information on Clinton's server. 
+            After a congressional subpoena was issued, her team used BleachBit to destroy 
+            approximately 33,000 emails and physically destroyed mobile devices. 
+            Separately, Clinton's campaign and the DNC paid Fusion GPS through law firm 
+            Perkins Coie to commission the Steele Dossier — the fabricated intelligence 
+            document that formed the basis of the FISA surveillance of the Trump campaign. 
+            The FEC fined the Clinton campaign and DNC for misreporting those payments. 
+            No criminal charges were filed for the server or the dossier funding.
+          </p>
+        </div>
+      </div>
+      <div class="card-sources">
+        <strong>Sources:</strong> FBI Clinton email investigation findings — Comey statement (2016) · 
+        DOJ IG Report — Clinton Investigation (2018) · 
+        FEC consent agreement — Clinton campaign / DNC (2022) · 
+        Durham Special Counsel Report (2023)
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

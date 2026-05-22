@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Mirror | The Ruling Class Report</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --parchment:   #f5edd6;
+      --parchment2:  #ede0bf;
+      --ink:         #1a1208;
+      --ink-mid:     #3d2b1f;
+      --ink-light:   #6b5340;
+      --gold:        #b8860b;
+      --gold-bright: #d4a843;
+      --gold-light:  #e8c97a;
+      --red:         #8b1a1a;
+      --red-light:   #c0392b;
+      --border:      #c9a86c;
+      --border-light:#e0cfa0;
+      --dark-bg:     #0f0a05;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--parchment);
+      color: var(--ink);
+      font-family: 'Lora', Georgia, serif;
+      line-height: 1.8;
+    }
+
+    /* NAV */
+    .rcr-nav {
+      background: rgba(245,237,214,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 2px solid var(--gold);
+      padding: 0 20px;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+    .rcr-nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      height: 50px;
+      overflow-x: auto;
+      gap: 0;
+    }
+    .rcr-nav-inner::-webkit-scrollbar { display: none; }
+    .rcr-home {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      padding-right: 18px;
+      border-right: 1px solid var(--border-light);
+      margin-right: 14px;
+      flex-shrink: 0;
+    }
+    .rcr-seal {
+      width: 32px; height: 32px;
+      border: 2px solid var(--gold);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cinzel', serif;
+      font-size: 11px; font-weight: 700;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+    .rcr-site-name {
+      font-family: 'Cinzel', serif;
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-mid);
+      white-space: nowrap;
+    }
+    .rcr-nav-link {
+      display: flex; align-items: center;
+      height: 50px; padding: 0 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px; letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: all 0.15s;
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .rcr-nav-link:hover,
+    .rcr-nav-link.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(180deg, #0f0a05 0%, #1a0e08 60%, #2a1510 100%);
+      color: var(--parchment);
+      padding: 80px 24px 64px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23b8860b' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      opacity: 0.75;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(2.4rem, 7vw, 4.5rem);
+      font-weight: 900;
+      color: var(--parchment);
+      margin-bottom: 12px;
+      position: relative;
+    }
+    .hero-rule {
+      width: 100px; height: 1px;
+      background: var(--gold);
+      margin: 16px auto 20px;
+    }
+    .hero-sub {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1rem, 2.5vw, 1.35rem);
+      color: var(--gold-light);
+      max-width: 660px;
+      margin: 0 auto 32px;
+      opacity: 0.9;
+      line-height: 1.7;
+    }
+    .hero-concept {
+      display: inline-block;
+      border: 1px solid rgba(184,134,11,0.35);
+      padding: 14px 28px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: var(--gold-light);
+      opacity: 0.8;
+    }
+
+    /* CONTENT */
+    .content-wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 60px 24px 80px;
+    }
+
+    .intro-block {
+      font-size: 1.1rem;
+      color: var(--ink-mid);
+      margin-bottom: 52px;
+      padding: 28px 32px;
+      background: var(--parchment2);
+      border-left: 4px solid var(--gold);
+      line-height: 1.9;
+    }
+
+    .mirror-entry {
+      margin-bottom: 64px;
+      border: 1px solid var(--border-light);
+      overflow: hidden;
+    }
+
+    .entry-header {
+      background: linear-gradient(135deg, #1a0e08, #0f0a05);
+      padding: 24px 28px;
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+    }
+    .entry-num {
+      font-family: 'Cinzel', serif;
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--gold);
+      opacity: 0.3;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .entry-title-block {}
+    .entry-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      opacity: 0.6;
+      margin-bottom: 6px;
+    }
+    .entry-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--parchment);
+    }
+
+    .entry-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    @media (max-width: 680px) {
+      .entry-body { grid-template-columns: 1fr; }
+    }
+
+    .col-accusation {
+      padding: 28px;
+      background: #fff8f0;
+      border-right: 1px solid var(--border-light);
+    }
+    .col-record {
+      padding: 28px;
+      background: var(--parchment);
+    }
+
+    .col-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid;
+    }
+    .col-accusation .col-label {
+      color: var(--red-light);
+      border-color: var(--red-light);
+    }
+    .col-record .col-label {
+      color: var(--gold);
+      border-color: var(--gold);
+    }
+
+    .col-text {
+      font-size: 0.95rem;
+      line-height: 1.85;
+      color: var(--ink-mid);
+    }
+
+    .entry-sources {
+      padding: 16px 28px;
+      background: var(--parchment2);
+      border-top: 1px solid var(--border-light);
+    }
+    .entry-sources p {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--ink-light);
+      line-height: 1.7;
+    }
+    .entry-sources span {
+      color: var(--gold);
+      font-weight: 700;
+      margin-right: 4px;
+    }
+
+    .page-footer-note {
+      margin-top: 60px;
+      padding: 32px;
+      background: linear-gradient(135deg, #1a0e08, #0f0a05);
+      color: var(--parchment2);
+      text-align: center;
+    }
+    .page-footer-note p {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--gold-light);
+      line-height: 1.8;
+      max-width: 600px;
+      margin: 0 auto;
+      opacity: 0.85;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      margin-bottom: 44px;
+      transition: gap 0.2s;
+    }
+    .back-link:hover { gap: 12px; }
+  </style>
+</head>
+<body>
+
+<nav class="rcr-nav">
+  <div class="rcr-nav-inner">
+    <a href="/" class="rcr-home">
+      <div class="rcr-seal">RR</div>
+      <span class="rcr-site-name">The Ruling Class Report</span>
+    </a>
+    <a href="/museum.html" class="rcr-nav-link active">Museum</a>
+    <a href="/congress.html" class="rcr-nav-link">Congress</a>
+    <a href="/trump-timeline.html" class="rcr-nav-link">Timeline</a>
+    <a href="/save-america-act.html" class="rcr-nav-link">SAVE Act</a>
+    <a href="/doge.html" class="rcr-nav-link">DOGE</a>
+    <a href="/scotus.html" class="rcr-nav-link">SCOTUS</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-eyebrow">Investigation · Documented Record · Political Accountability</div>
+  <h1>The Mirror</h1>
+  <div class="hero-rule"></div>
+  <p class="hero-sub">A documented record of political accusation versus the evidence of the accusers' own conduct</p>
+  <div class="hero-concept">Accusation · Evidence · The Record — Side by Side</div>
+</section>
+
+<div class="content-wrap">
+  <a href="/museum.html" class="back-link">← Return to Museum</a>
+
+  <div class="intro-block">
+    What follows is not opinion. It is a side-by-side record: the accusation made against a political figure, 
+    and the documented conduct of the individuals who made it. No commentary is added. 
+    The sources are congressional testimony, inspector general reports, special counsel findings, 
+    and court-verified documents. The reader is left to draw conclusions.
+  </div>
+
+  <!-- ENTRY 1: RUSSIA COLLUSION -->
+  <div class="mirror-entry">
+    <div class="entry-header">
+      <div class="entry-num">01</div>
+      <div class="entry-title-block">
+        <div class="entry-label">The Accusation</div>
+        <div class="entry-title">Russia Collusion</div>
+      </div>
+    </div>
+    <div class="entry-body">
+      <div class="col-accusation">
+        <div class="col-label">The Charge</div>
+        <div class="col-text">
+          Donald Trump and his campaign were accused of colluding with the Russian government to 
+          steal the 2016 election. Senior intelligence officials including CIA Director John Brennan 
+          stated publicly they had seen evidence of collusion. The accusation drove a two-year 
+          special counsel investigation, dominated national media coverage, and served as the 
+          basis for the first impeachment attempt.
+        </div>
+      </div>
+      <div class="col-record">
+        <div class="col-label">The Record</div>
+        <div class="col-text">
+          The Mueller Report found no evidence of coordination or conspiracy between the Trump 
+          campaign and Russia. The Steele Dossier — the primary evidence cited publicly by 
+          intelligence officials — was funded by the Hillary Clinton campaign and the DNC through 
+          law firm Perkins Coie and opposition research firm Fusion GPS. Christopher Steele's 
+          primary sub-source later told the FBI the dossier's central claims were bar talk, 
+          not intelligence. John Brennan's own handwritten notes, declassified in 2020, 
+          show he briefed President Obama that Clinton had approved a plan to fabricate 
+          the Russia collusion narrative as a distraction from her email scandal.
+        </div>
+      </div>
+    </div>
+    <div class="entry-sources">
+      <p><span>Sources:</span> Mueller Report (2019) · Durham Special Counsel Final Report (2023) · 
+      Brennan handwritten notes — DNI declassification (2020) · FEC settlement, Clinton campaign / DNC 
+      Steele Dossier funding (2022) · Danchenko FBI interviews — declassified (2021)</p>
+    </div>
+  </div>
+
+  <!-- ENTRY 2: ELECTION INTERFERENCE -->
+  <div class="mirror-entry">
+    <div class="entry-header">
+      <div class="entry-num">02</div>
+      <div class="entry-title-block">
+        <div class="entry-label">The Accusation</div>
+        <div class="entry-title">Election Interference</div>
+      </div>
+    </div>
+    <div class="entry-body">
+      <div class="col-accusation">
+        <div class="col-label">The Charge</div>
+        <div class="col-text">
+          Donald Trump was accused of attempting to interfere with the 2020 election — pressuring 
+          state officials, spreading misinformation, and ultimately inciting an attack on the 
+          Capitol to prevent certification. The accusation formed the basis of the second 
+          impeachment and subsequent federal indictments. Officials who made the accusation 
+          presented themselves as defenders of democratic norms and the integrity of elections.
+        </div>
+      </div>
+      <div class="col-record">
+        <div class="col-label">The Record</div>
+        <div class="col-text">
+          The FBI's Crossfire Hurricane investigation — opened against the Trump campaign in 
+          2016 — was launched without a verified predicate, according to the DOJ Inspector 
+          General. FISA warrants used to surveil Trump campaign associate Carter Page were 
+          obtained with a falsified document: FBI lawyer Kevin Clinesmith altered an email 
+          to make Page appear to be a Russian agent. He pleaded guilty. The same intelligence 
+          community officials who later accused Trump of election interference had spent 
+          four years using classified resources to surveil, investigate, and brief against 
+          a presidential campaign and sitting president based on fabricated evidence.
+        </div>
+      </div>
+    </div>
+    <div class="entry-sources">
+      <p><span>Sources:</span> DOJ Inspector General Report — Crossfire Hurricane (2019) · 
+      Kevin Clinesmith guilty plea — U.S. District Court for D.C. (2020) · 
+      Durham Special Counsel Report (2023) · Senate Judiciary Committee — Crossfire Hurricane 
+      interim report (2020)</p>
+    </div>
+  </div>
+
+  <!-- ENTRY 3: OBSTRUCTION -->
+  <div class="mirror-entry">
+    <div class="entry-header">
+      <div class="entry-num">03</div>
+      <div class="entry-title-block">
+        <div class="entry-label">The Accusation</div>
+        <div class="entry-title">Obstruction of Justice</div>
+      </div>
+    </div>
+    <div class="entry-body">
+      <div class="col-accusation">
+        <div class="col-label">The Charge</div>
+        <div class="col-text">
+          Donald Trump was accused of obstruction of justice in connection with the Mueller 
+          investigation, both impeachment proceedings, and subsequently in federal indictments 
+          brought by Special Counsel Jack Smith. The accusation was central to the argument 
+          that Trump represented a unique and unprecedented threat to the rule of law and the 
+          independence of American institutions.
+        </div>
+      </div>
+      <div class="col-record">
+        <div class="col-label">The Record</div>
+        <div class="col-text">
+          The investigation Trump was accused of obstructing was opened without a verified 
+          predicate. The FISA warrants used to surveil his campaign were obtained with 
+          falsified evidence. FBI agents Peter Strzok and Lisa Page exchanged documented 
+          text messages discussing an "insurance policy" against a Trump presidency before 
+          the investigation was formally opened. Andrew McCabe was referred for criminal 
+          prosecution for lying to investigators. James Comey leaked classified memos to a 
+          Columbia University professor specifically to trigger the appointment of a special 
+          counsel — a move the Inspector General found violated FBI policy. The special 
+          counsel investigation was staffed almost exclusively by Democratic donors, 
+          one of whom texted "we'll stop it" about a Trump presidency before joining the team.
+        </div>
+      </div>
+    </div>
+    <div class="entry-sources">
+      <p><span>Sources:</span> DOJ Inspector General Report (2019) · Durham Special Counsel 
+      Report (2023) · Strzok-Page text messages — Congressional release (2017) · 
+      DOJ referral, Andrew McCabe (2018) · Comey IG Report (2019)</p>
+    </div>
+  </div>
+
+  <!-- ENTRY 4: INSURRECTION -->
+  <div class="mirror-entry">
+    <div class="entry-header">
+      <div class="entry-num">04</div>
+      <div class="entry-title-block">
+        <div class="entry-label">The Accusation</div>
+        <div class="entry-title">Insurrection</div>
+      </div>
+    </div>
+    <div class="entry-body">
+      <div class="col-accusation">
+        <div class="col-label">The Charge</div>
+        <div class="col-text">
+          Donald Trump was accused of inciting an insurrection on January 6, 2021, 
+          making him the first president impeached twice. Members of Congress, 
+          intelligence officials, and major media organizations described it as 
+          the most serious attack on American democracy since the Civil War — 
+          a deliberate, coordinated attempt to overthrow a legitimate election result. 
+          The accusation was used to justify impeachment, criminal indictment, 
+          and removal from various state ballots.
+        </div>
+      </div>
+      <div class="col-record">
+        <div class="col-label">The Record</div>
+        <div class="col-text">
+          The individuals who made the insurrection accusation had themselves spent 
+          four years publicly refusing to accept the 2016 election result. 
+          Hillary Clinton called Trump an "illegitimate president." Jimmy Carter called 
+          him illegitimate. Dozens of House Democrats objected to the 2016 Electoral 
+          College certification — the same act they accused Trump of inciting others 
+          to stop in 2020. The January 6 Capitol breach involved no weapons charges 
+          against the vast majority of defendants. The House Select Committee withheld 
+          exculpatory evidence from its public presentation, according to subsequent 
+          reporting. The Supreme Court unanimously reversed the use of the obstruction 
+          statute that formed the basis of hundreds of January 6 prosecutions, 
+          in Fischer v. United States (2024).
+        </div>
+      </div>
+    </div>
+    <div class="entry-sources">
+      <p><span>Sources:</span> House impeachment record, January 13, 2021 · 
+      Congressional objections to 2016 Electoral College certification — 
+      Congressional Record (2017) · Fischer v. United States, 603 U.S. ___ (2024) · 
+      House Select Committee transcripts — released 2023–2024</p>
+    </div>
+  </div>
+
+  <div class="page-footer-note">
+    <p>
+      The Mirror is not an argument. It is a record. The pattern it reveals — 
+      accusation as the leading edge of projection — is documented in primary sources. 
+      Accountability requires looking at both sides of the glass.
+    </p>
+  </div>
+</div>
+
+</body>
+</html>
