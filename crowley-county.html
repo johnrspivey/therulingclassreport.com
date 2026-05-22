@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Crowley County Water Theft | The Ruling Class Report</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --parchment:   #f5edd6;
+      --parchment2:  #ede0bf;
+      --ink:         #1a1208;
+      --ink-mid:     #3d2b1f;
+      --ink-light:   #6b5340;
+      --gold:        #b8860b;
+      --gold-bright: #d4a843;
+      --gold-light:  #e8c97a;
+      --red:         #8b1a1a;
+      --red-light:   #c0392b;
+      --border:      #c9a86c;
+      --border-light:#e0cfa0;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--parchment);
+      color: var(--ink);
+      font-family: 'Lora', Georgia, serif;
+      line-height: 1.8;
+    }
+
+    /* ── NAV ── */
+    .rcr-nav {
+      background: rgba(245,237,214,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 2px solid var(--gold);
+      padding: 0 20px;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+    .rcr-nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      height: 50px;
+      overflow-x: auto;
+      gap: 0;
+    }
+    .rcr-nav-inner::-webkit-scrollbar { display: none; }
+    .rcr-home {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      padding-right: 18px;
+      border-right: 1px solid var(--border-light);
+      margin-right: 14px;
+      flex-shrink: 0;
+    }
+    .rcr-seal {
+      width: 32px;
+      height: 32px;
+      border: 2px solid var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.05em;
+      flex-shrink: 0;
+    }
+    .rcr-site-name {
+      font-family: 'Cinzel', serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-mid);
+      white-space: nowrap;
+    }
+    .rcr-nav-link {
+      display: flex;
+      align-items: center;
+      height: 50px;
+      padding: 0 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: all 0.15s;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .rcr-nav-link:hover { color: var(--gold); border-bottom-color: var(--gold); }
+    .rcr-nav-link.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(180deg, #2a1510 0%, #1a0e08 100%);
+      color: var(--parchment);
+      padding: 80px 24px 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23b8860b' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      opacity: 0.6;
+    }
+    .hero-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 20px;
+      opacity: 0.8;
+    }
+    .hero h1 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(2rem, 6vw, 3.8rem);
+      font-weight: 900;
+      line-height: 1.15;
+      color: var(--parchment);
+      margin-bottom: 16px;
+      position: relative;
+    }
+    .hero-sub {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      color: var(--gold-light);
+      margin-bottom: 32px;
+      max-width: 680px;
+      margin-left: auto;
+      margin-right: auto;
+      opacity: 0.9;
+    }
+    .hero-rule {
+      width: 120px;
+      height: 1px;
+      background: var(--gold);
+      margin: 0 auto 28px;
+    }
+    .hero-meta {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .hero-meta span {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      opacity: 0.7;
+    }
+
+    /* ── CONTENT ── */
+    .content-wrap {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 60px 24px 80px;
+    }
+
+    .lede {
+      font-size: 1.2rem;
+      font-style: italic;
+      color: var(--ink-mid);
+      border-left: 3px solid var(--gold);
+      padding-left: 24px;
+      margin-bottom: 48px;
+      line-height: 1.9;
+    }
+
+    h2 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin: 52px 0 18px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--ink-mid);
+      margin: 28px 0 10px;
+    }
+
+    p {
+      margin-bottom: 20px;
+      color: var(--ink);
+      font-size: 1.05rem;
+    }
+
+    .pullquote {
+      background: var(--parchment2);
+      border-left: 4px solid var(--gold);
+      padding: 24px 28px;
+      margin: 36px 0;
+      border-radius: 0 4px 4px 0;
+    }
+    .pullquote p {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.2rem;
+      color: var(--ink-mid);
+      margin: 0 0 10px;
+    }
+    .pullquote cite {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+      margin: 36px 0;
+    }
+    .stat-box {
+      background: var(--parchment2);
+      border: 1px solid var(--border-light);
+      border-top: 3px solid var(--gold);
+      padding: 20px 16px;
+      text-align: center;
+    }
+    .stat-box .num {
+      font-family: 'Cinzel', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--red);
+      display: block;
+    }
+    .stat-box .label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      margin-top: 6px;
+    }
+
+    .verdict-box {
+      background: linear-gradient(135deg, #2a1510 0%, #1a0e08 100%);
+      color: var(--parchment);
+      padding: 40px 36px;
+      margin: 52px 0;
+      border: 1px solid var(--gold);
+      position: relative;
+    }
+    .verdict-box::before {
+      content: 'VERDICT';
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.3em;
+      color: var(--gold-light);
+      display: block;
+      margin-bottom: 16px;
+    }
+    .verdict-box h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.3rem;
+      color: var(--gold-bright);
+      margin-bottom: 16px;
+    }
+    .verdict-box p {
+      color: var(--parchment2);
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+
+    .sources {
+      background: var(--parchment2);
+      border: 1px solid var(--border-light);
+      padding: 32px;
+      margin-top: 60px;
+    }
+    .sources h4 {
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+    .sources ul {
+      list-style: none;
+      padding: 0;
+    }
+    .sources li {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--ink-light);
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border-light);
+      line-height: 1.6;
+    }
+    .sources li:last-child { border-bottom: none; }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      margin-bottom: 40px;
+      transition: gap 0.2s;
+    }
+    .back-link:hover { gap: 12px; }
+
+    .ornament {
+      text-align: center;
+      color: var(--gold);
+      font-size: 1.5rem;
+      margin: 40px 0;
+      opacity: 0.4;
+    }
+
+    @media (max-width: 600px) {
+      .hero { padding: 60px 20px 48px; }
+      .content-wrap { padding: 40px 20px 60px; }
+      .verdict-box { padding: 28px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav class="rcr-nav">
+  <div class="rcr-nav-inner">
+    <a href="/" class="rcr-home">
+      <div class="rcr-seal">RR</div>
+      <span class="rcr-site-name">The Ruling Class Report</span>
+    </a>
+    <a href="/museum.html" class="rcr-nav-link active">Museum</a>
+    <a href="/congress.html" class="rcr-nav-link">Congress</a>
+    <a href="/trump-timeline.html" class="rcr-nav-link">Timeline</a>
+    <a href="/save-america-act.html" class="rcr-nav-link">SAVE Act</a>
+    <a href="/doge.html" class="rcr-nav-link">DOGE</a>
+    <a href="/scotus.html" class="rcr-nav-link">SCOTUS</a>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-tag">Investigation · American Communities Betrayed · Colorado</div>
+  <h1>The Crowley County<br>Water Theft</h1>
+  <div class="hero-rule"></div>
+  <p class="hero-sub">How Urban Political Power Drained a Community Dry — and Left It There</p>
+  <div class="hero-meta">
+    <span>Crowley County, Colorado</span>
+    <span>1970s – Present</span>
+    <span>State &amp; Local Accountability</span>
+  </div>
+</section>
+
+<!-- ── CONTENT ── -->
+<div class="content-wrap">
+  <a href="/museum.html" class="back-link">← Return to Museum</a>
+
+  <p class="lede">
+    Crowley County once produced alfalfa, barley, cantaloupes, sugar beets, and enough crops to sustain a 
+    factory town on the Arkansas River. Tens of thousands of acres. Generations of families. 
+    Then the water was sold — and the community was left to die in the dust.
+    This is a documented case study in how the ruling class operates not just in Washington, 
+    but in every state capital and every county courthouse in America.
+  </p>
+
+  <div class="stat-row">
+    <div class="stat-box">
+      <span class="num">50,000+</span>
+      <span class="label">Irrigated acres in 1970</span>
+    </div>
+    <div class="stat-box">
+      <span class="num">~3,000</span>
+      <span class="label">Irrigated acres today</span>
+    </div>
+    <div class="stat-box">
+      <span class="num">92%</span>
+      <span class="label">Agricultural land lost</span>
+    </div>
+    <div class="stat-box">
+      <span class="num">50 yrs</span>
+      <span class="label">No accountability</span>
+    </div>
+  </div>
+
+  <h2>The Record</h2>
+
+  <p>
+    Crowley County, Colorado once boasted more than 50,000 acres of irrigated farmland on the high plains 
+    east of Pueblo. The land produced alfalfa, barley, tomatoes, strawberries, cantaloupes, corn, and enough 
+    sugar beets to support a processing factory in the town of Sugar City. It was productive, self-sufficient 
+    agricultural land worked by families who had built their lives and their futures around it.
+  </p>
+
+  <p>
+    Then the water left. And it never came back.
+  </p>
+
+  <h3>How It Happened</h3>
+
+  <p>
+    In the late 1960s, with crop and cattle prices in decline, farmers and ranchers in Crowley County began 
+    considering selling their water rights. In 1972, the Foxley Cattle Company purchased water rights from 
+    landowners across the county. Then came the Crowley County Land and Development Company, which acquired 
+    additional rights and sold them to the growing cities of Pueblo, Colorado Springs, Pueblo West, and Aurora 
+    to quench the demand of the sprawling Front Range.
+  </p>
+
+  <p>
+    Water developers paid between $300 and $400 per acre — significantly above market at the time. 
+    To struggling families, it seemed like a lifeline.
+  </p>
+
+  <div class="pullquote">
+    <p>"It seemed like a lot of money back then."</p>
+    <cite>— Darla Wyeno, who sold water rights in 1976 for $1,050 per share to pay a farm loan and her children's college tuition. Those shares now fetch $25,000 apiece.</cite>
+  </div>
+
+  <p>
+    What the sellers could not know — and what no state official moved to protect them from — was that the 
+    water was the land. Without it, the farmland became worthless. The crops stopped. The jobs disappeared. 
+    The families left. The storefronts emptied. The schools shrank. And the cities kept growing.
+  </p>
+
+  <h3>What Was Left Behind</h3>
+
+  <p>
+    The county's irrigated acres fell from more than 50,000 in the 1970s to just a few thousand by the 2020s — 
+    a loss of more than 92 percent. Drive through Crowley County today and you'll find abandoned farmhouses, 
+    barren fields, and wind. Walk down Main Street in Ordway, Broadway in the town of Crowley, 
+    Colorado Street in Sugar City — you'll be hard-pressed to run into anyone.
+  </p>
+
+  <p>
+    With agriculture gone, the county turned to the only industry that would have it: incarceration. 
+    Crowley County now hosts two state prisons. The community that grew food for a region now warehouses people 
+    for the state. That is the full arc of what happened here.
+  </p>
+
+  <h2>The Pattern</h2>
+
+  <p>
+    Crowley County is not an isolated case. It is a textbook example of a recurring mechanism: 
+    urban political power — backed by favorable water law, compliant state courts, and willing intermediaries — 
+    extracting resources from rural communities that lack the lobbying infrastructure to resist.
+  </p>
+
+  <p>
+    Colorado water law operates under the Prior Appropriation Doctrine — "first in time, first in right." 
+    Under this system, water rights are property that can be sold, separated from the land, and 
+    transferred to any use anywhere in the state. The cities understood this. They had lawyers who understood it. 
+    The farmers had neither.
+  </p>
+
+  <p>
+    The state government did not intervene. No law was passed to require impact assessments before 
+    agricultural water transfers. No review process was required to evaluate what stripping a county's 
+    water supply would do to the people who lived there. The transactions were perfectly legal. 
+    That is precisely the point.
+  </p>
+
+  <div class="pullquote">
+    <p>"Crowley County is a ghost of what it once was, largely because of water transfers."</p>
+    <cite>— Colorado State University Extension, documented in public research on agricultural water loss</cite>
+  </div>
+
+  <h2>The Live Dimension</h2>
+
+  <p>
+    This is not merely history. As of 2025–2026, Colorado legislators have proposed bills that would require 
+    revegetation of dried-up farmland when water is transferred away — a tacit acknowledgment that the state 
+    failed these communities for decades. The bill has met resistance from the same urban water interests 
+    that benefited from the original transfers.
+  </p>
+
+  <p>
+    The families whose land turned to dust fifty years ago are still there. They are still watching. 
+    And the institutions that enabled what happened to them are still operating under the same rules.
+  </p>
+
+  <div class="verdict-box">
+    <h3>The Ruling Class Pattern — Applied Locally</h3>
+    <p>
+      The mechanism that drained Crowley County is the same mechanism that operates in Washington: 
+      those with access to legal structures, political relationships, and financial resources 
+      extract value from communities that have none of those things — then move on. 
+      The transactions are documented. The harm is documented. The accountability is absent. 
+      Fifty years later, Sugar City still doesn't have its water back.
+    </p>
+  </div>
+
+  <div class="ornament">⸻ ✦ ⸻</div>
+
+  <div class="sources">
+    <h4>Sources &amp; Documentation</h4>
+    <ul>
+      <li>Colorado State University Extension — Agricultural water transfer impact studies, Crowley County</li>
+      <li>Colorado Water Conservation Board — Arkansas River basin water rights transfer records</li>
+      <li>High Country News — "The Drying of the West," documented reporting on Colorado agricultural water loss</li>
+      <li>Denver Post — Crowley County water rights and community decline reporting</li>
+      <li>Crowley County Historical Society — land use records and community documentation</li>
+      <li>Colorado General Assembly — HB 1023 and related revegetation legislation, 2025–2026 session</li>
+      <li>USDA National Agricultural Statistics Service — Colorado irrigated acreage historical data</li>
+    </ul>
+  </div>
+</div>
+
+</body>
+</html>
