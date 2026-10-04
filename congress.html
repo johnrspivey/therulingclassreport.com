@@ -766,19 +766,19 @@ function barColor(s, party) {
   return "#1a5fa8";
 }
 
-async function callClaude(prompt) {
+// Sends only structured inputs; the function builds the prompt and picks the model.
+async function callClaude(payload) {
   const resp = await fetch("/.netlify/functions/claude", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      model: "claude-sonnet-4-20250514",
-      max_tokens: 1000,
-      messages: [{ role: "user", content: prompt }],
-    }),
+    body: JSON.stringify(payload),
   });
-  const data = await resp.json();
-  return data.content?.map(b => b.text || "").join("") || "No response.";
+  const data = await resp.json().catch(() => ({}));
+  if (!resp.ok) throw new Error(data.error || "Request failed.");
+  return data.text || "No response.";
 }
+
+const clampScore = s => Math.max(0, Math.min(100, Math.round(s ?? 72)));
 
 // ── CONTACT MODAL ──────────────────────────────────────────────────────────────
 function ContactModal({ member, onClose }) {
@@ -791,17 +791,13 @@ function ContactModal({ member, onClose }) {
     setLoading(true);
     setDraft("");
     try {
-      const score = member.alignment ?? 72;
-      const stance = score >= 60 ? "conservative loyalty" : score >= 35 ? "mixed record" : "frequent opposition to conservative priorities";
-      const text = await callClaude(
-        `Write a firm but respectful constituent letter to ${member.name}, ${member.party === "R" ? "Republican" : "Democrat"} from ${STATE_MAP[member.state] || member.state}, regarding ${issue}. ` +
-        `This member has a RINO Report loyalty score of ${score}/100, indicating ${stance}. ` +
-        `If they are a Republican with a low score, call them out specifically for not representing conservative values. ` +
-        `Keep it under 250 words. Be direct. Sign off as "A Concerned Constituent."`
-      );
+      const payload = member.chamber === "Governor"
+        ? { type: "letter", governorState: member.code, issue }
+        : { type: "letter", bioguideId: member.bioguideId, issue, score: clampScore(member.alignment) };
+      const text = await callClaude(payload);
       setDraft(text);
     } catch(e) {
-      setDraft("Error generating draft. Please try again.");
+      setDraft(`Error generating draft: ${e.message}`);
     }
     setLoading(false);
   };
@@ -1096,25 +1092,30 @@ function AnalysisTab({ members }) {
   const reps = members.filter(m => m.party === "R");
   const avgScore = reps.length ? Math.round(reps.reduce((a, m) => a + (m.alignment ?? 72), 0) / reps.length) : 0;
   const liveCount = members.filter(m => m.liveScored).length;
-  const heroes = [...reps].sort((a,b) => (b.alignment ?? 0) - (a.alignment ?? 0)).slice(0, 5).map(m => `${m.name} (${m.alignment})`).join(", ");
-  const halfasses = [...reps].sort((a,b) => (a.alignment ?? 100) - (b.alignment ?? 100)).slice(0, 5).map(m => `${m.name} (${m.alignment})`).join(", ");
+  // Names must match the function's allowed characters, so strip nickname quotes and the like.
+  const NAME_CHARS = new RegExp("[^\\p{L}\\p{M} .,'-]", "gu");
+  const cleanName = name => (name || "").replace(NAME_CHARS, "").trim().slice(0, 60).trim();
+  const ranked = reps.filter(m => cleanName(m.name));
+  const toEntry = m => ({ name: cleanName(m.name), score: clampScore(m.alignment) });
+  const heroes = [...ranked].sort((a,b) => (b.alignment ?? 0) - (a.alignment ?? 0)).slice(0, 5).map(toEntry);
+  const halfasses = [...ranked].sort((a,b) => (a.alignment ?? 100) - (b.alignment ?? 100)).slice(0, 5).map(toEntry);
 
   const generateBrief = async () => {
     setLoading(true);
     setBrief("");
     try {
-      const text = await callClaude(
-        `You are a conservative political analyst for RINO Report, a congressional loyalty tracker. ` +
-        `Generate a sharp, direct intelligence brief about the current state of the Republican party in Congress. ` +
-        `Data: ${members.length} total members tracked, ${reps.length} Republicans, avg GOP loyalty score ${avgScore}/100, ` +
-        `${liveCount} members with live vote data. ` +
-        `Top patriots: ${heroes}. Biggest RINOs: ${halfasses}. ` +
-        `Write 3-4 punchy paragraphs. Call out sellouts by name. Be direct, not diplomatic. No fluff. ` +
-        `End with one actionable recommendation for conservative voters.`
-      );
+      const text = await callClaude({
+        type: "brief",
+        total: members.length,
+        republicans: reps.length,
+        live: liveCount,
+        avg: avgScore,
+        top: heroes,
+        bottom: halfasses,
+      });
       setBrief(text);
     } catch(e) {
-      setBrief("Error generating brief. Please try again.");
+      setBrief(`Error generating brief: ${e.message}`);
     }
     setLoading(false);
   };
@@ -2088,58 +2089,9 @@ function ScotusModal({ justice, onClose }) {
 // ── GOVERNORS DATA ────────────────────────────────────────────────────────────
 // Scores: policy-based (immigration, spending, crime, energy, woke policy, fed alignment)
 // R baseline ~72, adjusted up/down. D baseline ~8, adjusted up/down.
-const GOVERNORS = [
-  { state:"Alabama", name:"Kay Ivey", party:"R", score:88, website:"https://governor.alabama.gov" },
-  { state:"Alaska", name:"Mike Dunleavy", party:"R", score:82, website:"https://gov.alaska.gov" },
-  { state:"Arizona", name:"Katie Hobbs", party:"D", score:12, website:"https://azgovernor.gov" },
-  { state:"Arkansas", name:"Sarah Huckabee Sanders", party:"R", score:91, website:"https://governor.arkansas.gov" },
-  { state:"California", name:"Gavin Newsom", party:"D", score:2, website:"https://www.gov.ca.gov" },
-  { state:"Colorado", name:"Jared Polis", party:"D", score:14, website:"https://www.colorado.gov/governor" },
-  { state:"Connecticut", name:"Ned Lamont", party:"D", score:18, website:"https://portal.ct.gov/Office-of-the-Governor" },
-  { state:"Delaware", name:"Matt Meyer", party:"D", score:10, website:"https://governor.delaware.gov" },
-  { state:"Florida", name:"Ron DeSantis", party:"R", score:95, website:"https://www.flgov.com" },
-  { state:"Georgia", name:"Brian Kemp", party:"R", score:80, website:"https://gov.georgia.gov" },
-  { state:"Hawaii", name:"Josh Green", party:"D", score:8, website:"https://governor.hawaii.gov" },
-  { state:"Idaho", name:"Brad Little", party:"R", score:79, website:"https://gov.idaho.gov" },
-  { state:"Illinois", name:"JB Pritzker", party:"D", score:3, website:"https://www2.illinois.gov/sites/gov" },
-  { state:"Indiana", name:"Mike Braun", party:"R", score:84, website:"https://www.in.gov/gov" },
-  { state:"Iowa", name:"Kim Reynolds", party:"R", score:90, website:"https://governor.iowa.gov" },
-  { state:"Kansas", name:"Laura Kelly", party:"D", score:22, website:"https://governor.kansas.gov" },
-  { state:"Kentucky", name:"Andy Beshear", party:"D", score:28, website:"https://governor.ky.gov" },
-  { state:"Louisiana", name:"Jeff Landry", party:"R", score:92, website:"https://gov.louisiana.gov" },
-  { state:"Maine", name:"Janet Mills", party:"D", score:16, website:"https://www.maine.gov/governor" },
-  { state:"Maryland", name:"Wes Moore", party:"D", score:5, website:"https://governor.maryland.gov" },
-  { state:"Massachusetts", name:"Maura Healey", party:"D", score:4, website:"https://www.mass.gov/governor" },
-  { state:"Michigan", name:"Gretchen Whitmer", party:"D", score:6, website:"https://www.michigan.gov/whitmer" },
-  { state:"Minnesota", name:"Tim Walz", party:"D", score:7, website:"https://mn.gov/governor" },
-  { state:"Mississippi", name:"Tate Reeves", party:"R", score:87, website:"https://governorreeves.ms.gov" },
-  { state:"Missouri", name:"Mike Kehoe", party:"R", score:81, website:"https://governor.mo.gov" },
-  { state:"Montana", name:"Greg Gianforte", party:"R", score:86, website:"https://governor.mt.gov" },
-  { state:"Nebraska", name:"Jim Pillen", party:"R", score:83, website:"https://governor.nebraska.gov" },
-  { state:"Nevada", name:"Joe Lombardo", party:"R", score:68, website:"https://gov.nv.gov" },
-  { state:"New Hampshire", name:"Kelly Ayotte", party:"R", score:74, website:"https://www.governor.nh.gov" },
-  { state:"New Jersey", name:"Mikie Sherrill", party:"D", score:11, website:"https://nj.gov/governor" },
-  { state:"New Mexico", name:"Michelle Lujan Grisham", party:"D", score:9, website:"https://www.governor.state.nm.us" },
-  { state:"New York", name:"Kathy Hochul", party:"D", score:4, website:"https://www.governor.ny.gov" },
-  { state:"North Carolina", name:"Josh Stein", party:"D", score:15, website:"https://governor.nc.gov" },
-  { state:"North Dakota", name:"Kelly Armstrong", party:"R", score:85, website:"https://www.governor.nd.gov" },
-  { state:"Ohio", name:"Mike DeWine", party:"R", score:65, website:"https://governor.ohio.gov" },
-  { state:"Oklahoma", name:"Kevin Stitt", party:"R", score:88, website:"https://www.governor.ok.gov" },
-  { state:"Oregon", name:"Tina Kotek", party:"D", score:3, website:"https://www.oregon.gov/gov" },
-  { state:"Pennsylvania", name:"Josh Shapiro", party:"D", score:20, website:"https://www.governor.pa.gov" },
-  { state:"Rhode Island", name:"Dan McKee", party:"D", score:12, website:"https://governor.ri.gov" },
-  { state:"South Carolina", name:"Henry McMaster", party:"R", score:84, website:"https://governor.sc.gov" },
-  { state:"South Dakota", name:"Larry Rhoden", party:"R", score:83, website:"https://governor.sd.gov" },
-  { state:"Tennessee", name:"Bill Lee", party:"R", score:82, website:"https://www.tn.gov/governor" },
-  { state:"Texas", name:"Greg Abbott", party:"R", score:93, website:"https://gov.texas.gov" },
-  { state:"Utah", name:"Spencer Cox", party:"R", score:70, website:"https://governor.utah.gov" },
-  { state:"Vermont", name:"Phil Scott", party:"R", score:32, website:"https://governor.vermont.gov" },
-  { state:"Virginia", name:"Glenn Youngkin", party:"R", score:83, website:"https://www.governor.virginia.gov" },
-  { state:"Washington", name:"Bob Ferguson", party:"D", score:6, website:"https://www.governor.wa.gov" },
-  { state:"West Virginia", name:"Patrick Morrisey", party:"R", score:86, website:"https://governor.wv.gov" },
-  { state:"Wisconsin", name:"Tony Evers", party:"D", score:9, website:"https://evers.wi.gov" },
-  { state:"Wyoming", name:"Mark Gordon", party:"R", score:80, website:"https://governor.wyo.gov" },
-];
+// Loaded from /data/governors.json before the app renders (see bottom of script).
+// netlify/functions/claude/governors.json must stay identical (checked by tests).
+let GOVERNORS = [];
 
 // ── GUVNAS TAB ────────────────────────────────────────────────────────────────
 function GuvnasTab({ onSelect }) {
@@ -2162,8 +2114,8 @@ function GuvnasTab({ onSelect }) {
   const goobs = [...GOVERNORS].sort((a, b) => a.score - b.score).slice(0, 10);
   const patriots = [...GOVERNORS].filter(g => g.party === "R").sort((a, b) => b.score - a.score).slice(0, 10);
 
-  const gopAvg = Math.round(GOVERNORS.filter(g => g.party === "R").reduce((a,g) => a + g.score, 0) / GOVERNORS.filter(g => g.party === "R").length);
-  const demAvg = Math.round(GOVERNORS.filter(g => g.party === "D").reduce((a,g) => a + g.score, 0) / GOVERNORS.filter(g => g.party === "D").length);
+  const gopAvg = Math.round(GOVERNORS.filter(g => g.party === "R").reduce((a,g) => a + g.score, 0) / GOVERNORS.filter(g => g.party === "R").length) || 0;
+  const demAvg = Math.round(GOVERNORS.filter(g => g.party === "D").reduce((a,g) => a + g.score, 0) / GOVERNORS.filter(g => g.party === "D").length) || 0;
 
   return (
     <div>
@@ -2916,7 +2868,11 @@ function App() {
   );
 }
 
-ReactDOM.render(<App />, document.getElementById("root"));
+fetch("/data/governors.json")
+  .then(r => r.json())
+  .then(list => { GOVERNORS = list; })
+  .catch(e => console.error("Governors load error:", e))
+  .finally(() => ReactDOM.render(<App />, document.getElementById("root")));
 </script>
 </body>
 </html>
