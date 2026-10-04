@@ -2,9 +2,10 @@
 // "Intel Brief". The page sends only structured inputs; this function builds the
 // prompt and pins the model and token caps, so the endpoint cannot be used as a
 // general-purpose proxy to the Anthropic API.
+//
+// This file holds the request logic. claude.mjs is the Netlify entry point
+// (Functions v2 format) that wires it to the Anthropic client and Netlify Blobs.
 const crypto = require("crypto");
-const Anthropic = require("@anthropic-ai/sdk");
-const { connectLambda, getStore } = require("@netlify/blobs");
 const GOVERNORS = require("./governors.json");
 
 const MODELS = { sonnet: "claude-sonnet-4-20250514", haiku: "claude-haiku-4-5" };
@@ -206,6 +207,7 @@ async function buildPrompt(input, lookup) {
 
 // ── HANDLER ───────────────────────────────────────────────────────────────────
 // Dependencies are injected so tests can run without network or Netlify Blobs.
+// `event` is { httpMethod, headers (lower-case keys), body }.
 function createHandler({ anthropic, fetchMember: fetcher, storeFor, now }) {
   return async function handler(event) {
     if (event.httpMethod === "OPTIONS") return { statusCode: 204, headers: { Allow: "POST, OPTIONS" }, body: "" };
@@ -262,18 +264,8 @@ function createHandler({ anthropic, fetchMember: fetcher, storeFor, now }) {
   };
 }
 
-let client;
-exports.handler = createHandler({
-  anthropic: () => (client ||= new Anthropic({ timeout: 9000, maxRetries: 0 })),
-  fetchMember,
-  storeFor: event => {
-    connectLambda(event);
-    return getStore({ name: "claude-function", consistency: "strong" });
-  },
-  now: () => Date.now(),
-});
-
 exports.createHandler = createHandler;
+exports.fetchMember = fetchMember;
 exports.validate = validate;
 exports.ISSUES = ISSUES;
 exports.MODELS = MODELS;

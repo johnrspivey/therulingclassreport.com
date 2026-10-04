@@ -4,7 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const {
   createHandler, ISSUES, MODELS, MODEL, MAX_TOKENS, MAX_BODY_BYTES, RATE_LIMIT,
-} = require("../netlify/functions/claude/claude.js");
+} = require("../netlify/functions/claude/core.js");
 
 const ROOT = path.join(__dirname, "..");
 const MEMBERS = {
@@ -313,5 +313,74 @@ describe("page and data files", () => {
     assert.equal(page, fn);
     const govs = JSON.parse(fn);
     assert.equal(new Set(govs.map(g => g.code)).size, 50);
+  });
+});
+
+describe("Netlify v2 entry and rate-limit store", () => {
+  const entry = () => import("../netlify/functions/claude/claude.mjs");
+  const encode = obj => Buffer.from(JSON.stringify(obj)).toString("base64");
+
+  // Runs fn with a fake Blobs environment and a fetch stub that records request hosts.
+  async function withBlobsContext(context, fn) {
+    const realFetch = globalThis.fetch;
+    const hosts = [];
+    globalThis.fetch = async url => { hosts.push(new URL(String(url)).host); return new Response("null", { status: 404 }); };
+    globalThis.netlifyBlobsContext = encode(context);
+    try { return await fn(hosts); } finally {
+      globalThis.fetch = realFetch;
+      delete globalThis.netlifyBlobsContext;
+    }
+  }
+  const base = { siteID: "site", token: "t", edgeURL: "https://edge.example" };
+
+  test("the entry is a v2 function: default export, no Lambda `handler` export", async () => {
+    const mod = await entry();
+    assert.equal(typeof mod.default, "function");
+    assert.equal(mod.handler, undefined);
+  });
+
+  test("strong reads fail when the context lacks uncachedEdgeURL (the deploy preview error)", async () => {
+    const { rateLimitStore } = await entry();
+    await withBlobsContext(base, async () => {
+      await assert.rejects(rateLimitStore().get("ratelimit/day", { type: "json" }), { name: "BlobsConsistencyError" });
+    });
+  });
+
+  test("rate-limit reads use strong consistency via the v2 runtime's uncachedEdgeURL", async () => {
+    const { rateLimitStore } = await entry();
+    await withBlobsContext({ ...base, uncachedEdgeURL: "https://uncached.example" }, async hosts => {
+      assert.equal(await rateLimitStore().get("ratelimit/day", { type: "json" }), null);
+      assert.deepEqual(hosts, ["uncached.example"]);
+    });
+  });
+
+  test("v2 adapter: OPTIONS returns 204 with a null body and no allow-origin header", async () => {
+    const { toV2 } = await entry();
+    const res = await toV2(setup().handler)(new Request("https://site.test/.netlify/functions/claude", { method: "OPTIONS" }));
+    assert.equal(res.status, 204);
+    assert.equal(res.body, null);
+    assert.equal(res.headers.get("access-control-allow-origin"), null);
+  });
+
+  test("v2 adapter: POST returns the text, and the IP header drives the per-IP limit", async () => {
+    const { toV2 } = await entry();
+    const fn = toV2(setup().handler);
+    const post = () => fn(new Request("https://site.test/.netlify/functions/claude", {
+      method: "POST", body: JSON.stringify(LETTER), headers: { "x-nf-client-connection-ip": "203.0.113.7" },
+    }));
+    const first = await post();
+    assert.equal(first.status, 200);
+    assert.deepEqual(await first.json(), { text: "Generated text" });
+    for (let i = 1; i < RATE_LIMIT.perIp; i++) await post();
+    assert.equal((await post()).status, 429);
+  });
+
+  test("v2 adapter: falls back to context.ip when the IP header is missing", async () => {
+    const { toV2 } = await entry();
+    const { handler, store } = setup();
+    const req = new Request("https://site.test/.netlify/functions/claude", { method: "POST", body: JSON.stringify(LETTER) });
+    await toV2(handler)(req, { ip: "198.51.100.9" });
+    const unknownKey = "ratelimit/ip/" + require("crypto").createHash("sha256").update("unknown").digest("hex");
+    assert.ok(!store.data.has(unknownKey), "request was bucketed as 'unknown' instead of by context.ip");
   });
 });
