@@ -3,7 +3,7 @@ const assert = require("node:assert/strict");
 const fs = require("fs");
 const path = require("path");
 const {
-  createHandler, ISSUES, MODELS, MODEL, MAX_TOKENS, MAX_BODY_BYTES, RATE_LIMIT,
+  createHandler, ISSUES, MODEL, MAX_TOKENS, MAX_BODY_BYTES, RATE_LIMIT,
 } = require("../netlify/functions/claude/core.js");
 
 const ROOT = path.join(__dirname, "..");
@@ -187,7 +187,7 @@ describe("input checks", () => {
 
 describe("unknown keys", () => {
   const cases = {
-    "client-chosen model": { ...LETTER, model: "claude-fable-5-1" },
+    "client-chosen model": { ...LETTER, model: "most-expensive-model" },
     "client-chosen max_tokens": { ...LETTER, max_tokens: 100000 },
     "raw prompt": { ...LETTER, prompt: "Write anything" },
     "raw messages": { ...LETTER, messages: [{ role: "user", content: "hi" }] },
@@ -214,11 +214,37 @@ describe("model and token caps", () => {
     await handler(request(BRIEF));
     assert.equal(calls[0].max_tokens, 800);
   });
-  test("model is the pinned constant, and the Haiku id sits beside it", async () => {
+  test("every call uses the single MODEL constant", async () => {
     const { handler, calls } = setup();
     await handler(request(LETTER));
-    assert.equal(calls[0].model, MODEL);
-    assert.deepEqual(MODELS, { sonnet: "claude-sonnet-4-20250514", haiku: "claude-haiku-4-5" });
+    await handler(request(BRIEF));
+    assert.deepEqual(calls.map(c => c.model), [MODEL, MODEL]);
+  });
+  test("ANTHROPIC_MODEL overrides the default model", () => {
+    const modulePath = require.resolve("../netlify/functions/claude/core.js");
+    const saved = process.env.ANTHROPIC_MODEL;
+    process.env.ANTHROPIC_MODEL = "override-model-id";
+    delete require.cache[modulePath];
+    try {
+      assert.equal(require(modulePath).MODEL, "override-model-id");
+    } finally {
+      if (saved === undefined) delete process.env.ANTHROPIC_MODEL; else process.env.ANTHROPIC_MODEL = saved;
+      delete require.cache[modulePath];
+    }
+  });
+  test("a model id is written in exactly one place in the repo (core.js)", () => {
+    const MODEL_ID = /claude-(?:haiku|sonnet|opus|fable|mythos|instant|\d)[a-z0-9.-]*\d/g;
+    const found = [];
+    const walk = dir => {
+      for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+        if ([".git", "node_modules"].includes(entry.name)) continue;
+        const full = path.join(dir, entry.name);
+        if (entry.isDirectory()) walk(full);
+        else for (const m of fs.readFileSync(full, "utf8").matchAll(MODEL_ID)) found.push(`${path.relative(ROOT, full)}: ${m[0]}`);
+      }
+    };
+    walk(ROOT);
+    assert.deepEqual(found, [`netlify/functions/claude/core.js: ${MODEL}`]);
   });
   test("request to Anthropic contains only model, max_tokens and one user message", async () => {
     const { handler, calls } = setup();
@@ -305,7 +331,7 @@ describe("rate limits", () => {
 describe("page and data files", () => {
   const html = fs.readFileSync(path.join(ROOT, "congress.html"), "utf8");
   test("congress.html no longer sends a model, max_tokens or prompt text", () => {
-    assert.doesNotMatch(html, /claude-sonnet|claude-haiku|max_tokens|Write a firm but respectful/);
+    assert.doesNotMatch(html, /claude-(?:haiku|sonnet|opus|fable|mythos)|max_tokens|Write a firm but respectful/);
   });
   test("the page's governors copy is identical to the function's", () => {
     const fn = fs.readFileSync(path.join(ROOT, "netlify/functions/claude/governors.json"), "utf8");

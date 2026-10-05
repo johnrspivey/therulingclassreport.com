@@ -8,8 +8,9 @@
 const crypto = require("crypto");
 const GOVERNORS = require("./governors.json");
 
-const MODELS = { sonnet: "claude-sonnet-4-20250514", haiku: "claude-haiku-4-5" };
-const MODEL = MODELS.sonnet; // switch to MODELS.haiku to cut cost
+// The only place the model is named. To override it, set ANTHROPIC_MODEL in the
+// Netlify environment variables; it takes effect on the next deploy.
+const MODEL = process.env.ANTHROPIC_MODEL || "claude-haiku-4-5-20251001";
 const MAX_TOKENS = { letter: 500, brief: 800 };
 const MAX_BODY_BYTES = 1024;
 const RATE_LIMIT = { perIp: 10, windowMs: 10 * 60 * 1000, perDay: 1000 };
@@ -268,7 +269,6 @@ exports.createHandler = createHandler;
 exports.fetchMember = fetchMember;
 exports.validate = validate;
 exports.ISSUES = ISSUES;
-exports.MODELS = MODELS;
 exports.MODEL = MODEL;
 exports.MAX_TOKENS = MAX_TOKENS;
 exports.MAX_BODY_BYTES = MAX_BODY_BYTES;
