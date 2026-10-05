@@ -1,0 +1,12 @@
+{
+  "name": "therulingclassreport",
+  "private": true,
+  "description": "Netlify functions for therulingclassreport.com",
+  "scripts": {
+    "test": "node --test tests/*.test.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.131.0",
+    "@netlify/blobs": "^10.7.13"
+  }
+}
