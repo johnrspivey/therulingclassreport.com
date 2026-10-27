@@ -243,6 +243,44 @@
       color: var(--gold);
     }
 
+    .card-update {
+      background: #f9eeda;
+      border-left: 3px solid var(--gold);
+      padding: 14px 16px;
+      margin: 16px 0;
+    }
+    .card-update .card-finding-label { color: var(--gold); }
+    .card-update p { font-size: 0.9rem; margin: 0; }
+    .card-h {
+      font-family: 'Cinzel', serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin: 28px 0 12px;
+    }
+    .card-body ul { padding-left: 18px; margin-bottom: 16px; }
+    .card-body li {
+      font-size: 0.92rem;
+      color: var(--ink-mid);
+      margin-bottom: 10px;
+      line-height: 1.75;
+    }
+    .tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 2px 6px;
+      margin-right: 6px;
+      border: 1px solid var(--border);
+      color: var(--ink-light);
+      white-space: nowrap;
+    }
+    .tag-alleged { color: var(--red); border-color: var(--red); }
+    .tag-disputed { color: var(--gold); border-color: var(--gold); }
+
     .section-title {
       font-family: 'Cinzel', serif;
       font-size: 0.85rem;
@@ -364,32 +402,113 @@
   <div class="section-title">The FBI Layer</div>
   <div class="card-grid">
 
-    <div class="person-card">
+    <div class="person-card" id="comey">
       <div class="card-top">
         <div class="card-role">FBI Director</div>
         <div class="card-name">James Comey</div>
-        <div class="card-dates">2013 – 2017</div>
+        <div class="card-dates">2013 – 2017 · Status updated Oct. 27, 2026</div>
       </div>
       <div class="card-body">
         <p>
-          Comey oversaw both the Clinton email server investigation — which he concluded 
-          without a criminal referral — and the Crossfire Hurricane investigation into the 
-          Trump campaign. He was fired by President Trump in May 2017.
+          Comey oversaw both the Clinton email server investigation, in which he recommended 
+          no charges, and the Crossfire Hurricane investigation into the Trump campaign. 
+          President Trump fired him in May 2017.
         </p>
         <div class="card-finding">
           <div class="card-finding-label">Documented Findings</div>
           <p>
-            The DOJ Inspector General found that Comey violated FBI policy by leaking 
-            classified memos to a Columbia University professor to trigger appointment of 
-            a special counsel. The IG found he set a "dangerous example" for FBI employees. 
-            Separately, the IG found that the Clinton investigation deviated from standard 
-            procedures in ways that benefited the subject. Comey was never charged.
+            The DOJ Inspector General found that Comey violated FBI policy in how he handled 
+            memos documenting his conversations with President Trump, including sharing one 
+            with a Columbia University professor so its contents would reach the press and 
+            prompt a special counsel. The IG said he set a "dangerous example" for FBI employees. 
+            In a separate report, the IG found that Comey's public statements about the Clinton 
+            investigation, including his July 2016 press conference and his October 2016 letter 
+            to Congress, departed from Justice Department norms. The IG found no evidence that 
+            political bias drove the decision not to charge Clinton. DOJ declined to prosecute 
+            over the memos.
           </p>
         </div>
+        <div class="card-update">
+          <div class="card-finding-label">Record Update · Oct. 27, 2026</div>
+          <p>
+            This card previously said "Comey was never charged." As of Oct. 27, 2026, he has 
+            been charged in three federal cases, detailed below. The earlier wording is kept 
+            here for the record.
+          </p>
+        </div>
+
+        <h3 class="card-h">What happened</h3>
+        <ul>
+          <li><span class="tag">Documented</span>On Oct. 26, 2026, Judge Trevor McFadden unsealed charges in D.C. federal court that were filed under seal on Oct. 5: transmitting national defense information and conspiracy to do so, under 18 U.S.C. § 793(d) and (g).</li>
+          <li><span class="tag tag-alleged">Alleged</span>Prosecutors say that in October 2016, as FBI Director, Comey directed staff to speak with New York Times reporter Charlie Savage about a Reuters report on Yahoo assisting U.S. email surveillance, and in doing so passed on classified information. Savage's story ran Oct. 5, 2016.</li>
+          <li><span class="tag">Documented</span>Prosecutors filed a criminal information, not a grand jury indictment. DOJ called it a "waiverless criminal information" filed to stop the clock on the 10-year statute of limitations. Normally a felony can't go forward on an information without the defendant's consent, which is why the filing itself is contested.</li>
+          <li><span class="tag tag-disputed">Disputed</span>Comey's lawyers say the case is time-barred because there was no indictment within 10 years, and that two teams of prosecutors in the first Trump administration investigated the same article and brought no charges. They called it "the government's third attempt to prosecute Mr. Comey within the last 13 months." A judge will decide.</li>
+          <li><span class="tag">Documented</span>The earlier cases: a September 2025 indictment for false statements and obstruction was dismissed without a ruling on the facts. A case filed in North Carolina in April 2026, charging two felony counts of threatening the president over his "86 47" seashell post, remains pending and has been delayed until at least early 2027.</li>
+        </ul>
+
+        <h3 class="card-h">In his own words</h3>
+        <div class="card-finding">
+          <div class="card-finding-label">Documented · House Intelligence Committee, March 20, 2017</div>
+          <p>
+            Asked by Rep. Trey Gowdy whether it is against the law to disseminate classified 
+            information, Comey answered that it is, and called it a serious crime that should 
+            be investigated.
+          </p>
+        </div>
+        <p>
+          Context: he was answering general legal questions during a hearing on the Russia 
+          investigation and the leaks surrounding it. He was not describing his own conduct. 
+          The new charges fall under 18 U.S.C. § 793, the law on transmitting national defense information.
+        </p>
+
+        <h3 class="card-h">What's at stake</h3>
+        <p>
+          Two principles collide here. One is that the law on classified information should 
+          apply to the most powerful officials, not just low-level leakers. The other is that 
+          criminal charges shouldn't become a tool used against a president's critics. How this 
+          case is resolved, including whether the time limit holds, will shape how both 
+          principles are understood going forward.
+        </p>
+
+        <h3 class="card-h">The case each side makes</h3>
+        <p>
+          <strong>Those who support the prosecution say:</strong> Comey himself testified that 
+          leaking classified information is a serious crime. If the evidence shows he directed 
+          exactly that, the law should apply to a former FBI Director the same as anyone else. 
+          Earlier decisions not to charge don't mean no crime occurred, and the IG already found 
+          he mishandled sensitive material once.
+        </p>
+        <p>
+          <strong>Those who oppose the prosecution say:</strong> This is the third case against a 
+          longtime critic of the president in 13 months. Two teams of prosecutors already reviewed 
+          this exact matter and declined to charge. Bypassing a grand jury at the edge of the time 
+          limit is unusual, and the 2017 testimony was a general statement of the law, not an 
+          admission about his own actions.
+        </p>
+
+        <h3 class="card-h">Who's involved</h3>
+        <ul>
+          <li><strong>James Comey:</strong> former FBI Director; says he is "still innocent."</li>
+          <li><strong>Patrick Fitzgerald:</strong> Comey's attorney, a former U.S. Attorney.</li>
+          <li><strong>Charlie Savage:</strong> the New York Times reporter on the Oct. 5, 2016 Yahoo story.</li>
+          <li><strong>Judge Trevor McFadden:</strong> the federal judge who unsealed the case.</li>
+          <li><strong>Trey Gowdy:</strong> the congressman who questioned Comey about leaks in 2017.</li>
+        </ul>
+
+        <h3 class="card-h">Questions to consider</h3>
+        <ul>
+          <li>Should Comey's 2017 statement of the law be held to his own alleged conduct, even though he wasn't speaking about himself?</li>
+          <li>If prosecutors reviewed this twice and declined, what would need to be new to justify charging it now?</li>
+          <li>Should time limits on prosecution bend for serious national security cases, or hold firm for everyone?</li>
+          <li>Does the number of cases against one person tell you something, and if so, what?</li>
+        </ul>
       </div>
       <div class="card-sources">
         <strong>Sources:</strong> DOJ IG Report — Comey Memos (2019) · 
-        DOJ IG Report — Clinton Email Investigation (2018)
+        DOJ IG Report — Clinton Email Investigation (2018) · 
+        U.S. v. Comey, criminal information, D.D.C. (filed Oct. 5, unsealed Oct. 26, 2026) · 
+        House Permanent Select Committee on Intelligence hearing transcript, March 20, 2017 · 
+        Reporting: NBC News, CNBC, Axios, Bloomberg, PBS NewsHour, MS NOW (Oct. 2026)
       </div>
     </div>
 
