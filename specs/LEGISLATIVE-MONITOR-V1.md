@@ -9,8 +9,12 @@
 ## Quality gate (Bitwerx standard)
 - **Gatekeeper:** the reader (and Google).
 - **Proof they need:** every claim traceable to a primary source in one click; flags explained by a published rule.
-- **Worth their time:** they learn a big package moved, or what's in it, without reading 1,000+ pages.
+- **Worth their time:** they learn a big package moved, or what's in it, without reading 1,000+ pages — and without already knowing which bill to follow.
 - **Human check:** nothing publishes without John's approval (existing pipeline approval gate).
+
+## Positioning (from Nov 8 competitor check)
+- Plain-English AI bill summaries alone are a crowded space (several free apps already do it). **Not the differentiator.**
+- The differentiator is the **published flagging rules**: RCR tells readers *which* big packages moved and *why* they were flagged, for people who haven't picked bills to follow. Free trackers (GovTrack, LegiScan, Congress.gov) make you choose bills first; pro tools that flag (Quorum, FiscalNote, LegiStorm) cost hundreds a month.
 
 ## v1 scope — ONLY this
 1. **Ingest:** new bills and new bill versions from the Congress.gov API (existing api.data.gov key). Filter to omnibus and appropriations packages only.
@@ -20,9 +24,10 @@
    - Length above a published page/section threshold
 3. **Each entry (permanent, dated record — not a feed post):**
    - Bill number + version + date
-   - Summary: Congressional Research Service (CRS) summary when one exists; otherwise AI summary **labeled "AI-written summary"**, written section by section, never a whole package in one pass
+   - Summary: Congressional Research Service (CRS) summary when one exists (Congress.gov carries these); otherwise AI summary **labeled "AI-written summary"**, written section by section, never a whole package in one pass
    - "Why flagged" line naming the rule
    - Direct link to official text
+   - Link to the bill's GovTrack page for version-to-version comparison (link out, don't rebuild)
 4. **Page:** tag filters on the page itself (no accounts, no saved settings). RSS feed.
 5. **Status labels:** reuse RCR's Documented / Disputed / Alleged / Speculative system and dated updates.
 
@@ -30,8 +35,10 @@
 - **Pipeline:** bitwerx-inbox/content-pipeline (pipeline.py, approvals file, publish.py, ledger for duplicates).
 - **Member data:** RINO Report's member data (535 members) becomes one shared member layer used by both sites. Any member card on RCR pulls from that layer.
 - **Shared components:** RCR's existing nav/header/footer/CSS variables.
+- **Version comparison:** GovTrack already does it free — link to it.
 
 ## v2 (only after v1 runs clean for a few weeks)
+- **Late-amendment rule ("amendment filed within 72 hours of a scheduled vote"):** buildable but not one clean feed. Amendment filing dates come from the Congress.gov API. Scheduled votes must be pulled from leadership schedule pages (House Majority Leader daily/weekly schedule; Senate is less structured), then confirmed against actual roll-call votes. Scraped schedule pages break and change, so this needs a watchdog check. Start House-only.
 - **Lobbying:** LDA filings from **https://lda.gov/api/v1/** (lda.senate.gov was sunset June 30, 2026). Free key at lda.gov/api/register. Filings name bills in free text, so every lobbying↔bill link must be labeled with how the match was made (exact bill number vs. keyword).
 - **Campaign money:** FEC API (api.open.fec.gov). OpenSecrets API is closed to new registrations (April 2025) — never propose it.
 - **Member cards:** recent relevant votes, disclosed industry contributions, LDA registrations, public prior roles. Public records only.
@@ -39,14 +46,16 @@
 ## Cut / deferred indefinitely
 - User accounts, watchlists, saved settings (requires auth + storage)
 - Email alerts (that's a newsletter — ruled out for RCR)
-- Side-by-side version comparison of omnibus packages (hardest piece; revisit last)
+- Building our own side-by-side version comparison (GovTrack link covers it)
 - CSV export (cheap to add later if anyone asks)
 
-## Open questions — verify before building
-1. **Late-amendment rule ("filed within 72 hours of a scheduled vote"):** Congress.gov API does not appear to publish floor schedules. Is there a reliable machine-readable source for scheduled House and Senate floor votes? If not, drop this rule from v1.
-2. **Does this already exist?** Check GovTrack, LegiScan, Quorum, LegiStorm, Punchbowl, POPVOX, and any AI bill-summary trackers launched 2025–2026. What do they cover, what's paywalled, and what gap is actually left for ordinary readers?
-3. **CRS summary lag:** how long after a bill version is posted do CRS summaries usually appear? Determines how often the AI fallback is needed.
-4. **FEC key:** confirm the existing api.data.gov key works on the FEC API.
+## Open questions — still to verify before building
+1. **CRS summary lag:** how long after a bill version is posted do CRS summaries usually appear? Determines how often the AI fallback is needed.
+2. **FEC key:** confirm the existing api.data.gov key works on the FEC API (v2 only).
+
+## Resolved (Nov 8, 2026 — Grok check, reviewed by Claude)
+- **Competitors:** gap is real but narrow — see Positioning. Caution: Grok's list included stale names (OpenCongress shut down years ago; the Sunlight Congress API is gone), and it wrongly said Congress.gov has no plain-language summaries (it carries CRS summaries). Treat its newer-app names as leads, not confirmed facts.
+- **Floor schedules:** no official machine-readable "upcoming votes" API; moved late-amendment rule to v2 (see above).
 
 ## Constraints (from original handoff — keep)
 - Public records only. No private addresses, contact info, family details, or motive speculation.
