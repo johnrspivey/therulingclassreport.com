@@ -2,7 +2,7 @@
 
 **Status:** PROPOSAL — no build until John says begin.
 **Target:** December 2026 milestone ("connect RCR" to the content pipeline).
-**Origin:** Grok handoff (Nov 8, 2026), trimmed by Claude to fit RCR's direction (lookup, not magazine; no newsletter/paywall/ads).
+**Origin:** Grok handoff (Nov 8, 2026), trimmed by Claude to fit RCR's direction (lookup, not magazine; no newsletter/paywall/ads). Sparked by Calley Means' Nov 6, 2026 Joe Rogan interview alleging donor/industry influence over White House health policy.
 
 ---
 
@@ -42,6 +42,15 @@
 - **Lobbying:** LDA filings from **https://lda.gov/api/v1/** (lda.senate.gov was sunset June 30, 2026). Free key at lda.gov/api/register. Filings name bills in free text, so every lobbying↔bill link must be labeled with how the match was made (exact bill number vs. keyword).
 - **Campaign money:** FEC API (api.open.fec.gov). OpenSecrets API is closed to new registrations (April 2025) — never propose it.
 - **Member cards:** recent relevant votes, disclosed industry contributions, LDA registrations, public prior roles. Public records only.
+
+## First test case — Means v. Wiles (claim index + monitor together)
+Use this story to test the claim index and the v2 lobbying/money feeds before opening them to everything.
+- **Claim:** Calley Means (former senior HHS adviser) said on The Joe Rogan Experience (released Nov 6, 2026) that White House chief of staff Susie Wiles held back MAHA food/health policy (e.g., children's diets) because of the need for sugar/food industry money for the midterms. **Label: Alleged** (dated Nov 6, 2026). Rests on his account of private conversations.
+- **Context (dated):** hours/days later Trump named Stephen Miller chief of staff and moved Wiles to his political operation, after a bad midterm result. Record the timing; do NOT imply cause unless documented.
+- **What public records can test:** LDA filings by sugar/food/beverage clients listing the White House Office or HHS as contacted, by quarter; FEC contributions from those industries to the party/midterm committees; timeline of the MAHA policies Means names (proposed → stalled/changed). Show what the records support and what they don't.
+- **What records can't test:** what Wiles privately said. Stays Alleged unless new evidence (testimony, documents, investigation) appears → dated update.
+- **Each side's strongest case:** Means' account as an insider who resigned; the White House/Wiles side and critics who question Means' motives and credibility. Include the earlier record: in Dec 2024 (Danny Jones Podcast #277), Dr. Jack Kruse and Dr. Mary Talley Bowden challenged Means' sincerity over his past as a food/pharma lobbyist — the accuser was once accused of the same thing. Present both, choose no side.
+- **Questions for the reader:** What would it take to confirm or rule out the claim? Which records would you check first?
 
 ## Cut / deferred indefinitely
 - User accounts, watchlists, saved settings (requires auth + storage)
